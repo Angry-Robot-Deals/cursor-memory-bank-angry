@@ -70,8 +70,85 @@ pids
 *.pid.lock
 
 # Cursor specific
-.cursor/workspace/ 
+.cursor/workspace/
+.cursorindexingignore
 
-#claude.code specific
+# Claude.code specific
 .claude/
 CLAUDE.md
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+*.secret
+*.key
+*.pem
+*.p12
+*.pfx
+
+# TypeScript/JavaScript
+*.tsbuildinfo
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+.turbo/
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Memory Bank working files (uncomment if you want to ignore working files)
+# memory-bank/tasks.md
+# memory-bank/activeContext.md
+# memory-bank/progress.md
+
+# Memory Bank generated files (uncomment if you want to ignore generated files)
+# memory-bank/creative/
+# memory-bank/reflection/
+# memory-bank/archive/
+
+# IDE and editor files
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archives (optional - uncomment if needed)
+# *.7z
+# *.dmg
+# *.gz
+# *.iso
+# *.tar
+# *.zip
