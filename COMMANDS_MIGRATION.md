@@ -83,7 +83,7 @@ The Memory Bank system previously used Cursor's custom modes feature, which has 
     van.md          # Initialization command
     plan.md         # Planning command
     creative.md     # Design command
-    build.md        # Implementation command
+    do.md           # Implementation command
     reflect.md      # Reflection command
     archive.md      # Archiving command
     README.md       # Commands documentation
