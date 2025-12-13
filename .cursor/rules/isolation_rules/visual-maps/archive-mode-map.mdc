@@ -269,4 +269,161 @@ When archiving is complete, notify user with:
 
 → Memory Bank is ready for the next task
 → To start a new task, use VAN MODE
+```
+
+---
+
+## 🎯 AI QUALITY RULES INTEGRATION
+
+> **Apply these quality rules during ARCHIVE mode for effective documentation.**
+
+### Quality Rules for ARCHIVE Mode
+
+| Rule | When to Apply | Quick Reference |
+|------|---------------|-----------------|
+| **#14 MB Structure** | Archive organization | Hierarchical context |
+| **#15 Prompts** | Documentation | Clear, structured content |
+
+---
+
+### 📋 Rule #14: Memory Bank Structure
+
+> **Apply at:** Archive Document Creation
+
+**One-liner:** Organize archived content hierarchically. Less detail for broader scope.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Archive Organization:**
+```
+memory-bank/archive/
+├── archive-[task-id].md       ← Comprehensive summary
+├── [task-id]-details/         ← Detailed artifacts
+│   ├── creative-decisions.md
+│   ├── implementation-notes.md
+│   └── lessons-learned.md
+```
+
+**Archive Content Hierarchy:**
+1. **Summary (High Level)** - What was done, why it matters
+2. **Implementation (Medium)** - Key decisions, patterns used
+3. **Details (Low Level)** - Specific code changes, edge cases
+
+**Template:**
+```markdown
+# Archive: [Task ID]
+
+## Summary (50 words)
+[High-level what was accomplished]
+
+## Key Decisions
+- Decision 1: [brief]
+- Decision 2: [brief]
+
+## Implementation Highlights
+[Medium detail on approach]
+
+## Lessons Learned
+[What to do differently next time]
+
+## References
+- [Links to detailed docs]
+```
+
+**Full Rule:** `Core/AI-Quality/technical/mb-structure-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #15: Prompt Engineering for Documentation
+
+> **Apply at:** Writing Archive Content
+
+**One-liner:** Structure documentation clearly: Context → What → Why → How → Lessons.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Good Documentation Structure:**
+1. **Context:** What problem was being solved
+2. **What:** What was implemented
+3. **Why:** Why this approach was chosen
+4. **How:** Key implementation details
+5. **Lessons:** What was learned
+
+**Writing Tips:**
+- Lead with the most important information
+- Use bullet points for scannability
+- Include concrete examples
+- Link to related documents
+- Keep sections focused
+
+**Avoid:**
+- Vague descriptions ("made improvements")
+- Missing rationale ("because it's better")
+- Too much detail in summaries
+- Too little detail in technical sections
+
+**Full Rule:** `Core/AI-Quality/technical/prompt-engineering-rule.mdc`
+</details>
+
+---
+
+### 📝 ARCHIVE Mode Documentation Template
+
+Use this template for archive documents:
+
+```markdown
+# Task Archive: [Task ID]
+
+## Metadata
+- **Task ID:** [ID]
+- **Completed:** [Date]
+- **Complexity:** Level [1-4]
+- **Duration:** [Time spent]
+
+## Summary
+[2-3 sentences on what was accomplished]
+
+## Problem Solved
+[What issue/need this task addressed]
+
+## Solution Implemented
+[Key technical decisions and approach]
+
+## Quality Rules Applied
+- [x] Rule #X: [How it was applied]
+- [x] Rule #Y: [How it was applied]
+
+## Lessons Learned
+- [Lesson 1]
+- [Lesson 2]
+
+## Future Improvements
+- [Improvement 1]
+- [Improvement 2]
+
+## References
+- [Creative phase docs]
+- [Test files]
+- [Related documentation]
+```
+
+---
+
+### ✅ ARCHIVE Mode Quality Checkpoint
+
+Before completing archive:
+
+```
+□ Archive organized hierarchically (Rule #14)?
+□ Documentation structured clearly (Rule #15)?
+□ Summary is high-level and scannable?
+□ Technical details are preserved?
+□ Lessons learned documented?
+□ Quality rules application noted?
+
+→ All checked: Archive complete
+→ Missing items: Improve documentation
 ``` 

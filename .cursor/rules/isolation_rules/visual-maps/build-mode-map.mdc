@@ -318,4 +318,229 @@ When the build is complete, notify user with:
 ✅ progress.md updated with details
 
 → NEXT RECOMMENDED MODE: REFLECT MODE
+```
+
+---
+
+## 🎯 AI QUALITY RULES INTEGRATION
+
+> **Apply these quality rules during BUILD mode for higher code quality.**
+
+### Quality Rules for BUILD Mode
+
+| Rule | When to Apply | Quick Reference |
+|------|---------------|-----------------|
+| **#2 TDD** | Implementation start | Write tests BEFORE code |
+| **#3 Method Size** | During coding | Max 50 lines, 7-9 objects |
+| **#8 Iterative Cycle** | Each method | Tests → Code → Review → Next |
+| **#9 Cognitive Load** | Always | Max 7±2 objects in scope |
+| **#15 Prompts** | AI interactions | Structure prompts carefully |
+
+---
+
+### 📋 Rule #2: Test-Driven Development (TDD)
+
+> **Apply at:** Start of Each Implementation
+
+**One-liner:** Write tests BEFORE implementation. Tests are hallucination filters.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Sequence:**
+1. Write tests for the method
+2. Run tests (they should fail)
+3. Implement code to pass tests
+4. Run tests (they should pass)
+5. Refactor if needed
+
+**Example:**
+```typescript
+// STEP 1: Write tests FIRST
+describe('addLike', () => {
+  it('adds like from new IP', async () => {
+    const result = await addLike('video1', '192.168.1.1');
+    expect(result.added).toBe(true);
+  });
+  
+  it('rejects duplicate from same IP', async () => {
+    await addLike('video1', '192.168.1.1');
+    const result = await addLike('video1', '192.168.1.1');
+    expect(result.added).toBe(false);
+  });
+});
+
+// STEP 2: Then implement
+async function addLike(videoId, ip) {
+  // Implementation that passes tests
+}
+```
+
+**Why TDD:**
+- Tests define success criteria
+- Catches AI hallucinations immediately
+- Ensures edge cases are covered
+
+**Full Rule:** `Core/AI-Quality/foundation/tdd-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #3: Method Size Limits
+
+> **Apply at:** During All Coding
+
+**One-liner:** Max 50 lines per method. Max 7-9 objects in working memory.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Limits:**
+| Metric | Limit | Why |
+|--------|-------|-----|
+| Lines per method | ≤50 | Fits in context |
+| Objects in scope | 7-9 | Miller's Law |
+| Parameters | ≤5 | Reduces complexity |
+| Nesting depth | ≤3 | Readability |
+
+**Quality vs Objects:**
+```
+Objects   Quality
+7-9    →  100%
+10-15  →   70%
+15+    →   40%
+```
+
+**Refactoring Triggers:**
+- Method > 50 lines → Extract methods
+- Objects > 9 → Simplify or split
+- Params > 5 → Use config object
+
+**Full Rule:** `Core/AI-Quality/foundation/method-size-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #8: Iterative Development Cycle
+
+> **Apply at:** Each Method Implementation
+
+**One-liner:** For each stub: Tests → Implementation → Review → Next stub.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**The Cycle:**
+```
+┌─────────────────────────────────────┐
+│ FOR EACH METHOD:                    │
+│ 1️⃣  Write tests for method         │
+│ 2️⃣  Implement to pass tests        │
+│ 3️⃣  Run tests (must pass)          │
+│ 4️⃣  Review implementation          │
+│ 5️⃣  Move to next method            │
+│ REPEAT until all methods complete   │
+└─────────────────────────────────────┘
+```
+
+**Why One at a Time:**
+- Clean context window
+- Higher quality per method
+- Errors isolated to one method
+- Human can intervene after each step
+
+**Full Rule:** `Core/AI-Quality/architecture/iterative-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #9: Cognitive Load Management
+
+> **Apply at:** Always During Implementation
+
+**One-liner:** Maximum 7±2 objects in method scope. More = quality degradation.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**What Counts as Object:**
+- Parameters
+- Local variables
+- Destructured properties
+- Loop variables
+- Return values
+
+**Example:**
+```typescript
+// ❌ BAD: 12+ objects
+async function process(a, b, c, d, e, f) {
+  let x, y, z, result, temp;  // 12 objects!
+}
+
+// ✅ GOOD: 7 objects
+async function process(config) {
+  const { userId, data } = config;  // 3
+  let result, error;                // 5
+  // Focused, maintainable
+}
+```
+
+**Full Rule:** `Core/AI-Quality/architecture/cognitive-load-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #15: Prompt Engineering
+
+> **Apply at:** Every AI Interaction
+
+**One-liner:** Use structured prompts: Context → Task → Expected → DoD → Boundaries.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Prompt Structure:**
+```markdown
+## Context
+[Brief background, reference Memory Bank]
+
+## Task
+[Specific, focused action]
+
+## Expected Results
+- Happy path: [example]
+- Edge case: [example]
+
+## Definition of Done
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Boundaries
+- NOT doing: [exclusions]
+```
+
+**Keep Prompts:**
+- Specific (not vague)
+- Focused (one thing)
+- Bounded (what's out)
+- Brief (<500 words)
+
+**Full Rule:** `Core/AI-Quality/technical/prompt-engineering-rule.mdc`
+</details>
+
+---
+
+### ✅ BUILD Mode Quality Checkpoint
+
+During BUILD mode, verify:
+
+```
+□ Tests written BEFORE implementation (Rule #2)?
+□ Each method < 50 lines (Rule #3)?
+□ Following iterative cycle: test → code → review (Rule #8)?
+□ Objects in scope ≤ 9 (Rule #9)?
+□ Prompts structured properly (Rule #15)?
+
+→ All checked: Quality implementation
+→ Missing items: Apply rules before continuing
 ``` 

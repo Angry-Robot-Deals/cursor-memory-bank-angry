@@ -272,4 +272,233 @@ When planning is complete, notify user with:
 ✅ Challenges and mitigations documented
 [✅ Creative phases identified (for Level 3-4)]
 
-→ NEXT RECOMMENDED MODE: [CREATIVE/BUILD] MODE 
+→ NEXT RECOMMENDED MODE: [CREATIVE/BUILD] MODE
+```
+
+---
+
+## 🎯 AI QUALITY RULES INTEGRATION
+
+> **Apply these quality rules during PLAN mode for better task planning.**
+
+### Quality Rules for PLAN Mode
+
+| Rule | When to Apply | Quick Reference |
+|------|---------------|-----------------|
+| **#1 Stubbing** | Task breakdown | Break into max 50-line stubs |
+| **#5 DoD** | Requirements | Create testable done criteria |
+| **#6 Corner Cases** | Requirements | List boundaries before coding |
+| **#7 Skeleton-First** | Architecture | Create stubs before implementation |
+| **#11 Boundaries** | Scope definition | State what we DON'T do |
+
+---
+
+### 📋 Rule #1: Stubbing / Decomposition
+
+> **Apply at:** Task Breakdown / Component Identification
+
+**One-liner:** Break complex tasks into stubs of max 50 lines each.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**When to Apply:** When breaking down tasks into implementation steps.
+
+**How to Apply:**
+1. Identify the main task
+2. Break into logical sub-tasks
+3. Ensure each stub is <50 lines
+4. Define clear input/output for each
+
+**Example:**
+```typescript
+// Instead of one 200-line function:
+async function processOrder(order) {
+  await validateOrder(order);      // Stub 1: ~20 lines
+  await calculatePricing(order);   // Stub 2: ~30 lines
+  await processPayment(order);     // Stub 3: ~40 lines
+  await sendConfirmation(order);   // Stub 4: ~15 lines
+}
+```
+
+**Checklist:**
+- [ ] Each stub < 50 lines
+- [ ] Single responsibility per stub
+- [ ] Clear input/output defined
+- [ ] Stubs are independently testable
+
+**Full Rule:** `Core/AI-Quality/foundation/stubbing-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #5: Definition of Done (DoD)
+
+> **Apply at:** Requirements Documentation
+
+**One-liner:** Create explicit DoD checklist that auto-generates test cases.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**When to Apply:** When documenting requirements for any task.
+
+**Template:**
+```markdown
+## Definition of Done: [Feature Name]
+
+### Functional
+- [ ] [Specific behavior 1]
+- [ ] [Specific behavior 2]
+
+### Edge Cases
+- [ ] Null input handled
+- [ ] Empty input handled
+- [ ] Concurrent access handled
+
+### Quality
+- [ ] All tests pass
+- [ ] Code reviewed
+- [ ] Methods < 50 lines
+```
+
+**Quality Test:** Can you write a test for each DoD item?
+- YES → Good DoD item
+- NO → Rewrite to be more specific
+
+**Full Rule:** `Core/AI-Quality/context/dod-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #6: Corner Cases
+
+> **Apply at:** Requirements / Risk Assessment
+
+**One-liner:** List corner cases and boundary conditions BEFORE writing tests or code.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Categories to Document:**
+
+| Category | Examples |
+|----------|----------|
+| Input Validation | null, empty, too long, invalid type |
+| Boundary Values | min, max, zero, negative |
+| Concurrency | race conditions, deadlocks |
+| External Deps | timeouts, failures, unavailable |
+| State Transitions | invalid states, partial updates |
+
+**Template:**
+```markdown
+## Corner Cases: [Feature]
+
+### Input Validation
+| Case | Input | Expected |
+|------|-------|----------|
+| Null | null | Error: "Required" |
+| Empty | "" | Error: "Cannot be empty" |
+
+### Concurrency
+| Case | Scenario | Expected |
+|------|----------|----------|
+| Race | 100 simultaneous | Only 1 succeeds |
+```
+
+**Full Rule:** `Core/AI-Quality/context/corner-cases-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #7: Skeleton-First
+
+> **Apply at:** Architecture Planning / Component Design
+
+**One-liner:** Create architecture skeleton with empty stubs. Review structure BEFORE implementing.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Sequence:**
+1. Define interfaces and types
+2. Create classes with empty method stubs
+3. Review architecture for issues
+4. Only then implement one stub at a time
+
+**Example:**
+```typescript
+// Step 1: Interface
+interface Storage {
+  addItem(id: string, data: any): Promise<Result>;
+  getItem(id: string): Promise<Item>;
+}
+
+// Step 2: Skeleton
+class PostgresStorage implements Storage {
+  async addItem(id: string, data: any) {
+    // TODO: implement
+    throw new Error('Not implemented');
+  }
+  async getItem(id: string) {
+    // TODO: implement
+    throw new Error('Not implemented');
+  }
+}
+
+// Step 3: Review architecture
+// Step 4: Implement one at a time
+```
+
+**Full Rule:** `Core/AI-Quality/architecture/skeleton-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #11: Task Boundaries
+
+> **Apply at:** Scope Definition / Requirements
+
+**One-liner:** Explicitly state what is OUT OF SCOPE to prevent scope creep.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Template:**
+```markdown
+## Task: [Name]
+
+### ✅ What We DO
+- Feature A
+- Feature B
+
+### ❌ What We DON'T Do (Out of Scope)
+- Optimization (separate task)
+- Caching (future enhancement)
+- Migration (DBA task)
+```
+
+**Why Important:**
+- Prevents AI from expanding scope
+- Makes completion clear
+- Saves tokens and time
+
+**Full Rule:** `Core/AI-Quality/quality/boundaries-rule.mdc`
+</details>
+
+---
+
+### ✅ PLAN Mode Quality Checkpoint
+
+Before transitioning from PLAN mode:
+
+```
+□ Task decomposed into stubs < 50 lines (Rule #1)?
+□ Definition of Done is testable (Rule #5)?
+□ Corner cases documented (Rule #6)?
+□ Architecture skeleton defined (Rule #7)?
+□ Boundaries clearly state exclusions (Rule #11)?
+
+→ All checked: Ready for CREATIVE/BUILD
+→ Missing items: Complete before transition
+```

@@ -226,4 +226,140 @@ When reflection is complete, notify user with:
 ✅ tasks.md updated with reflection status
 
 → NEXT RECOMMENDED MODE: ARCHIVE MODE
+```
+
+---
+
+## 🎯 AI QUALITY RULES INTEGRATION
+
+> **Apply these quality rules during REFLECT mode for thorough code review.**
+
+### Quality Rules for REFLECT Mode
+
+| Rule | When to Apply | Quick Reference |
+|------|---------------|-----------------|
+| **#10 Focused Review** | Code review | Review ONE method at a time |
+| **#8 Iterative Cycle** | Review verification | Verify test → code → review cycle |
+
+---
+
+### 📋 Rule #10: Focused Code Review
+
+> **Apply at:** Implementation Review
+
+**One-liner:** Review ONE method at a time, not entire feature. Narrow focus = better review.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Why Focused Review?**
+| Review Scope | Bugs Found | Time |
+|--------------|------------|------|
+| One method | 40% more | Less |
+| Entire file | 20% fewer | More |
+| 500+ lines | 40% fewer | Much more |
+
+**Review Checklist per Method:**
+```markdown
+## Review: [methodName]
+
+### Correctness
+- [ ] Logic matches requirements
+- [ ] All edge cases handled
+- [ ] Return values correct
+
+### Quality
+- [ ] Method < 50 lines
+- [ ] ≤7-9 objects in scope
+- [ ] Single responsibility
+
+### Safety
+- [ ] Input validation present
+- [ ] Errors properly handled
+- [ ] No race conditions
+
+### Verdict
+□ ✅ APPROVED
+□ ⚠️ MINOR CHANGES
+□ ❌ MAJOR CHANGES
+```
+
+**Full Rule:** `Core/AI-Quality/quality/focused-review-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #8: Iterative Cycle Verification
+
+> **Apply at:** Process Review
+
+**One-liner:** Verify that the iterative cycle (Tests → Code → Review) was followed.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**During Reflection, Verify:**
+1. Were tests written BEFORE implementation?
+2. Was each method implemented separately?
+3. Was each method reviewed after implementation?
+4. Were tests run after each implementation?
+
+**Questions to Ask:**
+- Did we skip any tests?
+- Did we batch too many methods together?
+- Were reviews thorough or rushed?
+
+**If Cycle Was Not Followed:**
+- Document as lesson learned
+- Plan to follow cycle next time
+- Note quality impact
+
+**Full Rule:** `Core/AI-Quality/architecture/iterative-rule.mdc`
+</details>
+
+---
+
+### 📝 REFLECT Mode Review Template
+
+Use this template for focused code review:
+
+```markdown
+## Code Review: [Task Name]
+
+### Method-by-Method Review
+
+#### Method 1: [name]
+- Logic: ✅/❌
+- Size (<50 lines): ✅/❌
+- Objects (≤9): ✅/❌
+- Tests: ✅/❌
+- **Verdict:** APPROVED/CHANGES
+
+#### Method 2: [name]
+- Logic: ✅/❌
+- Size (<50 lines): ✅/❌
+- Objects (≤9): ✅/❌
+- Tests: ✅/❌
+- **Verdict:** APPROVED/CHANGES
+
+### Overall Assessment
+- Quality Rules Followed: [list]
+- Quality Rules Violated: [list]
+- Lessons Learned: [key insights]
+```
+
+---
+
+### ✅ REFLECT Mode Quality Checkpoint
+
+During REFLECT mode:
+
+```
+□ Each method reviewed individually (Rule #10)?
+□ Review checklist used for each method?
+□ Iterative cycle (test→code→review) verified (Rule #8)?
+□ Quality violations documented for lessons learned?
+
+→ All checked: Thorough reflection
+→ Missing items: Complete review process
 ``` 

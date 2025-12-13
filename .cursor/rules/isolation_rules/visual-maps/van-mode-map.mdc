@@ -899,4 +899,151 @@ Here are common fixes for issues encountered during QA validation:
 
 → If all YES: Ready for BUILD mode
 → If any NO: Fix identified issues before proceeding
+```
+
+---
+
+## 🎯 AI QUALITY RULES INTEGRATION
+
+> **Apply these quality rules during VAN mode for better task initialization.**
+
+### Quality Rules for VAN Mode
+
+| Rule | When to Apply | Quick Reference |
+|------|---------------|-----------------|
+| **#4 Requirements** | Task analysis | Gather context BEFORE coding |
+| **#12 Complexity Check** | Complexity determination | Verify AI can solve this task |
+| **#14 MB Structure** | Memory Bank setup | Organize context hierarchically |
+
+---
+
+### 📋 Rule #4: Requirements Gathering
+
+> **Apply at:** Task Analysis / Requirements Documentation
+
+**One-liner:** Gather context, expected results, DoD, and boundaries BEFORE any coding.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**When to Apply:** At the start of every task, before determining complexity.
+
+**How to Apply:**
+1. Document current state and problem
+2. Define expected results with concrete examples
+3. Create Definition of Done checklist
+4. Set explicit boundaries (what we DON'T do)
+
+**Checklist:**
+- [ ] Context documented (what exists, what problem)
+- [ ] Expected results concrete (input → output examples)
+- [ ] DoD is testable and explicit
+- [ ] Boundaries clearly state exclusions
+
+**Example:**
+```markdown
+## Task: Add like functionality
+
+### Context
+- Module: Video player
+- Current: No like feature exists
+
+### Expected Results
+- Like button adds like, returns count
+- Duplicate from same IP returns existing count
+
+### DoD
+- [ ] addLike() passes all tests
+- [ ] No duplicate likes from same IP
+
+### Boundaries
+- NOT implementing unlike (separate task)
+```
+
+**Full Rule:** `Core/AI-Quality/context/requirements-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #12: Complexity Check
+
+> **Apply at:** Complexity Determination Step
+
+**One-liner:** Before starting, verify: Can AI solve this? Are dependencies clear? Is success measurable?
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**When to Apply:** After initial task analysis, before choosing complexity level.
+
+**How to Apply:**
+1. Ask: Can AI solve this in one session?
+2. Ask: Are all dependencies known?
+3. Ask: Is there clear success criteria (tests)?
+4. Ask: Is code volume reasonable (<500 lines)?
+
+**Checklist:**
+- [ ] Task is well-defined and specific
+- [ ] Dependencies are documented
+- [ ] Success criteria exist (tests/DoD)
+- [ ] Volume is reasonable
+- [ ] No too many new concepts at once
+
+**Red Flags (Too Complex):**
+- "Implement entire microservice"
+- "Optimize compiler"
+- "Make the app 10x faster"
+- "Redesign entire architecture"
+
+**Full Rule:** `Core/AI-Quality/quality/complexity-check-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #14: Memory Bank Structure
+
+> **Apply at:** Memory Bank Setup / File Verification
+
+**One-liner:** Organize context hierarchically. Less detail for broader scope.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**When to Apply:** When setting up or verifying Memory Bank structure.
+
+**Hierarchy Principle:**
+- Full project → Very high level (technologies, purpose)
+- Module/Folder → Medium detail (interfaces, key functions)
+- Specific File → High detail (algorithms, edge cases)
+
+**Memory Bank Structure:**
+```
+memory-bank/
+├── tasks.md           ← Active task (highest detail)
+├── activeContext.md   ← Current focus
+├── progress.md        ← Status tracking
+├── projectbrief.md    ← Project overview (low detail)
+├── productContext.md  ← Product info
+├── systemPatterns.md  ← Patterns used
+├── techContext.md     ← Tech decisions
+└── creative/          ← Design decisions
+```
+
+**Full Rule:** `Core/AI-Quality/technical/mb-structure-rule.mdc`
+</details>
+
+---
+
+### ✅ VAN Mode Quality Checkpoint
+
+Before transitioning from VAN mode:
+
+```
+□ Requirements gathered (Rule #4)?
+□ Complexity verified as solvable (Rule #12)?
+□ Memory Bank structure correct (Rule #14)?
+□ Task boundaries clearly defined?
+
+→ All checked: Ready to proceed
+→ Missing items: Complete before transition
 ``` 

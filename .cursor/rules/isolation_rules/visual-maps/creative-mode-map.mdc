@@ -221,4 +221,145 @@ When all creative phases are complete, notify user with:
 ✅ Implementation plan updated
 
 → NEXT RECOMMENDED MODE: BUILD MODE
+```
+
+---
+
+## 🎯 AI QUALITY RULES INTEGRATION
+
+> **Apply these quality rules during CREATIVE mode for better design decisions.**
+
+### Quality Rules for CREATIVE Mode
+
+| Rule | When to Apply | Quick Reference |
+|------|---------------|-----------------|
+| **#6 Corner Cases** | Options analysis | Document boundaries upfront |
+| **#7 Skeleton-First** | Architecture design | Create stubs before code |
+| **#9 Cognitive Load** | Design evaluation | Keep designs simple (7±2) |
+| **#13 Transaction** | Data design | Explicit isolation levels |
+
+---
+
+### 📋 Rule #6: Corner Cases
+
+> **Apply at:** Design Options Analysis
+
+**One-liner:** List corner cases and boundary conditions BEFORE making design decisions.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**During Creative Phase, Consider:**
+- What happens with null/empty inputs?
+- What are the boundary values?
+- How do concurrent operations behave?
+- What if external dependencies fail?
+
+**Template for Design:**
+```markdown
+## Design Option: [Name]
+
+### Corner Cases Handled
+| Case | Scenario | How Handled |
+|------|----------|-------------|
+| Empty input | User submits empty | Return validation error |
+| Concurrent | 100 simultaneous | Use transaction lock |
+| Timeout | DB slow | Retry with backoff |
+```
+
+**Full Rule:** `Core/AI-Quality/context/corner-cases-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #7: Skeleton-First
+
+> **Apply at:** Architecture Design Phase
+
+**One-liner:** Create architecture skeleton with stubs. Review structure BEFORE implementation.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**In Creative Phase:**
+1. Define interfaces for all components
+2. Create class skeletons with method stubs
+3. Review architecture for issues
+4. Document in creative phase document
+
+**Skeleton Review Checklist:**
+- [ ] All interfaces defined
+- [ ] No circular dependencies
+- [ ] Each class has single responsibility
+- [ ] Methods are independent
+
+**Full Rule:** `Core/AI-Quality/architecture/skeleton-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #9: Cognitive Load
+
+> **Apply at:** Design Evaluation
+
+**One-liner:** Keep designs simple. Max 7±2 components in any system view.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**Design Complexity Limits:**
+- Max 7-9 primary components per diagram
+- Max 5 parameters per function signature
+- Max 3 levels of nesting in any structure
+
+**If Design Has > 9 Components:**
+- Group related components
+- Create abstraction layers
+- Split into subsystems
+
+**Full Rule:** `Core/AI-Quality/architecture/cognitive-load-rule.mdc`
+</details>
+
+---
+
+### 📋 Rule #13: Transaction Isolation
+
+> **Apply at:** Data Model / Database Design
+
+**One-liner:** For data designs, explicitly specify transaction isolation levels.
+
+<details>
+<summary>📖 Detailed Guidance</summary>
+
+**When Designing Data Operations:**
+1. Identify concurrent access patterns
+2. Specify isolation level for each operation
+3. Document race condition handling
+4. Plan unique constraints for deduplication
+
+**Isolation Level Guide:**
+| Operation Type | Recommended Level |
+|----------------|-------------------|
+| Simple read | READ COMMITTED |
+| Report generation | REPEATABLE READ |
+| Financial/Critical | SERIALIZABLE |
+| Check-then-insert | SERIALIZABLE + CONSTRAINT |
+
+**Full Rule:** `Core/AI-Quality/technical/transaction-rule.mdc`
+</details>
+
+---
+
+### ✅ CREATIVE Mode Quality Checkpoint
+
+Before transitioning from CREATIVE mode:
+
+```
+□ Corner cases documented for each design option (Rule #6)?
+□ Architecture skeleton defined with interfaces (Rule #7)?
+□ Design complexity manageable (≤9 components) (Rule #9)?
+□ Transaction isolation specified for data operations (Rule #13)?
+
+→ All checked: Ready for BUILD mode
+→ Missing items: Complete design analysis
 ``` 
