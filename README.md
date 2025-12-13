@@ -1,6 +1,6 @@
-# Memory Bank System v0.8
+# Memory Bank System v0.9
 
-A token-optimized, hierarchical task management system that uses Cursor 2.0 commands for efficient development workflows.
+A token-optimized, hierarchical task management system that uses Cursor 2.0 commands for efficient development workflows with integrated AI Quality Rules.
 
 ```mermaid
 graph TD
@@ -13,7 +13,7 @@ graph TD
     Commands --> VAN["/van: Initialization"]
     Commands --> PLAN["/plan: Task Planning"]
     Commands --> CREATIVE["/creative: Design"]
-    Commands --> BUILD["/build: Implementation"]
+    Commands --> DO["/do: Implementation"]
     Commands --> REFLECT["/reflect: Review"]
     Commands --> ARCHIVE["/archive: Documentation"]
     
@@ -39,12 +39,12 @@ Memory Bank is a structured development workflow system that uses Cursor 2.0 com
 
 ### How It Works
 
-Version 0.8 moves from cursor custom modes to cursor commands.  Memory Bank operates through **six specialized commands** that work together as an integrated workflow:
+Version 0.9 builds upon v0.8 with integrated AI Quality Rules and enhanced workflow. Memory Bank operates through **six specialized commands** that work together as an integrated workflow:
 
 1. **`/van`** - Initializes projects, detects platform, determines task complexity
 2. **`/plan`** - Creates detailed implementation plans based on complexity level
 3. **`/creative`** - Explores design options for components requiring design decisions
-4. **`/build`** - Systematically implements planned changes
+4. **`/do`** - Systematically implements planned changes (formerly `/build`)
 5. **`/reflect`** - Reviews completed work and documents lessons learned
 6. **`/archive`** - Creates comprehensive documentation and updates Memory Bank
 
@@ -52,13 +52,15 @@ Each command reads from and updates a shared **Memory Bank** directory (`memory-
 
 ### Token-Optimized Architecture
 
-Version 0.7 introduced significant token optimization improvements:
+Version 0.7 introduced significant token optimization improvements, and v0.9 enhances this with AI Quality Rules integration:
 
 - **Hierarchical Rule Loading**: Only loads essential rules initially with specialized lazy-loading (~70% token reduction)
+- **3-Tier AI Quality Rules**: Always-loaded principles → Category summaries → Detailed rules (on-demand)
 - **Progressive Documentation**: Implements concise templates that scale with task complexity
 - **Optimized Command Transitions**: Preserves critical context efficiently between commands
 - **Level-Specific Workflows**: Adapts documentation requirements to task complexity (Levels 1-4)
 - **Lazy-Loaded Specialized Rules**: Loads specialized rules only when needed (e.g., architecture vs UI/UX design)
+- **Progressive Disclosure**: Rule Reference Cards with expandable details reduce cognitive load
 
 See the [Memory Bank Optimizations](MEMORY_BANK_OPTIMIZATIONS.md) document for detailed information about all optimization approaches.
 
@@ -67,7 +69,7 @@ See the [Memory Bank Optimizations](MEMORY_BANK_OPTIMIZATIONS.md) document for d
 Memory Bank transforms development into a structured, phase-based process:
 
 - **Graph-Based Command Integration**: Commands are interconnected nodes in a development workflow
-- **Workflow Progression**: Commands transition from one to another in a logical sequence (`/van` → `/plan` → `/creative` → `/build` → `/reflect` → `/archive`)
+- **Workflow Progression**: Commands transition from one to another in a logical sequence (`/van` → `/plan` → `/creative` → `/do` → `/reflect` → `/archive`)
 - **Shared Memory**: Persistent state maintained across command transitions via Memory Bank files
 - **Adaptive Behavior**: Each command adjusts its recommendations based on project complexity level
 - **Progressive Rule Loading**: Commands load only necessary rules, reducing context window usage
@@ -76,7 +78,7 @@ This approach transforms development from ad-hoc coding into a coordinated syste
 
 ### CREATIVE Command and Claude's "Think" Tool
 
-The `/creative` command is conceptually based on Anthropic's Claude "Think" tool methodology, as described in their [engineering blog](https://www.anthropic.com/engineering/claude-think-tool). Version 0.8 implements an optimized version with:
+The `/creative` command is conceptually based on Anthropic's Claude "Think" tool methodology, as described in their [engineering blog](https://www.anthropic.com/engineering/claude-think-tool). Version 0.9 implements an optimized version with:
 
 - Progressive documentation with tabular option comparison
 - "Detail-on-demand" approach that preserves token efficiency
@@ -88,13 +90,16 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 ## Key Features
 
 - **Cursor 2.0 Commands**: Native integration with Cursor's commands feature - no setup required
-- **Hierarchical Rule Loading**: Load only the essential rules with specialized lazy-loading
+- **AI Quality Rules Integration**: 15 research-proven quality rules embedded in all workflow modes
+- **Hierarchical Rule Loading**: Load only the essential rules with specialized lazy-loading (~70% token reduction)
 - **Progressive Documentation**: Concise templates that scale with task complexity
 - **Unified Context Transfer**: Efficient context preservation between commands via Memory Bank
 - **Command-Specific Visual Maps**: Clear visual representations for each development phase
 - **Level-Specific Workflows**: Adapted processes based on complexity (Levels 1-4)
 - **Platform-Aware Commands**: Automatically adapts commands to your operating system
 - **Memory Bank Integration**: All commands read from and update shared Memory Bank files
+- **Test-Driven Development**: TDD approach enforced in `/do` command
+- **Quality Checkpoints**: Built-in verification at key workflow stages
 
 ## Installation Instructions
 
@@ -128,7 +133,7 @@ After extracting it from the ZIP file:
    - `/van` - Initialization & entry point
    - `/plan` - Task planning
    - `/creative` - Design decisions
-   - `/build` - Code implementation
+   - `/do` - Code implementation
    - `/reflect` - Task reflection
    - `/archive` - Task archiving
 
@@ -158,17 +163,17 @@ See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed comm
 
    **Level 1 (Quick Bug Fix):**
    ```
-   /van → /build → /reflect → /archive
+   /van → /do → /reflect → /archive
    ```
 
    **Level 2 (Simple Enhancement):**
    ```
-   /van → /plan → /build → /reflect → /archive
+   /van → /plan → /do → /reflect → /archive
    ```
 
    **Level 3-4 (Feature/System):**
    ```
-   /van → /plan → /creative → /build → /reflect → /archive
+   /van → /plan → /creative → /do → /reflect → /archive
    ```
 
 ### Command Reference
@@ -189,7 +194,7 @@ See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed comm
 - Updates `memory-bank/tasks.md` with initial task information
 
 **Next steps:**
-- Level 1 → `/build`
+- Level 1 → `/do`
 - Level 2-4 → `/plan`
 
 #### `/plan` - Task Planning
@@ -210,7 +215,7 @@ See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed comm
 
 **Next steps:**
 - Creative phases identified → `/creative`
-- No creative phases → `/build`
+- No creative phases → `/do`
 
 #### `/creative` - Design Decisions
 **Purpose:** Perform structured design exploration for flagged components.
@@ -229,20 +234,21 @@ See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed comm
 - Updates `memory-bank/tasks.md` with design decisions
 
 **Next steps:**
-- After all creative phases complete → `/build`
+- After all creative phases complete → `/do`
 
-#### `/build` - Code Implementation
+#### `/do` - Code Implementation
 **Purpose:** Implement planned changes following the plan and creative decisions.
 
 **Usage:**
 ```
-/build
+/do
 ```
 
 **What it does:**
 - Reads implementation plan from `memory-bank/tasks.md`
 - Reads creative phase documents (Level 3-4)
-- Implements changes systematically
+- Implements changes systematically following AI Quality Rules
+- Applies test-driven development (TDD) approach
 - Tests implementation
 - Documents commands executed and results
 - Updates `memory-bank/tasks.md` and `memory-bank/progress.md`
@@ -306,7 +312,7 @@ Here's a complete example workflow for a Level 3 feature:
 /creative
 
 # Step 4: Implement the feature
-/build
+/do
 
 # Step 5: Reflect on the implementation
 /reflect
@@ -363,10 +369,12 @@ Each command implements progressive rule loading to optimize context usage:
 1. **Core Rules** - Always loaded first
    - `main.mdc` - System foundation
    - `memory-bank-paths.mdc` - File path definitions
+   - `Core/AI-Quality/_principles.mdc` - AI Quality core principles (v0.9+)
 
 2. **Command-Specific Rules** - Loaded based on command
    - Visual process maps (e.g., `van-mode-map.mdc`)
    - Command-specific workflows
+   - AI Quality Rule Reference Cards (v0.9+)
 
 3. **Complexity-Specific Rules** - Loaded based on task complexity
    - Level 1: `workflow-level1.mdc`
@@ -378,30 +386,47 @@ Each command implements progressive rule loading to optimize context usage:
    - Creative phase types (architecture, UI/UX, algorithm)
    - Advanced verification rules
    - Platform-specific adaptations
+   - Detailed AI Quality Rules (v0.9+)
 
 This approach reduces initial token usage by **~70%** compared to loading all rules at once.
+
+### AI Quality Rules (v0.9+)
+
+Version 0.9 introduces 15 research-proven AI Quality Rules organized in a 3-tier hierarchy:
+
+- **Tier 1 (Always Loaded)**: Core principles and navigation (~2-3K tokens)
+- **Tier 2 (Mode-Based)**: Category summaries loaded per mode (~500-800 tokens each)
+- **Tier 3 (On-Demand)**: Detailed rule files loaded when needed (~1-2K tokens each)
+
+Each workflow mode includes Rule Reference Cards with:
+- Quick one-liner guidance
+- Expandable detailed sections
+- Quality checkpoints
+- Links to full rule documentation
+
+See `Core/AI-Quality/QUICK_REFERENCE.md` for a complete guide to all 15 rules.
 
 ## Complexity Levels
 
 Memory Bank adapts its workflow based on task complexity:
 
 ### Level 1: Quick Bug Fix
-- **Workflow**: `/van` → `/build` → `/reflect` → `/archive`
+- **Workflow**: `/van` → `/do` → `/reflect` → `/archive`
 - **Characteristics**: Single file changes, targeted fixes
 - **Documentation**: Minimal, focused on the fix
 
 ### Level 2: Simple Enhancement
-- **Workflow**: `/van` → `/plan` → `/build` → `/reflect` → `/archive`
+- **Workflow**: `/van` → `/plan` → `/do` → `/reflect` → `/archive`
 - **Characteristics**: Multiple files, clear requirements
 - **Documentation**: Basic plan, implementation steps
 
 ### Level 3: Intermediate Feature
-- **Workflow**: `/van` → `/plan` → `/creative` → `/build` → `/reflect` → `/archive`
+- **Workflow**: `/van` → `/plan` → `/creative` → `/do` → `/reflect` → `/archive`
 - **Characteristics**: New components, design decisions needed
 - **Documentation**: Comprehensive plan, creative phases, detailed reflection
 
 ### Level 4: Complex System
-- **Workflow**: `/van` → `/plan` → `/creative` → `/build` → `/reflect` → `/archive`
+- **Workflow**: `/van` → `/plan` → `/creative` → `/do` → `/reflect` → `/archive`
 - **Characteristics**: Multiple subsystems, architectural decisions
 - **Documentation**: Phased implementation, architectural diagrams, comprehensive archive
 
@@ -440,7 +465,7 @@ If you're using an older version of Cursor that doesn't support commands, see th
 
 ## Version Information
 
-This is version v0.8 of the Memory Bank system. It introduces significant token optimization improvements over v0.7-beta while maintaining all functionality. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
+This is version v0.9 of the Memory Bank system. It introduces AI Quality Rules integration, enhanced workflow methods, and command improvements. The `/build` command has been renamed to `/do` for better clarity. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
 
 ### Ongoing Development
 
@@ -470,4 +495,4 @@ As mentioned in the personal note above, Memory Bank is a personal project. Howe
 
 ---
 
-*Note: This README is for v0.8 and subject to change as the system evolves.*
+*Note: This README is for v0.9 and subject to change as the system evolves.*

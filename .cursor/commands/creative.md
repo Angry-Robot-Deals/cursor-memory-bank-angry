@@ -87,5 +87,5 @@ Type `/creative` to start creative design work for components flagged in the pla
 
 ## Next Steps
 
-After all creative phases complete, proceed to `/build` command for implementation.
+After all creative phases complete, proceed to `/do` command for implementation.
 

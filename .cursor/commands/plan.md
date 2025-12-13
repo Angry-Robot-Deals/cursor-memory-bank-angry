@@ -80,5 +80,5 @@ Type `/plan` to start planning based on the task in `memory-bank/tasks.md`.
 ## Next Steps
 
 - **If creative phases identified:** Use `/creative` command
-- **If no creative phases:** Proceed to `/build` command
+- **If no creative phases:** Proceed to `/do` command
 

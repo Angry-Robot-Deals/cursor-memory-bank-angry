@@ -13,7 +13,7 @@ This directory contains Cursor 2.0 commands that replace the deprecated custom m
 - Determining task complexity
 
 **Next steps:**
-- Level 1 tasks → `/build`
+- Level 1 tasks → `/do`
 - Level 2-4 tasks → `/plan`
 
 ### `/plan` - Task Planning
@@ -25,7 +25,7 @@ This directory contains Cursor 2.0 commands that replace the deprecated custom m
 
 **Next steps:**
 - Creative phases identified → `/creative`
-- No creative phases → `/build`
+- No creative phases → `/do`
 
 ### `/creative` - Design Decisions
 **Purpose:** Perform structured design exploration for components requiring creative phases.
@@ -35,14 +35,21 @@ This directory contains Cursor 2.0 commands that replace the deprecated custom m
 - Need to explore architecture, UI/UX, or algorithm options
 
 **Next steps:**
-- After all creative phases complete → `/build`
+- After all creative phases complete → `/do`
 
-### `/build` - Code Implementation
-**Purpose:** Implement planned changes following the implementation plan and creative decisions.
+### `/do` - Code Implementation
+**Purpose:** Implement planned changes following the implementation plan and creative decisions with AI Quality Rules.
 
 **When to use:**
 - After planning is complete (and creative phases if needed)
 - Ready to start coding
+
+**What it does:**
+- Applies test-driven development (TDD) approach
+- Enforces method size limits (max 50 lines)
+- Manages cognitive load (7±2 objects per method)
+- Follows iterative development cycle
+- Applies relevant AI Quality Rules automatically
 
 **Next steps:**
 - After implementation complete → `/reflect`
@@ -51,7 +58,7 @@ This directory contains Cursor 2.0 commands that replace the deprecated custom m
 **Purpose:** Facilitate structured reflection on completed implementation.
 
 **When to use:**
-- After `/build` completes implementation
+- After `/do` completes implementation
 - Need to document lessons learned and process improvements
 
 **Next steps:**
@@ -70,7 +77,7 @@ This directory contains Cursor 2.0 commands that replace the deprecated custom m
 ## Command Workflow
 
 ```
-/van → /plan → /creative → /build → /reflect → /archive
+/van → /plan → /creative → /do → /reflect → /archive
   ↓       ↓        ↓         ↓         ↓          ↓
 Level 1  Level   Level    Level    Level     Level
 tasks    2-4     3-4      1-4      1-4       1-4
@@ -118,7 +125,7 @@ All commands read from and update files in the `memory-bank/` directory:
 
 ### Implementing Changes
 ```
-/build
+/do
 ```
 
 ### Reflecting on Completion
@@ -137,7 +144,7 @@ These commands replace the previous custom modes:
 - **VAN Mode** → `/van` command
 - **PLAN Mode** → `/plan` command
 - **CREATIVE Mode** → `/creative` command
-- **BUILD Mode** → `/build` command
+- **BUILD Mode** → `/do` command (renamed for clarity)
 - **REFLECT Mode** → `/reflect` command
 - **ARCHIVE Mode** → `/archive` command
 

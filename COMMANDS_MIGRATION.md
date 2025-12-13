@@ -25,7 +25,7 @@ The Memory Bank system previously used Cursor's custom modes feature, which has 
 | VAN Mode | `/van` | Initialization & entry point |
 | PLAN Mode | `/plan` | Task planning |
 | CREATIVE Mode | `/creative` | Design decisions |
-| BUILD Mode | `/build` | Code implementation |
+| BUILD Mode | `/do` | Code implementation (renamed from `/build` in v0.9) |
 | REFLECT Mode | `/reflect` | Task reflection |
 | ARCHIVE Mode | `/archive` | Task archiving |
 
@@ -57,9 +57,9 @@ The Memory Bank system previously used Cursor's custom modes feature, which has 
 3. /creative
    → Explores design options for flagged components
    → Documents design decisions
-   → Routes to /build
+   → Routes to /do
 
-4. /build
+4. /do
    → Implements planned changes
    → Tests implementation
    → Routes to /reflect
@@ -83,7 +83,7 @@ The Memory Bank system previously used Cursor's custom modes feature, which has 
     van.md          # Initialization command
     plan.md         # Planning command
     creative.md     # Design command
-    do.md           # Implementation command
+    do.md           # Implementation command (renamed from build.md in v0.9)
     reflect.md      # Reflection command
     archive.md      # Archiving command
     README.md       # Commands documentation
@@ -109,7 +109,7 @@ custom_modes/       # Legacy files (kept for reference)
 - [x] Port VAN workflow to `/van` command
 - [x] Port PLAN workflow to `/plan` command
 - [x] Port CREATIVE workflow to `/creative` command
-- [x] Port IMPLEMENT workflow to `/build` command
+- [x] Port IMPLEMENT workflow to `/do` command (renamed from `/build` in v0.9)
 - [x] Port REFLECT workflow to `/reflect` command
 - [x] Port ARCHIVE workflow to `/archive` command
 - [x] Preserve progressive rule loading

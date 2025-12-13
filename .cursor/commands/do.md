@@ -1,4 +1,4 @@
-# BUILD Command - Code Implementation
+# DO Command - Code Implementation
 
 This command implements the planned changes following the implementation plan and creative phase decisions. It enforces a test-driven approach where tests are written for all success criteria and must pass before completing each phase.
 
@@ -22,9 +22,9 @@ Load: .cursor/rules/isolation_rules/Core/memory-bank-paths.mdc
 Load: .cursor/rules/isolation_rules/Core/command-execution.mdc
 ```
 
-### Step 2: Load BUILD Mode Map
+### Step 2: Load DO Mode Map
 ```
-Load: .cursor/rules/isolation_rules/visual-maps/implement-mode-map.mdc
+Load: .cursor/rules/isolation_rules/visual-maps/build-mode-map.mdc
 ```
 
 ### Step 3: Load Complexity-Specific Implementation Rules
@@ -109,7 +109,7 @@ Load: .cursor/rules/isolation_rules/Level4/phased-implementation.mdc
 
 ## Usage
 
-Type `/build` to start implementation based on the plan in `memory-bank/tasks.md`.
+Type `/do` to start implementation based on the plan in `memory-bank/tasks.md`.
 
 ## Next Steps
 

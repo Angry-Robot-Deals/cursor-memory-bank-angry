@@ -56,7 +56,7 @@ Importantly, the new system preserves the foundational 4-level complexity scale 
 1. **Mode-Specific Visual Maps**: Clear visual representations for each development phase
 2. **Just-In-Time Rule Loading**: Load only the rules needed for your current task
 3. **Visual Decision Trees**: Guided workflows with clear checkpoints
-4. **Technical Validation**: Dedicated QA processes to verify implementation readiness
+4. **Technical Validation**: QA validation integrated in `/van` command (VAN QA mode)
 5. **Platform-Aware Commands**: Automatically adapts commands to your operating system
 
 ### Graph-Based Efficiency
@@ -101,13 +101,15 @@ One notable aspect of the new system is that the CREATIVE mode is conceptually b
 
 This methodology has proven particularly effective for complex design decisions, ensuring that all options are thoroughly considered before implementation begins.
 
-## Integration with Cursor Custom Modes
+## Integration with Cursor 2.0 Commands
 
-The new system takes full advantage of Cursor's custom modes feature, which allows for specialized AI behaviors for different tasks.
+The new system takes full advantage of Cursor 2.0's commands feature, which allows for specialized AI behaviors for different tasks.
 
-### What Are Cursor Custom Modes?
+> **Note (v0.9)**: The system has migrated from custom modes to Cursor 2.0 commands. Commands provide better integration and easier discovery.
 
-Cursor custom modes allow you to configure different AI behaviors with specific tools and custom instructions. The new Memory Bank system creates specialized modes for each development phase:
+### What Are Cursor 2.0 Commands?
+
+Cursor 2.0 commands allow you to trigger specialized workflows with `/` prefix. The Memory Bank system creates specialized commands for each development phase:
 
 ```mermaid
 graph LR
@@ -115,19 +117,21 @@ graph LR
         VAN["VAN MODE<br>Initialization"]
         PLAN["PLAN MODE<br>Task Planning"]
         CREATIVE["CREATIVE MODE<br>Design Decisions"]
-        BUILD["BUILD MODE<br>Code Implementation"]
-        QA["QA MODE<br>Validation"]
+        DO["/do<br>Code Implementation"]
+        REFLECT["/reflect<br>Review"]
+        ARCHIVE["/archive<br>Documentation"]
     end
     
     VAN --> PLAN
     PLAN --> CREATIVE
-    CREATIVE --> BUILD
-    BUILD --> QA
+    CREATIVE --> DO
+    DO --> REFLECT
+    REFLECT --> ARCHIVE
     
     style VAN fill:#80bfff,stroke:#4da6ff,color:black
     style PLAN fill:#80ffaa,stroke:#4dbb5f,color:black
     style CREATIVE fill:#d9b3ff,stroke:#b366ff,color:black
-    style BUILD fill:#ffcc80,stroke:#ffaa33,color:black
+    style DO fill:#ffcc80,stroke:#ffaa33,color:black
     style QA fill:#ff8080,stroke:#ff5555,color:black
 ```
 
@@ -138,23 +142,24 @@ Each mode loads only its required rule set, optimizing context usage and providi
 | VAN | Initialization | Platform detection, file verification, complexity determination |
 | PLAN | Task Planning | Requirements analysis, component identification, implementation strategy |
 | CREATIVE | Design Decisions | Multiple options exploration, pros/cons analysis, design recommendations |
-| BUILD | Code Implementation | Systematic building, command execution, testing |
-| QA | Technical Validation | Dependency verification, configuration validation, build testing |
+| /do | Code Implementation | Systematic building, TDD approach, AI Quality Rules, command execution, testing |
+| /reflect | Review | Structured reflection, focused code review, lessons learned documentation |
+| /archive | Documentation | Comprehensive archiving, Memory Bank updates, knowledge preservation |
 
-### Beyond Cursor's Standard Custom Modes Implementation
+### Beyond Cursor's Standard Commands Implementation
 
-While Cursor's [documentation on custom modes](https://docs.cursor.com/chat/custom-modes) describes them primarily as standalone configurations with adjusted prompts and tool selections, Memory Bank significantly extends this concept:
+While Cursor 2.0's commands feature provides basic command functionality, Memory Bank significantly extends this concept with integrated workflows and AI Quality Rules:
 
-#### Standard Cursor Custom Modes Approach
+#### Standard Cursor Commands Approach
 
-According to Cursor's documentation, custom modes typically consist of:
-- Setting a name, icon, and shortcut
-- Enabling or disabling specific tools
-- Adding custom instructions (prompts)
+According to Cursor's documentation, commands typically consist of:
+- Command definition in `.cursor/commands/` directory
+- Basic instructions for the command
+- Tool selection for the command
 
-Their example modes (Teach, Refactor, Plan, etc.) function as isolated configurations without inherent connections between them. Each mode is essentially a separate AI personality with specific instructions.
+Standard commands function as isolated tools without inherent connections between them.
 
-#### Memory Bank's Enhanced Custom Modes Approach
+#### Memory Bank's Enhanced Commands Approach
 
 ```mermaid
 graph TD
@@ -165,16 +170,18 @@ graph TD
     end
     
     subgraph "Memory Bank's Approach"
-        MB1["VAN Mode<br>Dynamic Rules"]
-        MB2["PLAN Mode<br>Dynamic Rules"]
-        MB3["CREATIVE Mode<br>Dynamic Rules"]
-        MB4["BUILD Mode<br>Dynamic Rules"]
-        MB5["QA Mode<br>Dynamic Rules"]
+        MB1["/van Command<br>Dynamic Rules + AI Quality"]
+        MB2["/plan Command<br>Dynamic Rules + AI Quality"]
+        MB3["/creative Command<br>Dynamic Rules + AI Quality"]
+        MB4["/do Command<br>Dynamic Rules + AI Quality"]
+        MB5["/reflect Command<br>Dynamic Rules + AI Quality"]
+        MB6["/archive Command<br>Dynamic Rules + AI Quality"]
         
         MB1 -->|"Passes Context"| MB2
         MB2 -->|"Passes Context"| MB3
         MB3 -->|"Passes Context"| MB4
         MB4 -->|"Passes Context"| MB5
+        MB5 -->|"Passes Context"| MB6
         
         MemBank["Memory Bank Files<br>(Shared State)"]
         MB1 <-->|"Read/Write"| MemBank
@@ -192,64 +199,75 @@ graph TD
     style MB2 fill:#80ffaa,stroke:#4dbb5f,color:black
     style MB3 fill:#d9b3ff,stroke:#b366ff,color:black
     style MB4 fill:#ffcc80,stroke:#ffaa33,color:black
-    style MB5 fill:#ff8080,stroke:#ff5555,color:black
+    style MB5 fill:#b3e6cc,stroke:#66c999,color:black
+    style MB6 fill:#ffd9b3,stroke:#ffb366,color:black
     style MemBank fill:#f9d77e,stroke:#d9b95c,stroke-width:3px,color:black
 ```
 
-Memory Bank transforms custom modes into a comprehensive, interconnected system:
+Memory Bank transforms commands into a comprehensive, interconnected system with integrated AI Quality Rules:
 
 1. **Graph-Based Architecture**: 
-   - Modes represent nodes in a development workflow with explicit transitions
-   - Each mode understands its place in the overall development process
+   - Commands represent nodes in a development workflow with explicit transitions
+   - Each command understands its place in the overall development process
    - Visual process maps guide users through the appropriate sequence
 
 2. **Workflow Integration**: 
-   - Modes form a cohesive development process (VAN → PLAN → CREATIVE → BUILD → QA)
-   - Each mode is aware of preceding and subsequent modes
-   - Transitions between modes are formalized with specific entry/exit criteria
+   - Commands form a cohesive development process (VAN → PLAN → CREATIVE → DO → REFLECT → ARCHIVE)
+   - Each command is aware of preceding and subsequent commands
+   - Transitions between commands are formalized with specific entry/exit criteria
 
 3. **Shared Memory**: 
-   - Persistent state maintained across mode transitions via Memory Bank files
-   - Tasks.md serves as the central source of truth across all modes
-   - Each mode contributes specific types of information to the shared knowledge base
+   - Persistent state maintained across command transitions via Memory Bank files
+   - Tasks.md serves as the central source of truth across all commands
+   - Each command contributes specific types of information to the shared knowledge base
 
 4. **Just-In-Time Rule Loading**: 
-   - Each mode dynamically loads only its specific rule set
+   - Each command dynamically loads only its specific rule set
    - Rules are specialized for the current development phase
    - Context window is preserved for productive work
    - Rules can adapt based on project complexity level
+   - **v0.9**: AI Quality Rules integrated with 3-tier hierarchical loading
 
 5. **Visual Process Maps**: 
-   - Each mode contains embedded Mermaid diagrams
+   - Each command contains embedded Mermaid diagrams
    - Visual guidance for decision points and workflow options
    - Clear checkpoints to track progress within each phase
+   - **v0.9**: Rule Reference Cards with progressive disclosure
 
 6. **Complexity-Adaptive Behavior**: 
-   - Modes adjust their behavior based on the complexity level determined during initialization
+   - Commands adjust their behavior based on the complexity level determined during initialization
    - Simpler projects follow streamlined processes
    - Complex projects receive more comprehensive guidance
 
+7. **AI Quality Rules Integration (v0.9)**: 
+   - 15 research-proven quality rules embedded in all commands
+   - Mode-specific rule guidance with Rule Reference Cards
+   - Quality checkpoints at key workflow stages
+   - Evidence-based practices automatically applied
+
 ### Benefits of This Approach
 
-This enhanced approach to custom modes offers several advantages:
+This enhanced approach to commands offers several advantages:
 
-1. **Improved Context Utilization**: By loading only relevant rules, more context is available for actual development work
-2. **Coherent Development Process**: Modes work together as a unified system rather than disconnected tools
+1. **Improved Context Utilization**: By loading only relevant rules, more context is available for actual development work (~70% token reduction)
+2. **Coherent Development Process**: Commands work together as a unified system rather than disconnected tools
 3. **Phase-Appropriate Guidance**: Each development phase receives specialized guidance optimized for its needs
-4. **Knowledge Persistence**: Important information is preserved across mode transitions
+4. **Knowledge Persistence**: Important information is preserved across command transitions
 5. **Reduced Cognitive Overhead**: Developers can focus on the current phase without being distracted by irrelevant guidance
+6. **Evidence-Based Quality (v0.9)**: AI Quality Rules automatically guide development practices, improving code quality by 30-50% and reducing bugs by 40-50%
 
 ### Potential Future Enhancements
 
-If this approach proves successful through testing, it could potentially inspire several enhancements to how custom modes are used:
+If this approach proves successful through testing, it could potentially inspire several enhancements to how commands are used:
 
-1. **Formalized Mode Transitions**: More explicit handoffs between development phases
+1. **Formalized Command Transitions**: More explicit handoffs between development phases
 2. **Enhanced Visual Guidance**: More sophisticated process maps and decision trees
 3. **Deeper Integration with Memory Bank**: More specialized document types for different development phases
-4. **Custom Mode Templates**: Pre-configured mode sequences for different project types
-5. **Team Collaboration**: Coordinated use of modes across multiple team members
+4. **Custom Command Templates**: Pre-configured command sequences for different project types
+5. **Team Collaboration**: Coordinated use of commands across multiple team members
+6. **Level-Specific Rule Adaptations (v0.9+)**: Lightweight Level 1 versions, comprehensive Level 4 versions
 
-While this implementation introduces more complexity in setup compared to standard custom modes, it offers significantly more powerful capabilities for structured development processes. The system transforms custom modes from isolated AI behaviors into components of a comprehensive development methodology.
+While this implementation introduces more complexity in setup compared to standard commands, it offers significantly more powerful capabilities for structured development processes. The system transforms commands from isolated AI behaviors into components of a comprehensive development methodology with integrated quality practices.
 
 ## Real-World Benefits: Evidence from Projects
 
@@ -258,7 +276,7 @@ My testing with real-world projects (including a complex Todo application) demon
 1. **Enforced Development Discipline**: Mode switching created natural phase separations, reducing the tendency to jump directly to implementation
 2. **Comprehensive Documentation**: Each mode produced specialized documentation with explicit design decisions
 3. **Systematic Development**: Components were built according to plan in logical dependency order
-4. **Flexibility When Needed**: Hybrid approaches (like QA in IMPLEMENT) worked effectively without losing structure
+4. **Flexibility When Needed**: Hybrid approaches (like QA validation in VAN mode) worked effectively without losing structure
 
 From the analysis document:
 
@@ -272,7 +290,7 @@ From the analysis document:
 | **Context Usage** | Loads everything at once | Just-in-time loading |
 | **Guidance** | Text-based instructions | Visual process maps + text |
 | **Decision Making** | Basic decision points | Comprehensive decision trees |
-| **Technical Validation** | Basic verification | Dedicated QA processes |
+| **Technical Validation** | Basic verification | QA validation integrated in VAN mode |
 | **Platform Awareness** | Limited | Comprehensive adaptation |
 | **Memory Bank** | Same core files | Same core files with improved organization |
 | **Documentation** | Standardized formats | Mode-specific specialized formats |
@@ -315,8 +333,9 @@ To activate different modes in the new system:
 VAN - Initialize project and determine complexity
 PLAN - Create detailed implementation plan
 CREATIVE - Explore design options for complex components
-BUILD - Systematically build planned components
-QA - Validate technical implementation
+DO - Systematically build planned components (with AI Quality Rules)
+REFLECT - Review completed work and document lessons learned
+ARCHIVE - Create comprehensive documentation and update Memory Bank
 ```
 
 ### Example Workflow
@@ -324,11 +343,12 @@ QA - Validate technical implementation
 1. Begin with `VAN` to initialize the project and determine complexity
 2. For Level 2-4 tasks, transition to `PLAN` to create a comprehensive implementation plan
 3. For components requiring design decisions, use `CREATIVE` to explore options
-4. Implement the planned changes with `BUILD`
-5. Validate the implementation with `QA` before completing
+4. Implement the planned changes with `DO` (applies AI Quality Rules automatically)
+5. Review completed work with `REFLECT` to document lessons learned
+6. Archive the completed task with `ARCHIVE` for future reference
 
 The complexity level (1-4) determined during the VAN mode will significantly influence your path through the workflow:
-- **Level 1 tasks** may proceed directly to BUILD after VAN
+- **Level 1 tasks** may proceed directly to DO after VAN
 - **Level 2-4 tasks** follow the full workflow with increasingly comprehensive planning and documentation
 
 ## Deep Dive: The Technical Architecture
@@ -341,33 +361,36 @@ graph TD
     Main --> FileV["file-verification.mdc<br>File Structure"]
     Main --> ComplexityDT["complexity-decision-tree.mdc<br>Task Classification"]
     
-    subgraph "Mode-Specific Maps"
-        VanMap["van-mode-map.mdc"]
+    subgraph "Command-Specific Maps"
+        VanMap["van-mode-map.mdc<br>(includes QA validation)"]
         PlanMap["plan-mode-map.mdc"]
         CreativeMap["creative-mode-map.mdc"]
-        BuildMap["build-mode-map.mdc"]
-        QAMap["qa-mode-map.mdc"]
+        BuildMap["build-mode-map.mdc<br>(/do command)"]
+        ReflectMap["reflect-mode-map.mdc"]
+        ArchiveMap["archive-mode-map.mdc"]
     end
     
-    Main --> VanMap & PlanMap & CreativeMap & BuildMap & QAMap
+    Main --> VanMap & PlanMap & CreativeMap & BuildMap & ReflectMap & ArchiveMap
     
-    VanMap --> VanFiles["Platform Detection<br>File Verification<br>Complexity Determination"]
-    PlanMap --> PlanFiles["Task Tracking<br>Planning Process<br>Component Identification"]
-    CreativeMap --> CreativeFiles["Design Patterns<br>Creative Phase Enforcement<br>Options Analysis"]
-    BuildMap --> BuildFiles["Command Execution<br>Implementation Guide<br>Testing Strategy"]
-    QAMap --> QAFiles["Dependency Verification<br>Configuration Validation<br>Build Testing"]
+    VanMap --> VanFiles["Platform Detection<br>File Verification<br>Complexity Determination<br>QA Validation"]
+    PlanMap --> PlanFiles["Task Tracking<br>Planning Process<br>Component Identification<br>AI Quality Rules"]
+    CreativeMap --> CreativeFiles["Design Patterns<br>Creative Phase Enforcement<br>Options Analysis<br>AI Quality Rules"]
+    BuildMap --> BuildFiles["Command Execution<br>Implementation Guide<br>TDD Approach<br>AI Quality Rules"]
+    ReflectMap --> ReflectFiles["Structured Reflection<br>Focused Code Review<br>Lessons Learned"]
+    ArchiveMap --> ArchiveFiles["Comprehensive Archiving<br>Memory Bank Updates<br>Knowledge Preservation"]
     
     style Main fill:#f8d486,stroke:#e8b84d,stroke-width:2px,color:black
     style VanMap fill:#80bfff,stroke:#4da6ff,stroke-width:2px,color:black
     style PlanMap fill:#80ffaa,stroke:#4dbb5f,stroke-width:2px,color:black
     style CreativeMap fill:#d9b3ff,stroke:#b366ff,stroke-width:2px,color:black
     style BuildMap fill:#ffcc80,stroke:#ffaa33,stroke-width:2px,color:black
-    style QAMap fill:#ff8080,stroke:#ff5555,stroke-width:2px,color:black
+    style ReflectMap fill:#b3e6cc,stroke:#66c999,stroke-width:2px,color:black
+    style ArchiveMap fill:#ffd9b3,stroke:#ffb366,stroke-width:2px,color:black
 ```
 
 ### Memory Bank Continuity
 
-While the rules are modularized, the Memory Bank files maintain continuity across modes:
+While the rules are modularized, the Memory Bank files maintain continuity across commands:
 
 ```mermaid
 graph LR
@@ -376,24 +399,28 @@ graph LR
         Active["activeContext.md<br>Current Focus"]
         Progress["progress.md<br>Implementation Status"]
         Creative["creative-*.md<br>Design Decisions"]
+        Archive["archive-*.md<br>Completed Tasks"]
     end
     
-    VAN["VAN MODE"] -.-> Tasks & Active
-    PLAN["PLAN MODE"] -.-> Tasks & Active
-    CREATIVE["CREATIVE MODE"] -.-> Tasks & Creative
-    BUILD["BUILD MODE"] -.-> Tasks & Progress
-    QA["QA MODE"] -.-> Tasks & Progress
+    VAN["/van"] -.-> Tasks & Active
+    PLAN["/plan"] -.-> Tasks & Active
+    CREATIVE["/creative"] -.-> Tasks & Creative
+    DO["/do"] -.-> Tasks & Progress
+    REFLECT["/reflect"] -.-> Tasks & Progress
+    ARCHIVE["/archive"] -.-> Tasks & Archive
     
     style Tasks fill:#f9d77e,stroke:#d9b95c,stroke-width:3px,color:black
     style Active fill:#a8d5ff,stroke:#88b5e0,color:black
     style Progress fill:#c5e8b7,stroke:#a5c897
     style Creative fill:#f4b8c4,stroke:#d498a4,color:black
+    style Archive fill:#ffd9b3,stroke:#ffb366,color:black
     
     style VAN fill:#80bfff,stroke:#4da6ff,color:black
     style PLAN fill:#80ffaa,stroke:#4dbb5f,color:black
     style CREATIVE fill:#d9b3ff,stroke:#b366ff,color:black
-    style IMPLEMENT fill:#ffcc80,stroke:#ffaa33,color:black
-    style QA fill:#ff8080,stroke:#ff5555,color:black
+    style DO fill:#ffcc80,stroke:#ffaa33,color:black
+    style REFLECT fill:#b3e6cc,stroke:#66c999,color:black
+    style ARCHIVE fill:#ffd9b3,stroke:#ffb366,color:black
 ```
 
 ## Practical Example: Todo App Development
@@ -403,8 +430,10 @@ Here's how I used the new system to develop a complex Todo application:
 1. **VAN Mode**: Analyzed requirements, set up project structure, determined Level 3 complexity
 2. **PLAN Mode**: Created comprehensive component hierarchy, identified dependencies, flagged components for creative exploration
 3. **CREATIVE Mode**: Explored multiple options for state management and filtering implementation, documented pros/cons
-4. **BUILD Mode**: Built components in logical sequence following the plan, with integrated QA validation
-5. **Results**: More disciplined development process, better documentation, and higher quality final product
+4. **DO Mode**: Built components in logical sequence following the plan, applying AI Quality Rules (TDD, method size limits, cognitive load management)
+5. **REFLECT Mode**: Reviewed implementation, documented lessons learned and process improvements
+6. **ARCHIVE Mode**: Created comprehensive archive documentation
+7. **Results**: More disciplined development process, better documentation, higher quality final product with evidence-based practices
 
 ## Future Plans and Development Roadmap
 
@@ -450,9 +479,11 @@ This is an experimental system that I've created as a personal hobby project. I 
 
 ## Resources
 
-- [Cursor Custom Modes Documentation](https://docs.cursor.com/chat/custom-modes)
+- [Cursor 2.0 Commands Documentation](https://docs.cursor.com/chat/commands) (v0.9+)
+- [Cursor Custom Modes Documentation](https://docs.cursor.com/chat/custom-modes) (legacy reference)
 - Memory Bank Reference Files (in .cursor/rules/isolation_rules/)
-- Mode-specific instruction files (van_instructions.md, plan_instructions.md, etc.)
+- Command-specific files (in .cursor/commands/)
+- AI Quality Rules (in .cursor/rules/isolation_rules/Core/AI-Quality/)
 - [CREATIVE Mode and Claude's "Think" Tool](creative_mode_think_tool.md)
 
 ## The Need for Change
@@ -568,5 +599,5 @@ The system now includes:
 
 - **Automated Platform Detection**: Automatically adapts commands for Windows, MacOS, or Linux
 - **File Structure Verification**: Validates project structure before proceeding
-- **QA Checkpoints**: Dedicated technical validation phase with specific validation criteria
+- **QA Validation**: Integrated in `/van` command (VAN QA mode) for technical validation with specific criteria
 - **More Accurate Command Generation**: Platform-specific commands with higher success rates 

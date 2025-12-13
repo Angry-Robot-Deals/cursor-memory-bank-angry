@@ -37,7 +37,7 @@
 - **Rule #9:** Cognitive Load - Keep designs simple (≤9 components)
 - **Rule #13:** Transaction - Explicit isolation levels
 
-### BUILD Mode (Implementation)
+### DO Mode (Implementation)
 - **Rule #2:** TDD - Write tests BEFORE code
 - **Rule #3:** Method Size - Max 50 lines, 7-9 objects
 - **Rule #8:** Iterative Cycle - Tests → Code → Review → Next

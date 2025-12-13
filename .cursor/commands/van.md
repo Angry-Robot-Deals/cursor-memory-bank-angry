@@ -68,6 +68,6 @@ Example:
 
 ## Next Steps
 
-- **Level 1 tasks:** Proceed directly to `/build` command
+- **Level 1 tasks:** Proceed directly to `/do` command
 - **Level 2-4 tasks:** Use `/plan` command for detailed planning
 

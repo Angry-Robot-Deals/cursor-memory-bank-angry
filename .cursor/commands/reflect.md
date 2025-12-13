@@ -55,7 +55,7 @@ Load: .cursor/rules/isolation_rules/Level4/reflection-comprehensive.mdc
 
 1. **Verify Implementation Complete**
    - Check `memory-bank/tasks.md` for implementation completion
-   - If not complete, return to `/build` command
+   - If not complete, return to `/do` command
 
 2. **Review Implementation**
    - Compare implementation against original plan
