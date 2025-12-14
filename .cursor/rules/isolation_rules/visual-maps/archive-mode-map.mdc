@@ -6,18 +6,50 @@ alwaysApply: false
 
 # ARCHIVE MODE: TASK DOCUMENTATION PROCESS MAP
 
-> **TL;DR:** This visual map guides the ARCHIVE mode process, focusing on creating comprehensive documentation of the completed task, archiving relevant files, and updating the Memory Bank for future reference.
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+Before updating ANY timestamp fields in archive documents:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), hardcoded dates, or any other method
+- This applies to "Date Completed", "Date Archived", "Last Updated", and all other date/time fields
+
+🚨 CRITICAL: TASK CONTEXT TRACKING 🚨
+Before archiving:
+- MUST read activeContext.md to get CURRENT task ID
+- MUST archive ONLY the current task (not all completed tasks)
+- MUST verify task status is "completed" in tasks.md
+- MUST confirm with user before archiving
+- See: `Core/task-context-tracking.mdc` for details
+
+> **TL;DR:** This visual map guides the ARCHIVE mode process, focusing on creating comprehensive documentation of the CURRENT task in the chat context, archiving relevant files, and updating the Memory Bank for future reference.
 
 ## 🧭 ARCHIVE MODE PROCESS FLOW
 
 ```mermaid
 graph TD
-    Start["START ARCHIVE MODE"] --> ReadTasks["Read tasks.md<br>reflection.md and<br>progress.md"]
+    Start["START ARCHIVE MODE"] --> ReadActive["Read activeContext.md<br>Get CURRENT Task ID"]
     
-    %% Initial Assessment
-    ReadTasks --> VerifyReflect{"Reflection<br>Complete?"}
+    %% Task Identification
+    ReadActive --> TaskFound{"Current Task<br>identified?"}
+    TaskFound -->|"No"| Error1["ERROR: No active task<br>Use /archive --list"]
+    TaskFound -->|"Yes"| ReadTasks["Read tasks.md<br>Find current task"]
+    
+    %% Task Verification
+    ReadTasks --> TaskExists{"Task exists<br>in tasks.md?"}
+    TaskExists -->|"No"| Error2["ERROR: Task not found"]
+    TaskExists -->|"Yes"| CheckStatus{"Task Status?"}
+    
+    CheckStatus -->|"completed"| VerifyReflect{"Reflection<br>Complete?"}
+    CheckStatus -->|"Other"| Error3["ERROR: Task not completed<br>Complete task first"]
+    
+    %% Reflection Check
     VerifyReflect -->|"No"| ReturnReflect["Return to<br>REFLECT Mode"]
-    VerifyReflect -->|"Yes"| AssessLevel{"Determine<br>Complexity Level"}
+    VerifyReflect -->|"Yes"| ConfirmUser["Confirm with user:<br>Archive [TASK-ID]?"]
+    
+    %% User Confirmation
+    ConfirmUser --> UserConfirm{"User<br>confirms?"}
+    UserConfirm -->|"No"| Cancel["Cancel archiving"]
+    UserConfirm -->|"Yes"| AssessLevel{"Determine<br>Complexity Level"}
     
     %% Level-Based Archiving
     AssessLevel -->|"Level 1"| L1Archive["LEVEL 1 ARCHIVING"]
@@ -50,7 +82,7 @@ graph TD
     L34System --> L34Complete["Mark Task<br>Complete"]
     
     %% Completion
-    L1Complete & L2Complete & L34Complete --> CreateArchive["Create Archive<br>Document in<br>docs/archive/"]
+    L1Complete & L2Complete & L34Complete --> CreateArchive["Create Archive<br>Document in<br>memory-bank/archive/"]
     CreateArchive --> UpdateActive["Update<br>activeContext.md"]
     UpdateActive --> Reset["Reset for<br>Next Task"]
 ```
@@ -203,19 +235,12 @@ Archive documents should be organized following this pattern:
 ```mermaid
 graph TD
     subgraph "Archive Structure"
-        Root["docs/archive/"]
-        Tasks["tasks/"]
-        Features["features/"]
-        Systems["systems/"]
+        Root["memory-bank/archive/"]
         
-        Root --> Tasks
-        Root --> Features
-        Root --> Systems
-        
-        Tasks --> Bug["bug-fix-name-YYYYMMDD.md"]
-        Tasks --> Enhancement["enhancement-name-YYYYMMDD.md"]
-        Features --> Feature["feature-name-YYYYMMDD.md"]
-        Systems --> System["system-name-YYYYMMDD.md"]
+        Root --> Archive1["archive-[task_id]-1.md"]
+        Root --> Archive2["archive-[task_id]-2.md"]
+        Root --> Archive3["archive-[task_id]-3.md"]
+        Root --> ArchiveN["archive-[task_id]-N.md"]
     end
 ```
 
@@ -262,7 +287,7 @@ When archiving is complete, notify user with:
 ```
 ## TASK ARCHIVED
 
-✅ Archive document created in docs/archive/
+✅ Archive document created in memory-bank/archive/
 ✅ All task documentation preserved
 ✅ Memory Bank updated with references
 ✅ Task marked as COMPLETED

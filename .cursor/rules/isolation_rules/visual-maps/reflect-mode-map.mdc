@@ -6,6 +6,13 @@ alwaysApply: false
 
 # REFLECT MODE: TASK REVIEW PROCESS MAP
 
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+Before updating ANY timestamp fields in reflection documents:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), hardcoded dates, or any other method
+- This applies to "Last Updated", "Date", and all other date/time fields
+
 > **TL;DR:** This visual map guides the REFLECT mode process, focusing on structured review of the implementation, documenting lessons learned, and preparing insights for future reference.
 
 ## 🧭 REFLECT MODE PROCESS FLOW

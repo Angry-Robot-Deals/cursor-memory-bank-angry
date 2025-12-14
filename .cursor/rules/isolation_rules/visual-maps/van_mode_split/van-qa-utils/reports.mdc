@@ -5,7 +5,22 @@ alwaysApply: false
 ---
 # VAN QA: VALIDATION REPORTS
 
-> **TL;DR:** This component contains the formats for comprehensive success and failure reports generated upon completion of the QA validation process.
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+When generating TIMESTAMP fields in QA reports:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use PowerShell Get-Date, JavaScript Date(), or any other method
+- Use sys8 MCP response format (e.g., `datetime`, `human_readable_utc3`)
+
+🚨 MANDATORY: TASK ID IN REPORT FILENAME 🚨
+**ALL QA validation reports MUST include task ID in the filename.**
+- Format: `qa-report-[task_id]-[phase].md` (e.g., `qa-report-DEV-0053-phase3.9.md`)
+- Location: `memory-bank/reports/qa-report-[task_id]-[phase].md`
+- **How to get task ID:** Read `memory-bank/activeContext.md` to get current task ID
+- **Task ID format:** `[PREFIX]-[4-digit-number]` (e.g., `DEV-0053`, `FIN-0001`, `QA-0008`)
+- See: `Core/task-numbering-system.mdc` for task ID format details
+
+> **TL;DR:** This component contains the formats for comprehensive success and failure reports generated upon completion of the QA validation process. All reports MUST include task ID in filename.
 
 ## 📋 COMPREHENSIVE SUCCESS REPORT FORMAT
 
@@ -26,17 +41,41 @@ After all four validation points pass, generate this success report:
 ```
 
 ### Success Report Generation Example:
+**NOTE:** In actual implementation, use sys8 MCP `get_current_datetime` instead of `Get-Date`.
+This PowerShell example is for illustration only - agents MUST use sys8 MCP.
+
 ```powershell
 function Generate-SuccessReport {
     param (
-        [string]$ProjectName = "Current Project"
+        [string]$ProjectName = "Current Project",
+        [string]$TaskID = "",
+        [string]$Phase = ""
     )
     
+    # ⚠️ WARNING: This example uses Get-Date for illustration only
+    # In actual implementation, MUST call sys8 MCP get_current_datetime
+    # Example: $timestamp = (sys8 MCP call result).datetime
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    
+    # Get task ID from activeContext.md if not provided
+    if ([string]::IsNullOrEmpty($TaskID)) {
+        if (Test-Path "memory-bank\activeContext.md") {
+            $activeContext = Get-Content "memory-bank\activeContext.md" -Raw
+            if ($activeContext -match "Current Task[:\s]+([A-Z]+-\d{4})") {
+                $TaskID = $Matches[1]
+            }
+        }
+    }
+    
+    # Validate task ID format
+    if ([string]::IsNullOrEmpty($TaskID) -or $TaskID -notmatch "^[A-Z]+-\d{4}$") {
+        Write-Warning "Task ID not found or invalid format. Expected format: [PREFIX]-[4-digit-number]"
+        Write-Warning "Please ensure activeContext.md contains current task ID"
+    }
     
     $report = @"
 ╔═════════════════════ 🔍 QA VALIDATION REPORT ══════════════════════╗
-│ PROJECT: $ProjectName | TIMESTAMP: $timestamp            │
+│ PROJECT: $ProjectName | TASK: $TaskID | TIMESTAMP: $timestamp    │
 ├─────────────────────────────────────────────────────────────────────┤
 │ 1️⃣ DEPENDENCIES: ✓ Compatible                                       │
 │ 2️⃣ CONFIGURATION: ✓ Valid & Compatible                             │
@@ -50,6 +89,23 @@ function Generate-SuccessReport {
     
     # Save validation status (used by BUILD mode prevention mechanism)
     "PASS" | Set-Content -Path "memory-bank\.qa_validation_status"
+    
+    # Save report file with task ID in filename
+    $reportFileName = "memory-bank\reports\qa-report-$TaskID"
+    if (-not [string]::IsNullOrEmpty($Phase)) {
+        $reportFileName += "-$Phase"
+    }
+    $reportFileName += ".md"
+    
+    # Ensure reports directory exists
+    $reportsDir = "memory-bank\reports"
+    if (-not (Test-Path $reportsDir)) {
+        New-Item -Path $reportsDir -ItemType Directory -Force | Out-Null
+    }
+    
+    $report | Set-Content -Path $reportFileName
+    
+    Write-Output "✅ QA validation report saved: $reportFileName"
     
     return $report
 }
@@ -91,7 +147,9 @@ function Generate-FailureReport {
         [string[]]$DependencyIssues = @(),
         [string[]]$ConfigIssues = @(),
         [string[]]$EnvironmentIssues = @(),
-        [string[]]$BuildIssues = @()
+        [string[]]$BuildIssues = @(),
+        [string]$TaskID = "",
+        [string]$Phase = ""
     )
     
     $report = @"
@@ -138,8 +196,41 @@ $(($BuildIssues | ForEach-Object { "- $_" }) -join "`n")
 Type 'VAN QA' after fixing the issues to re-validate.
 "@
     
+    # Get task ID from activeContext.md if not provided
+    if ([string]::IsNullOrEmpty($TaskID)) {
+        if (Test-Path "memory-bank\activeContext.md") {
+            $activeContext = Get-Content "memory-bank\activeContext.md" -Raw
+            if ($activeContext -match "Current Task[:\s]+([A-Z]+-\d{4})") {
+                $TaskID = $Matches[1]
+            }
+        }
+    }
+    
+    # Validate task ID format
+    if ([string]::IsNullOrEmpty($TaskID) -or $TaskID -notmatch "^[A-Z]+-\d{4}$") {
+        Write-Warning "Task ID not found or invalid format. Expected format: [PREFIX]-[4-digit-number]"
+        Write-Warning "Please ensure activeContext.md contains current task ID"
+    }
+    
     # Save validation status (used by BUILD mode prevention mechanism)
     "FAIL" | Set-Content -Path "memory-bank\.qa_validation_status"
+    
+    # Save report file with task ID in filename
+    $reportFileName = "memory-bank\reports\qa-report-$TaskID"
+    if (-not [string]::IsNullOrEmpty($Phase)) {
+        $reportFileName += "-$Phase"
+    }
+    $reportFileName += ".md"
+    
+    # Ensure reports directory exists
+    $reportsDir = "memory-bank\reports"
+    if (-not (Test-Path $reportsDir)) {
+        New-Item -Path $reportsDir -ItemType Directory -Force | Out-Null
+    }
+    
+    $report | Set-Content -Path $reportFileName
+    
+    Write-Output "⚠️ QA validation failure report saved: $reportFileName"
     
     return $report
 }

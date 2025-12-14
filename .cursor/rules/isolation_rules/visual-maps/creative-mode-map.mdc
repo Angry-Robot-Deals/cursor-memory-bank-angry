@@ -6,13 +6,35 @@ alwaysApply: false
 
 # CREATIVE MODE: DESIGN PROCESS MAP
 
-> **TL;DR:** This visual map guides the CREATIVE mode process, focusing on structured design decision-making for components that require deeper exploration before implementation.
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+When updating ANY timestamp fields in creative phase documents:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), hardcoded dates, or any other method
+- This applies to "Last Updated", "Date", and all other date/time fields
+
+🚨 MANDATORY: TASK ID IN CREATIVE DOCUMENT FILENAME 🚨
+**ALL creative phase documents MUST include task ID in the filename.**
+- Format: `creative-[task_id]-[feature_name].md` (e.g., `creative-DEV-0053-obsidian-plugin-ux.md`)
+- Location: `memory-bank/creative/creative-[task_id]-[feature_name].md`
+- **How to get task ID:** Read `memory-bank/activeContext.md` to get current task ID
+- **Task ID format:** `[PREFIX]-[4-digit-number]` (e.g., `DEV-0053`, `FIN-0001`, `QA-0008`)
+- See: `Core/task-numbering-system.mdc` for task ID format details
+
+> **TL;DR:** This visual map guides the CREATIVE mode process, focusing on structured design decision-making for components that require deeper exploration before implementation. All creative documents MUST include task ID in filename.
 
 ## 🧭 CREATIVE MODE PROCESS FLOW
 
 ```mermaid
 graph TD
-    Start["START CREATIVE MODE"] --> ReadTasks["Read tasks.md<br>For Creative Requirements"]
+    Start["START CREATIVE MODE"] --> MCPGate["⛔ MCP SERVERS<br>CONTEXT GATE"]
+    
+    %% MCP Server Queries
+    MCPGate --> QuerySys8["Query sys8 MCP<br>get_current_datetime<br>get_os_version"]
+    QuerySys8 --> QueryContext7["Query context7 MCP<br>resolve-library-id<br>get-library-docs"]
+    QueryContext7 --> IncludeContext["Include MCP Results<br>in Request Context"]
+    
+    IncludeContext --> ReadTasks["Read tasks.md<br>For Creative Requirements"]
     
     %% Initial Assessment
     ReadTasks --> VerifyPlan{"Plan Complete<br>& Creative Phases<br>Identified?"}
@@ -60,7 +82,8 @@ graph TD
     Algo_Decision --> Algo_Document["Document<br>Algorithm"]
     
     %% Documentation & Completion
-    UI_Document & Arch_Diagram & Data_Document & Algo_Document --> CreateDoc["Create Creative<br>Phase Document"]
+    UI_Document & Arch_Diagram & Data_Document & Algo_Document --> GetTaskID["Get Task ID<br>from activeContext.md"]
+    GetTaskID --> CreateDoc["Create Creative<br>Phase Document<br>creative-[task_id]-[feature].md"]
     CreateDoc --> UpdateTasks["Update tasks.md<br>with Decision"]
     UpdateTasks --> MorePhases{"More Creative<br>Phases?"}
     MorePhases -->|"Yes"| SelectPhase
@@ -118,6 +141,40 @@ graph TD
         AL3["Edge Case<br>Handling"]
         AL4["Scaling<br>Considerations"]
     end
+```
+
+## 🔌 MANDATORY MCP SERVER CONTEXT INTEGRATION
+
+**CRITICAL REQUIREMENT:** Before any creative phase work begins, the agent MUST query MCP servers and include their results in the request context.
+
+### Step 1: Query sys8 MCP Server
+**MANDATORY:** Query sys8 MCP server for system information:
+- `get_current_datetime` - Get current date/time for design decision documentation
+- `get_os_version` - Get OS/platform information for platform-specific design considerations
+
+### Step 2: Query context7 MCP Server
+**MANDATORY:** Query context7 MCP server for library documentation:
+- `resolve-library-id` - Resolve library names mentioned in creative phase to Context7 library IDs
+- `get-library-docs` - Get up-to-date documentation for libraries/frameworks used in design decisions
+
+### Step 3: Include MCP Results in Context
+**MANDATORY:** Include all MCP query results in the request context:
+- System date/time information from sys8
+- Platform/OS information from sys8
+- Library documentation from context7
+- Library IDs and API references from context7
+
+### MCP Context Integration Checklist
+```
+✓ MCP CONTEXT INTEGRATION CHECKLIST
+- sys8 get_current_datetime queried? [YES/NO]
+- sys8 get_os_version queried? [YES/NO]
+- context7 resolve-library-id called for all libraries? [YES/NO]
+- context7 get-library-docs called for relevant libraries? [YES/NO]
+- All MCP results included in request context? [YES/NO]
+
+→ If all YES: Proceed with creative phase
+→ If any NO: Complete MCP queries before proceeding
 ```
 
 ## 📊 REQUIRED FILE STATE VERIFICATION

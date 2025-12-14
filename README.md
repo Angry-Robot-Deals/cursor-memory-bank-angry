@@ -1,6 +1,6 @@
-# Memory Bank System v0.9
+# Memory Bank System v1.0
 
-A token-optimized, hierarchical task management system that uses Cursor 2.0 commands for efficient development workflows with integrated AI Quality Rules.
+A token-optimized, hierarchical task management system that uses Cursor 2.0 commands for efficient development workflows with integrated AI Quality Rules and mandatory MCP server integration.
 
 ```mermaid
 graph TD
@@ -90,6 +90,7 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 ## Key Features
 
 - **Cursor 2.0 Commands**: Native integration with Cursor's commands feature - no setup required
+- **MCP Server Integration**: Mandatory integration with context7 and sys8 MCP servers for accuracy and security
 - **AI Quality Rules Integration**: 15 research-proven quality rules embedded in all workflow modes
 - **Hierarchical Rule Loading**: Load only the essential rules with specialized lazy-loading (~70% token reduction)
 - **Progressive Documentation**: Concise templates that scale with task complexity
@@ -100,6 +101,8 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 - **Memory Bank Integration**: All commands read from and update shared Memory Bank files
 - **Test-Driven Development**: TDD approach enforced in `/do` command
 - **Quality Checkpoints**: Built-in verification at key workflow stages
+- **Up-to-Date Documentation**: All library documentation fetched from context7 MCP server
+- **Secure System Operations**: All system operations use sys8 MCP server for security and consistency
 
 ## Installation Instructions
 
@@ -107,6 +110,9 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 
 - **Cursor Editor**: Version 2.0 or higher is required (commands feature)
 - **AI Model**: Claude 4 Sonnet or Claude 4 Opus is recommended for best results, especially for `/creative` command's "Think" tool methodology
+- **MCP Servers** (Recommended): 
+  - **context7 MCP Server**: For up-to-date library documentation and code examples
+  - **sys8 MCP Server**: For secure system operations (date/time, OS info, calculations, random strings, hashing)
 
 ### Step 1: Get the Files
 
@@ -125,7 +131,46 @@ After extracting it from the ZIP file:
 
 **Note**: Other documents are not necessary for Memory Bank operation - they are explanatory documents. You can copy them to a folder like `memory_bank_documents` if desired.
 
-### Step 2: Using Commands
+### Step 2: Configure MCP Servers (Recommended)
+
+Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanced accuracy and security:
+
+#### context7 MCP Server
+**Purpose**: Provides up-to-date library documentation and code examples
+
+**Why it's needed**:
+- Eliminates reliance on outdated training data
+- Prevents API hallucination errors
+- Provides version-specific documentation
+- Ensures code examples are from official sources
+
+**Installation**:
+1. Open Cursor's MCP settings
+2. Add context7 MCP server configuration
+3. Check the [MCP Server Setup Guide](#mcp-server-setup) below for detailed instructions
+
+**Where to find**: Search for "context7 MCP server" on GitHub or check the official MCP server registry
+
+#### sys8 MCP Server
+**Purpose**: Provides secure system operations
+
+**Why it's needed**:
+- Secure date/time operations (no hardcoded timestamps)
+- Cross-platform OS information
+- Safe mathematical expression evaluation
+- Cryptographically secure random strings
+- Secure string hashing
+
+**Installation**:
+1. Open Cursor's MCP settings
+2. Add sys8 MCP server configuration
+3. Check the [MCP Server Setup Guide](#mcp-server-setup) below for detailed instructions
+
+**Where to find**: Search for "sys8 MCP server" on GitHub or check the official MCP server registry
+
+**Note**: Memory Bank will work without MCP servers, but with reduced accuracy and functionality. MCP servers are highly recommended for optimal results.
+
+### Step 3: Using Commands
 
 **Commands are ready to use immediately!** No additional setup required.
 
@@ -463,9 +508,62 @@ Memory Bank adapts its workflow based on task complexity:
 
 If you're using an older version of Cursor that doesn't support commands, see the [Commands Migration Guide](COMMANDS_MIGRATION.md) for information about the legacy custom modes setup.
 
+## MCP Server Setup
+
+### Finding MCP Servers
+
+MCP servers can be found in several places:
+
+1. **Official MCP Registry**: Check the official MCP server registry for available servers
+2. **GitHub**: Search for "MCP server" repositories on GitHub
+   - Search terms: "context7 MCP server", "sys8 MCP server", "MCP server library documentation"
+3. **Community Resources**: 
+   - Cursor community forums
+   - Cursor Discord server
+   - MCP-related GitHub discussions
+
+### Configuration
+
+MCP servers are configured in Cursor's MCP settings. The configuration file is typically located at:
+- `.cursor/mcp.json` (project-specific)
+- Global MCP configuration (Cursor settings)
+
+#### Example Configuration
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"]
+    },
+    "sys8": {
+      "command": "npx",
+      "args": ["-y", "@sys8/mcp-server"]
+    }
+  }
+}
+```
+
+**Note**: Actual installation commands and configuration may vary. Check the specific MCP server documentation for exact setup instructions.
+
+### MCP Server Benefits
+
+#### context7 MCP Server
+- **Up-to-date APIs**: Always get the latest library documentation
+- **Version-specific**: Support for exact library versions
+- **No Hallucinations**: Real APIs, not invented ones
+- **Code Examples**: Working examples from official sources
+
+#### sys8 MCP Server
+- **Security**: Cryptographically secure operations
+- **Consistency**: Unified interface for system operations
+- **Cross-platform**: Handles platform differences automatically
+- **Error Prevention**: Built-in validation and error handling
+
 ## Version Information
 
-This is version v0.9 of the Memory Bank system. It introduces AI Quality Rules integration, enhanced workflow methods, and command improvements. The `/build` command has been renamed to `/do` for better clarity. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
+This is version v1.0 of the Memory Bank system. It introduces mandatory MCP server integration (context7 and sys8), enhanced accuracy, and improved security. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
 
 ### Ongoing Development
 
@@ -495,4 +593,4 @@ As mentioned in the personal note above, Memory Bank is a personal project. Howe
 
 ---
 
-*Note: This README is for v0.9 and subject to change as the system evolves.*
+*Note: This README is for v1.0 and subject to change as the system evolves.*

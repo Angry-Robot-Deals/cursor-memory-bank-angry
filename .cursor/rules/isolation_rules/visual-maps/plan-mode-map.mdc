@@ -6,13 +6,27 @@ alwaysApply: false
 
 # PLAN MODE: TASK PLANNING PROCESS MAP
 
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+When updating ANY timestamp fields in planning documents:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), hardcoded dates, or any other method
+- This applies to "Last Updated", "Date", and all other date/time fields
+
 > **TL;DR:** This visual map guides the PLAN mode process, focusing on creating detailed implementation plans based on the complexity level determined during initialization, with mandatory technology validation before implementation.
 
 ## 🧭 PLAN MODE PROCESS FLOW
 
 ```mermaid
 graph TD
-    Start["START PLANNING"] --> ReadTasks["Read tasks.md<br>Core/task-tracking.md"]
+    Start["START PLANNING"] --> MCPGate["⛔ MCP SERVERS<br>CONTEXT GATE"]
+    
+    %% MCP Server Queries
+    MCPGate --> QuerySys8["Query sys8 MCP<br>get_current_datetime<br>get_os_version"]
+    QuerySys8 --> QueryContext7["Query context7 MCP<br>resolve-library-id<br>get-library-docs"]
+    QueryContext7 --> IncludeContext["Include MCP Results<br>in Request Context"]
+    
+    IncludeContext --> ReadTasks["Read tasks.md<br>Core/task-tracking.md"]
     
     %% Complexity Level Determination
     ReadTasks --> CheckLevel{"Determine<br>Complexity Level"}
@@ -69,6 +83,10 @@ graph TD
     CheckCreative -->|"No"| RecBuild["NEXT MODE:<br>BUILD MODE"]
     
     %% Style for Technology Gate
+    style MCPGate fill:#ff5555,stroke:#dd3333,color:white,stroke-width:3px
+    style QuerySys8 fill:#4da6ff,stroke:#0066cc,color:white
+    style QueryContext7 fill:#4da6ff,stroke:#0066cc,color:white
+    style IncludeContext fill:#4da6ff,stroke:#0066cc,color:white
     style TechGate fill:#ff5555,stroke:#dd3333,color:white,stroke-width:3px
     style TechVerify fill:#ff5555,stroke:#dd3333,color:white,stroke-width:3px
     style TechSelection fill:#4da6ff,stroke:#0066cc,color:white
@@ -133,6 +151,40 @@ graph TD
     style Success fill:#ff5555,stroke:#dd3333,color:white
     style Fix fill:#ff5555,stroke:#dd3333,color:white
     style Ready fill:#10b981,stroke:#059669,color:white
+```
+
+## 🔌 MANDATORY MCP SERVER CONTEXT INTEGRATION
+
+**CRITICAL REQUIREMENT:** Before any planning work begins, the agent MUST query MCP servers and include their results in the request context.
+
+### Step 1: Query sys8 MCP Server
+**MANDATORY:** Query sys8 MCP server for system information:
+- `get_current_datetime` - Get current date/time for planning timelines
+- `get_os_version` - Get OS/platform information for platform-specific planning
+
+### Step 2: Query context7 MCP Server
+**MANDATORY:** Query context7 MCP server for library documentation:
+- `resolve-library-id` - Resolve library names mentioned in task to Context7 library IDs
+- `get-library-docs` - Get up-to-date documentation for libraries/frameworks used in planning
+
+### Step 3: Include MCP Results in Context
+**MANDATORY:** Include all MCP query results in the request context:
+- System date/time information from sys8
+- Platform/OS information from sys8
+- Library documentation from context7
+- Library IDs and API references from context7
+
+### MCP Context Integration Checklist
+```
+✓ MCP CONTEXT INTEGRATION CHECKLIST
+- sys8 get_current_datetime queried? [YES/NO]
+- sys8 get_os_version queried? [YES/NO]
+- context7 resolve-library-id called for all libraries? [YES/NO]
+- context7 get-library-docs called for relevant libraries? [YES/NO]
+- All MCP results included in request context? [YES/NO]
+
+→ If all YES: Proceed with planning
+→ If any NO: Complete MCP queries before proceeding
 ```
 
 ## 📊 REQUIRED FILE STATE VERIFICATION

@@ -5,6 +5,13 @@ alwaysApply: false
 ---
 
 
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+When checking or updating ANY timestamp fields in QA mode:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), hardcoded dates, or any other method
+- This applies to "Last Modified" timestamps and all other date/time validations
+
 > **TL;DR:** This enhanced QA mode provides comprehensive validation at any stage of development. It automatically detects the current phase, validates Memory Bank consistency, verifies task tracking, and performs phase-specific technical validation to ensure project quality throughout the development lifecycle.
 
 ## 🔍 ENHANCED QA MODE PROCESS FLOW

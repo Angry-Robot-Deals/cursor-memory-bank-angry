@@ -7,11 +7,36 @@ alwaysApply: false
 
 > **TL;DR:** This document provides structured planning guidelines for Level 3 (Intermediate Feature) tasks, focusing on comprehensive planning with creative phases and clear implementation strategies.
 
+## 🔌 MANDATORY MCP SERVER CONTEXT INTEGRATION
+
+**CRITICAL REQUIREMENT:** Before any Level 3 planning work begins, the agent MUST query MCP servers and include their results in the request context.
+
+### MCP Server Queries Required:
+1. **sys8 MCP:**
+   - `get_current_datetime` - For planning timelines and scheduling
+   - `get_os_version` - For platform-specific planning considerations
+
+2. **context7 MCP:**
+   - `resolve-library-id` - Resolve all library names to Context7 library IDs
+   - `get-library-docs` - Get up-to-date documentation for all libraries/frameworks
+
+### MCP Context Integration:
+- All MCP query results MUST be included in the request context
+- System information from sys8 should inform platform-specific decisions
+- Library documentation from context7 should guide technology selection and API usage
+
 ## 🏗️ PLANNING WORKFLOW
 
 ```mermaid
 graph TD
-    Start["Planning Start"] --> Req["📋 Requirements<br>Analysis"]
+    Start["Planning Start"] --> MCPGate["⛔ MCP SERVERS<br>CONTEXT GATE"]
+    
+    %% MCP Server Queries
+    MCPGate --> QuerySys8["Query sys8 MCP<br>get_current_datetime<br>get_os_version"]
+    QuerySys8 --> QueryContext7["Query context7 MCP<br>resolve-library-id<br>get-library-docs"]
+    QueryContext7 --> IncludeContext["Include MCP Results<br>in Request Context"]
+    
+    IncludeContext --> Req["📋 Requirements<br>Analysis"]
     Req --> Comp["🔍 Component<br>Analysis"]
     Comp --> Design["🎨 Design<br>Decisions"]
     Design --> Impl["⚙️ Implementation<br>Strategy"]

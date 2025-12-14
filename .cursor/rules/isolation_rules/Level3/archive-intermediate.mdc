@@ -25,7 +25,7 @@ graph TD
     StartArchive["Start L3 Archiving"] -->
     VerifyReflect["1. Verify Reflection Complete<br>Check `tasks.md` & `reflection-[feature_id].md`"] -->
     GatherDocs["2. Gather All Feature Documents<br>(Plan, Creative outputs, Reflection, Code links)"] -->
-    CreateArchiveFile["3. Create Feature Archive File<br>e.g., `memory-bank/archive/feature-[FeatureNameOrID]_YYYYMMDD.md`"] -->
+    CreateArchiveFile["3. Create Feature Archive File<br>e.g., `memory-bank/archive/archive-[task_id].md`"] -->
     PopulateArchive["4. Populate Archive File<br>(Using L3 Archive Template below)"] -->
     VerifyLinks["5. Verify All Internal Links<br>in Archive File are Correct"] -->
     FinalUpdateTasks["6. Final Update to `tasks.md`<br>(Mark Feature FULLY COMPLETED & ARCHIVED, link to archive file)"] -->
@@ -37,11 +37,11 @@ graph TD
     style ArchiveDone fill:#b0bec5,stroke:#90a4ae
 ````
 
-## 📝 Structure for `memory-bank/archive/feature-[FeatureNameOrID]_YYYYMMDD.md`
+## 📝 Structure for `memory-bank/archive/archive-[task_id].md`
 
   * **Feature Title:** (e.g., "Archive: User Profile Feature - Avatar Upload Enhancement")
   * **Feature ID (from `tasks.md`):**
-  * **Date Archived:** YYYY-MM-DD
+  * **Date Archived:** YYYY-MM-DD (MUST use sys8 MCP `get_current_datetime` - use `date` field from response)
   * **Status:** COMPLETED & ARCHIVED
   * **1. Feature Overview:**
       * Brief description of the feature and its purpose (can be extracted from `tasks.md` or `projectbrief.md`).

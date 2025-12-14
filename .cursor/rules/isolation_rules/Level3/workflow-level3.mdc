@@ -280,7 +280,7 @@ Guided by `visual-maps/archive-mode-map.mdc` and `Level3/archive-L3.mdc`.
 ```mermaid
 graph TD
     StartArchive["Begin L3 Feature<br>Archiving"] --> ConsolidateDocs["Consolidate All Feature Docs<br>(Plan, Creative, Reflection, Key Progress Notes)"]
-    ConsolidateDocs --> CreateArchiveSummary["Create Archive Summary Document<br>`archive/feature-[feature_id]_YYYYMMDD.md`"]
+    ConsolidateDocs --> CreateArchiveSummary["Create Archive Summary Document<br>`memory-bank/archive/archive-[task_id].md`"]
     CreateArchiveSummary --> LinkDocs["Link to Detailed Docs<br>within Archive Summary"]
     LinkDocs --> FinalUpdateTasks["Final Update to `tasks.md`<br>(Mark Feature COMPLETED & ARCHIVED)"]
     FinalUpdateTasks --> ResetActiveCtx["Clear `activeContext.md`<br>Prepare for Next Task"]
@@ -292,7 +292,7 @@ graph TD
 
   * **Steps:**
     1.  Consolidate all documentation related to the feature: the plan section from `tasks.md`, all `creative-*.md` files, the `reflection-*.md` file, and relevant summaries from `progress.md`.
-    2.  Create a dedicated feature archive summary document in `memory-bank/archive/feature-[feature_id]_YYYYMMDD.md`. This summary should briefly describe the feature, its purpose, key decisions, and link to the more detailed documents.
+    2.  Create a dedicated feature archive summary document in `memory-bank/archive/archive-[task_id].md`. This summary should briefly describe the feature, its purpose, key decisions, and link to the more detailed documents.
     3.  Update `memory-bank/tasks.md` to mark the entire Level 3 feature task as "COMPLETED" and "ARCHIVED," providing a link to the new archive summary.
     4.  Update `memory-bank/activeContext.md` to clear information related to the completed feature, preparing for the next task.
   * **Milestone Checkpoint:**

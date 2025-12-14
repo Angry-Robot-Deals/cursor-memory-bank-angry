@@ -9,6 +9,35 @@ alwaysApply: false
 Memory Bank MUST be created BEFORE any other operation in ANY mode
 NO process can continue without verifying Memory Bank existence
 
+🚨 CRITICAL RULE: TASK CONTEXT TRACKING IS MANDATORY 🚨
+activeContext.md MUST always identify the CURRENT task being worked on
+The /archive command archives ONLY the current task (not all completed tasks)
+See: `Core/task-context-tracking.mdc` for full details
+
+🚨 CRITICAL RULE: AUTOMATIC TASK NUMBERING IS MANDATORY 🚨
+In VAN mode, when initializing a new task, the system MUST automatically assign a unique task number if the user has not provided one
+Task number format: [PREFIX]-[4-digit-number] (e.g., DEV-0053)
+See: `Core/task-numbering-system.mdc` for full details
+
+🚨 CRITICAL RULE: MCP SERVER CONTEXT INTEGRATION IS MANDATORY 🚨
+In ALL modes (VAN, PLAN, CREATIVE, BUILD, REFLECT, ARCHIVE), agent MUST:
+1. Query sys8 MCP server FIRST:
+   - Call get_current_datetime to get current date/time
+   - Call get_os_version to get OS/platform information
+2. Query context7 MCP server SECOND (when libraries are involved):
+   - Call resolve-library-id for all libraries mentioned in task
+   - Call get-library-docs for all libraries/frameworks used
+3. Include ALL MCP query results in request context BEFORE starting any work
+NO work can proceed without MCP context integration
+
+🚨 CRITICAL RULE: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+When updating ANY timestamp fields in Memory Bank documents (Last Updated, Date Completed, Date Archived, etc.):
+- MUST call sys8 MCP get_current_datetime BEFORE writing timestamp
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), hardcoded dates, or any other method
+- This applies to ALL modes: VAN, PLAN, CREATIVE, BUILD, REFLECT, ARCHIVE
+- This applies to ALL complexity levels (Level 1, 2, 3, 4)
+
 > **TL;DR:** This system uses optimized context management and adaptive rule loading to maximize token efficiency while preserving the structured development approach.
 
 ## 🧭 OPTIMIZED MODE ARCHITECTURE
@@ -70,6 +99,53 @@ graph TD
     style L3 fill:#4da6ff,stroke:#0066cc,color:white
     style L4 fill:#ff5555,stroke:#cc0000,color:white
 ```
+
+## 🔌 MCP SERVER CONTEXT INTEGRATION (MANDATORY)
+
+**For ALL modes (VAN, PLAN, CREATIVE, BUILD, REFLECT, ARCHIVE):**
+
+Before starting any work in ANY mode, the agent MUST:
+
+1. **Query sys8 MCP Server FIRST:**
+   - `get_current_datetime` - Get current date/time for timelines, timestamps, scheduling, and ALL date/time fields in Memory Bank documents
+   - `get_os_version` - Get OS/platform information for platform-specific decisions and commands
+
+2. **Query context7 MCP Server SECOND (when libraries are involved):**
+   - `resolve-library-id` - Resolve library/package names to Context7-compatible library IDs
+   - `get-library-docs` - Get up-to-date documentation for libraries/frameworks used
+
+3. **Include MCP Results in Context:**
+   - All sys8 query results (date/time, OS info) MUST be included in request context
+   - All context7 query results (library IDs, documentation) MUST be included in request context
+   - MCP results should inform all planning, design, implementation, reflection, and archiving decisions
+
+**This is a MANDATORY requirement - no exceptions.**
+
+## 📅 DATE/TIME STAMP REQUIREMENTS (MANDATORY)
+
+**When updating ANY timestamp fields in Memory Bank documents:**
+
+The agent MUST use sys8 MCP `get_current_datetime` for ALL date/time operations:
+
+- **Last Updated** fields in any Memory Bank document
+- **Date Completed** fields in archive documents
+- **Date Archived** fields in archive documents
+- **Date** fields in reflection documents
+- **Timestamp** fields in progress.md
+- **Any other date/time fields** in Memory Bank documents
+
+**DO NOT:**
+- Use JavaScript `new Date()` or `Date.now()`
+- Hardcode dates or timestamps
+- Use Node.js Date methods directly
+- Use any other method to get current date/time
+
+**DO:**
+- Call sys8 MCP `get_current_datetime` BEFORE writing any timestamp
+- Use the returned datetime value (e.g., `datetime`, `utc`, `human_readable_utc3`)
+- Format timestamps consistently using sys8 MCP response formats
+
+**This applies to ALL modes and ALL complexity levels.**
 
 ## 🧠 HIERARCHICAL RULE LOADING
 

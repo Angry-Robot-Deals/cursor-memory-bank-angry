@@ -7,6 +7,24 @@ alwaysApply: false
 
 > **TL;DR:** This guide focuses on the systematic implementation of a planned and designed Level 3 feature. It emphasizes modular development, strict adherence to creative decisions and the style guide, integration with existing systems, and thorough feature-specific testing.
 
+## 🔌 MANDATORY MCP SERVER CONTEXT INTEGRATION
+
+**CRITICAL REQUIREMENT:** Before any Level 3 implementation work begins, the agent MUST query MCP servers and include their results in the request context.
+
+### MCP Server Queries Required:
+1. **sys8 MCP:**
+   - `get_current_datetime` - For build timestamps and progress tracking
+   - `get_os_version` - For platform-specific command execution and path handling
+
+2. **context7 MCP:**
+   - `resolve-library-id` - Resolve all library names to Context7 library IDs
+   - `get-library-docs` - Get up-to-date API documentation for all libraries/frameworks used
+
+### MCP Context Integration:
+- All MCP query results MUST be included in the request context
+- System information from sys8 should inform command execution and file paths
+- Library documentation from context7 should guide accurate API usage and implementation
+
 ## 🛠️ Level 3 Feature Implementation Workflow
 
 This workflow outlines the typical steps for building an intermediate feature.
@@ -14,6 +32,14 @@ This workflow outlines the typical steps for building an intermediate feature.
 ```mermaid
 graph TD
     StartImpl["Start L3 Implementation"] -->
+    MCPGate["⛔ MCP SERVERS<br>CONTEXT GATE"]
+    
+    %% MCP Server Queries
+    MCPGate --> QuerySys8["Query sys8 MCP<br>get_current_datetime<br>get_os_version"]
+    QuerySys8 --> QueryContext7["Query context7 MCP<br>resolve-library-id<br>get-library-docs"]
+    QueryContext7 --> IncludeContext["Include MCP Results<br>in Request Context"]
+    
+    IncludeContext -->
     ReviewDocs["1. Review All Relevant Docs<br>(Tasks, Creative Docs, Style Guide)"] -->
     SetupEnv["2. Setup/Verify Dev Environment<br>(Branch, Tools, Dependencies)"] -->
     ModuleBreakdown["3. Break Down Feature into Modules/Major Components<br>(Based on plan in `tasks.md`)"] -->

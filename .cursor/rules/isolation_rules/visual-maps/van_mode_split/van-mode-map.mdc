@@ -8,13 +8,46 @@ alwaysApply: false
 🚨 MANDATORY FIRST STEP: MEMORY BANK CREATION 🚨
 NO OPERATION CAN PROCEED WITHOUT MEMORY BANK STRUCTURE
 
+🚨 MANDATORY: DATE/TIME STAMPS MUST USE sys8 MCP 🚨
+When generating TIMESTAMP fields in VAN mode reports or documents:
+- MUST call sys8 MCP get_current_datetime FIRST
+- MUST use the datetime value returned by sys8 MCP
+- MUST NOT use JavaScript Date(), PowerShell Get-Date, hardcoded dates, or any other method
+- Use sys8 MCP response format (e.g., `datetime`, `human_readable_utc3`)
+
+🚨 MANDATORY: AUTOMATIC TASK NUMBERING 🚨
+When initializing a new task in VAN mode:
+- MUST check if user provided task ID in prompt
+- If NO task ID provided: MUST automatically assign unique task number
+- Task number format: [PREFIX]-[4-digit-number] (e.g., DEV-0053)
+- MUST determine prefix from task content (DEV, FIN, MARKET, CREATIVE, DESIGN, QA, RESEARCH, etc.)
+- MUST scan existing tasks and archives to find next available number
+- See: `Core/task-numbering-system.mdc` for full details
+
 > **TL;DR:** This visual map defines the VAN mode process for project initialization, task analysis, and technical validation. It guides users through platform detection, file verification, complexity determination, and technical validation to ensure proper setup before implementation.
 
 ## 🧭 VAN MODE PROCESS FLOW
 
 ```mermaid
 graph TD
-    Start["START VAN MODE"] --> PlatformDetect["PLATFORM DETECTION"]
+    Start["START VAN MODE"] --> ParsePrompt["PARSE USER PROMPT<br>Check for Task ID"]
+    ParsePrompt --> TaskIDCheck{"Task ID<br>in Prompt?"}
+    
+    TaskIDCheck -->|"Yes"| ValidateTaskID["VALIDATE TASK ID<br>Format Check"]
+    TaskIDCheck -->|"No"| DeterminePrefix["DETERMINE PREFIX<br>From Task Content"]
+    
+    ValidateTaskID --> ValidFormat{"Valid<br>Format?"}
+    ValidFormat -->|"Yes"| UseProvidedID["USE PROVIDED ID"]
+    ValidFormat -->|"No"| DeterminePrefix
+    
+    DeterminePrefix --> ScanTasks["SCAN EXISTING TASKS<br>tasks.md + archive/"]
+    ScanTasks --> GenerateNumber["GENERATE NEXT NUMBER<br>[PREFIX]-[4-digit]"]
+    GenerateNumber --> AssignTaskID["ASSIGN TASK ID"]
+    
+    UseProvidedID --> TaskIDCP["⛔ TASK ID CHECKPOINT"]
+    AssignTaskID --> TaskIDCP
+    
+    TaskIDCP --> PlatformDetect["PLATFORM DETECTION"]
     PlatformDetect --> DetectOS["Detect Operating System"]
     DetectOS --> CheckPath["Check Path Separator Format"]
     CheckPath --> AdaptCmds["Adapt Commands if Needed"]
@@ -56,6 +89,14 @@ graph TD
     FixIssues --> QAProcess
     
     %% Style nodes
+    style ParsePrompt fill:#d94dbb,stroke:#a3378a,color:white
+    style TaskIDCheck fill:#f6546a,stroke:#c30052,color:white
+    style ValidateTaskID fill:#4da6ff,stroke:#0066cc,color:white
+    style DeterminePrefix fill:#4da6ff,stroke:#0066cc,color:white
+    style ScanTasks fill:#4da6ff,stroke:#0066cc,color:white
+    style GenerateNumber fill:#10b981,stroke:#059669,color:white
+    style AssignTaskID fill:#10b981,stroke:#059669,color:white
+    style TaskIDCP fill:#f6546a,stroke:#c30052,color:white,stroke-width:3px
     style PlatformCP fill:#f55,stroke:#d44,color:white
     style MemoryBankCP fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
     style MemoryBankCheck fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
@@ -899,6 +940,144 @@ Here are common fixes for issues encountered during QA validation:
 - **Build fails**: Check console for specific error messages
 - **Test fails**: Verify minimal configuration is correct
 - **Path issues**: Ensure paths use correct separators for the platform
+
+## 🔢 AUTOMATIC TASK NUMBERING PROCESS
+
+When initializing a new task in VAN mode, the system MUST automatically assign a unique task number if the user has not provided one.
+
+### Task Numbering Flow
+
+```mermaid
+graph TD
+    Start["Parse User Prompt"] --> CheckID{"Task ID<br>Provided?"}
+    
+    CheckID -->|"Yes"| ValidateID["Validate Format<br>[PREFIX]-[4-digit]"]
+    CheckID -->|"No"| AnalyzeContent["Analyze Task Content"]
+    
+    ValidateID --> Valid{"Valid<br>Format?"}
+    Valid -->|"Yes"| UseID["Use Provided ID"]
+    Valid -->|"No"| AnalyzeContent
+    
+    AnalyzeContent --> DetectPrefix["Detect Prefix<br>DEV/FIN/MARKET/etc."]
+    DetectPrefix --> ScanFiles["Scan tasks.md<br>and archive/"]
+    ScanFiles --> ExtractNumbers["Extract All Numbers<br>for Prefix"]
+    ExtractNumbers --> FindMax["Find Maximum<br>Number"]
+    FindMax --> GenerateNext["Generate Next<br>[PREFIX]-[NUMBER]"]
+    GenerateNext --> AssignID["Assign Task ID"]
+    
+    UseID --> UpdateMB["Update Memory Bank"]
+    AssignID --> UpdateMB
+    
+    UpdateMB --> Continue["Continue VAN Process"]
+    
+    style Start fill:#4da6ff,stroke:#0066cc,color:white
+    style DetectPrefix fill:#d94dbb,stroke:#a3378a,color:white
+    style GenerateNext fill:#10b981,stroke:#059669,color:white
+    style AssignID fill:#10b981,stroke:#059669,color:white
+    style UpdateMB fill:#ffa64d,stroke:#cc7a30,color:white
+```
+
+### Prefix Detection
+
+The system determines task prefix from:
+1. **User-provided prefix** (if explicitly mentioned)
+2. **Task content keywords:**
+   - DEV: code, implement, feature, bug, technical, API, backend, frontend
+   - FIN: payment, billing, invoice, transaction, financial, money
+   - MARKET: campaign, marketing, promotion, SEO, analytics
+   - CREATIVE: design, creative, content, copywriting, branding
+   - DESIGN: UI, UX, interface, layout, mockup, wireframe
+   - QA: test, testing, QA, quality, validation, bug
+   - RESEARCH: research, analysis, investigation, study, metrics
+3. **Default**: DEV (if no clear match)
+
+### Number Generation Algorithm
+
+1. **Scan existing tasks** in `memory-bank/tasks.md`
+2. **Scan archived tasks** in `memory-bank/archive/archive-*.md`
+3. **Extract all task IDs** matching pattern `[PREFIX]-[NUMBER]`
+4. **Find maximum number** for the prefix
+5. **Generate next number**: `(max + 1).toString().padStart(4, '0')`
+6. **Assign task ID**: `[PREFIX]-[NEXT_NUMBER]`
+
+### Example
+
+**Existing tasks:**
+- `DEV-0001`
+- `DEV-0005`
+- `DEV-0053`
+- `DEV-0123`
+
+**New task assigned:** `DEV-0124`
+
+### Task ID Format
+
+- **Format**: `[PREFIX]-[4-digit-number]`
+- **Examples**: `DEV-0053`, `FIN-0001`, `MARKET-0042`, `QA-0008`
+- **Validation**: Prefix uppercase, number exactly 4 digits with leading zeros
+
+### Implementation Steps
+
+When initializing a new task:
+
+1. **Parse user prompt** for task ID patterns:
+   - `[PREFIX]-[NUMBER]`
+   - `TASK-ID: [ID]`
+   - `Task ID: [ID]`
+
+2. **If task ID found:**
+   - Validate format: `[PREFIX]-[4-digit-number]`
+   - If valid → use provided ID
+   - If invalid → proceed to auto-generation
+
+3. **If task ID NOT found:**
+   - Analyze task content for prefix keywords
+   - Scan `tasks.md` and `archive/` for existing tasks
+   - Extract all numbers for detected prefix
+   - Generate next sequential number
+   - Assign task ID
+
+4. **Update Memory Bank:**
+   - Add task to `tasks.md` with assigned ID
+   - Update `activeContext.md` with current task ID
+   - Set status to "in_progress"
+
+### Error Handling
+
+**Duplicate ID:**
+```
+⚠️ WARNING: Task ID [PREFIX]-[NUMBER] already exists
+Generating next available number...
+→ Assigned: [PREFIX]-[NEXT_NUMBER]
+```
+
+**Invalid Format:**
+```
+⚠️ Invalid task ID format: [PROVIDED_ID]
+Expected format: [PREFIX]-[4-digit-number] (e.g., DEV-0053)
+Auto-generating task ID...
+→ Assigned: [GENERATED_ID]
+```
+
+**Prefix Not Found:**
+```
+ℹ️ Could not determine task prefix from content
+Using default prefix: DEV
+→ Assigned: DEV-[NUMBER]
+```
+
+### Checkpoint
+
+```
+✓ SECTION CHECKPOINT: TASK NUMBERING
+- User prompt parsed for task ID? [YES/NO]
+- Task ID validated or generated? [YES/NO]
+- Task ID format correct? [YES/NO]
+- Memory Bank updated with task ID? [YES/NO]
+
+→ If all YES: Continue with VAN process
+→ If any NO: Fix task ID assignment before proceeding
+```
 
 ## 🔒 FINAL QA VALIDATION CHECKPOINT
 

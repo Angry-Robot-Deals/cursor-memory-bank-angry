@@ -2,6 +2,8 @@
 
 This directory contains Cursor 2.0 commands that replace the deprecated custom modes feature. Each command implements a specific phase of the Memory Bank workflow with progressive rule loading to optimize context usage.
 
+**Version 1.0**: Commands now integrate with MCP servers (context7 and sys8) for enhanced accuracy and security. See [MCP Server Setup](#mcp-server-setup) below.
+
 ## Available Commands
 
 ### `/van` - Initialization & Entry Point
@@ -149,4 +151,92 @@ These commands replace the previous custom modes:
 - **ARCHIVE Mode** → `/archive` command
 
 The functionality remains the same, but now uses Cursor 2.0's commands feature instead of custom modes.
+
+## MCP Server Setup
+
+### Required MCP Servers
+
+Memory Bank v1.0 integrates with two MCP servers for optimal functionality:
+
+#### context7 MCP Server
+**Purpose**: Library documentation and code examples
+
+**Required For**:
+- All library/framework/package-related tasks
+- API documentation needs
+- Code example requirements
+- Version-specific documentation
+
+**Tools Provided**:
+- `resolve-library-id`: Resolves library names to Context7-compatible IDs
+- `get-library-docs`: Retrieves up-to-date library documentation
+
+**Where to Find**:
+- Search GitHub for "context7 MCP server"
+- Check official MCP server registry
+- Check Cursor community resources
+
+#### sys8 MCP Server
+**Purpose**: System operations
+
+**Required For**:
+- Date and time operations
+- Operating system information
+- Mathematical calculations
+- Random string generation
+- String hashing operations
+
+**Tools Provided**:
+- `get_current_datetime`: Secure date/time operations
+- `get_os_version`: Cross-platform OS information
+- `calculate_math_expression`: Safe mathematical evaluation
+- `random_string`: Cryptographically secure random strings
+- `hash_string`: Secure string hashing
+
+**Where to Find**:
+- Search GitHub for "sys8 MCP server"
+- Check official MCP server registry
+- Check Cursor community resources
+
+### Configuration
+
+MCP servers are configured in Cursor's MCP settings. Configuration can be:
+- Project-specific: `.cursor/mcp.json`
+- Global: Cursor settings
+
+#### Example Configuration
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"]
+    },
+    "sys8": {
+      "command": "npx",
+      "args": ["-y", "@sys8/mcp-server"]
+    }
+  }
+}
+```
+
+**Note**: Actual installation commands may vary. Check the specific MCP server documentation for exact setup instructions.
+
+### Benefits
+
+- **Accuracy**: Up-to-date documentation and secure operations
+- **Security**: Cryptographically secure random strings and hashing
+- **Consistency**: Unified interface for system operations
+- **Error Prevention**: Built-in validation prevents common mistakes
+- **Version Support**: Exact library version documentation
+
+### Troubleshooting
+
+If MCP servers are not available:
+- Memory Bank will continue to work but with reduced functionality
+- Library documentation may be outdated
+- System operations may use less secure methods
+- Check MCP server configuration in Cursor settings
+- Verify MCP servers are installed and accessible
 

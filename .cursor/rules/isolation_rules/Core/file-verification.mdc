@@ -35,7 +35,7 @@ graph TD
 #### Windows (PowerShell)
 ```powershell
 # Create all directories in one command
-mkdir memory-bank, docs, docs\archive -ErrorAction SilentlyContinue
+mkdir memory-bank, docs, memory-bank\archive -ErrorAction SilentlyContinue
 
 # Create all required files
 $files = @(".cursorrules", "tasks.md", 
@@ -56,7 +56,7 @@ foreach ($file in $files) {
 #### Mac/Linux (Bash)
 ```bash
 # Create all directories in one command
-mkdir -p memory-bank docs/archive
+mkdir -p memory-bank memory-bank/archive
 
 # Create all required files
 touch .cursorrules tasks.md \
@@ -74,7 +74,7 @@ Instead of checking each component separately, perform batch verification:
 
 ```powershell
 # Windows - PowerShell
-$requiredDirs = @("memory-bank", "docs", "docs\archive")
+$requiredDirs = @("memory-bank", "docs", "memory-bank\archive")
 $requiredFiles = @(".cursorrules", "tasks.md")
 $mbFiles = @("projectbrief.md", "productContext.md", "systemPatterns.md", 
              "techContext.md", "activeContext.md", "progress.md")
@@ -149,12 +149,12 @@ foreach ($file in $templates.Keys) {
 1. **Batch Operations**: Always use batch operations instead of individual commands
    ```
    # GOOD: Create all directories at once
-   mkdir memory-bank docs docs\archive
+   mkdir memory-bank memory-bank\archive
    
    # BAD: Create directories one at a time
    mkdir memory-bank
    mkdir docs
-   mkdir docs\archive
+   mkdir memory-bank\archive
    ```
 
 2. **Pre-Check Optimization**: Check all requirements first, then create only what's missing
@@ -168,7 +168,7 @@ foreach ($file in $templates.Keys) {
 
 3. **Error Handling**: Include error handling in all commands
    ```
-   mkdir memory-bank, docs, docs\archive -ErrorAction SilentlyContinue
+   mkdir memory-bank, docs, memory-bank\archive -ErrorAction SilentlyContinue
    ```
 
 4. **Platform Adaptation**: Auto-detect platform and use appropriate commands
@@ -182,7 +182,7 @@ foreach ($file in $templates.Keys) {
 
 5. **One-Pass Verification**: Verify directory structure in a single pass
    ```
-   $requiredPaths = @("memory-bank", "docs", "docs\archive", ".cursorrules", "tasks.md")
+   $requiredPaths = @("memory-bank", "docs", "memory-bank\archive", ".cursorrules", "tasks.md")
    $missingPaths = $requiredPaths | Where-Object { -not (Test-Path $_) }
    ```
 
