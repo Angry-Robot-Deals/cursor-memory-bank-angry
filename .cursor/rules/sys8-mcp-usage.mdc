@@ -163,34 +163,9 @@ If sys8 MCP tool call fails:
 
 Before starting work, verify sys8 MCP is configured:
 
-- Check `.cursor/mcp.json` or global MCP configuration
+- Check `$HOME/.cursor/mcp.json` or global MCP configuration
 - Ensure sys8 server path is correct
 - Verify sys8 server is accessible
-
-## Where to Get sys8 MCP Server
-
-The sys8 MCP server can be found in several places:
-
-1. **GitHub**: Search for "sys8 MCP server" on GitHub
-   - Look for repositories with "sys8" and "MCP" in the name
-   - Check for official or community-maintained versions
-
-2. **Official MCP Registry**: Check the official MCP server registry
-   - Look for servers related to system operations
-   - Verify compatibility with your Cursor version
-
-3. **Community Resources**:
-   - Cursor community forums
-   - Cursor Discord server
-   - MCP-related GitHub discussions
-
-4. **Installation**: Typically installed via npm/npx:
-   ```bash
-   npx -y @sys8/mcp-server
-   ```
-   (Actual command may vary - check the specific server documentation)
-
-**Note**: The exact installation method and repository location may vary. Always check the specific MCP server documentation for the most up-to-date installation instructions.
 
 ---
 

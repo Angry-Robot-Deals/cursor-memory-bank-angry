@@ -6,6 +6,46 @@ alwaysApply: false
 
 # COMMAND EXECUTION SYSTEM
 
+## 🚨 CRITICAL GIT PUSH RULE 🚨
+
+**NEVER execute `git push` unless explicitly requested by the user in the prompt.**
+
+### Rules:
+1. ✅ **DO**: Execute `git commit` when appropriate
+2. ✅ **DO**: Execute `git add` to stage files
+3. ✅ **DO**: Execute `git status`, `git diff`, `git log` for information
+4. ❌ **DON'T**: Execute `git push` without explicit user request
+5. ❌ **DON'T**: Use `&&` or `;` to chain `git commit` with `git push` automatically
+
+### Examples:
+
+**✅ CORRECT:**
+```
+User: "commit the changes"
+→ Execute: git commit -m "..."
+→ Stop here, don't push
+
+User: "commit and push"
+→ Execute: git commit -m "..." && git push
+→ OK, user explicitly requested push
+```
+
+**❌ INCORRECT:**
+```
+User: "commit the changes"
+→ Execute: git commit -m "..." && git push
+→ WRONG! User didn't ask for push
+```
+
+### Why This Rule Exists:
+- User may want to review commits before pushing
+- User may want to amend commits
+- User may want to squash commits
+- Prevents accidental pushes to remote
+- Gives user full control over when code goes to remote repository
+
+---
+
 > **TL;DR:** This system provides guidelines for efficient command execution, balancing clarity and token optimization through appropriate command chaining, with proper documentation of commands and results.
 
 ## 🔍 COMMAND EFFICIENCY WORKFLOW

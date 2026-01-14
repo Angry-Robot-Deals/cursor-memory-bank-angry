@@ -39,8 +39,9 @@ Memory Bank is a structured development workflow system that uses Cursor 2.0 com
 
 ### How It Works
 
-Version 0.9 builds upon v0.8 with integrated AI Quality Rules and enhanced workflow. Memory Bank operates through **six specialized commands** that work together as an integrated workflow:
+Version 1.0 builds upon v0.9 with mandatory MCP server integration and PRD generation. Memory Bank operates through **seven specialized commands** that work together as an integrated workflow:
 
+0. **`/prd`** - Generates Product Requirements Documents from brief task descriptions (optional, pre-workflow)
 1. **`/van`** - Initializes projects, detects platform, determines task complexity
 2. **`/plan`** - Creates detailed implementation plans based on complexity level
 3. **`/creative`** - Explores design options for components requiring design decisions
@@ -175,6 +176,7 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
 **Commands are ready to use immediately!** No additional setup required.
 
 1. **Type `/` in the Cursor chat** to see available commands:
+   - `/prd` - PRD generation (optional)
    - `/van` - Initialization & entry point
    - `/plan` - Task planning
    - `/creative` - Design decisions
@@ -182,12 +184,21 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
    - `/reflect` - Task reflection
    - `/archive` - Task archiving
 
-2. **Start with `/van`** to initialize your project:
+2. **Optional: Start with `/prd`** to generate detailed requirements (recommended for complex tasks):
+   ```
+   /prd DEV-817: Add notification system for account expiry warnings
+   ```
+
+3. **Initialize with `/van`**:
    ```
    /van Initialize project for adding user authentication feature
    ```
+   Or reference a PRD:
+   ```
+   /van Use PRD: memory-bank/prd/PRD-DEV-817-notification-system.md
+   ```
 
-3. **Follow the workflow** - each command will guide you to the next step
+4. **Follow the workflow** - each command will guide you to the next step
 
 See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed command documentation.
 
@@ -222,6 +233,26 @@ See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed comm
    ```
 
 ### Command Reference
+
+#### `/prd` - Product Requirements Document Generator (OPTIONAL)
+**Purpose:** Transform brief task descriptions into structured PRD documents BEFORE starting implementation.
+
+**Usage:**
+```
+/prd DEV-817: Add notification system for account expiry warnings
+```
+
+**What it does:**
+- Analyzes brief task description
+- Scans codebase to identify affected modules
+- Creates structured PRD with problem statement, scope, technical considerations
+- Estimates complexity level
+- Identifies risks and mitigation strategies
+- Saves to `memory-bank/prd/PRD-{TASK_NUMBER}-{description}.md`
+
+**Next steps:**
+- Review generated PRD document
+- Use `/van` with PRD reference to initialize task
 
 #### `/van` - Initialization & Entry Point
 **Purpose:** Initialize Memory Bank, detect platform, determine task complexity, route to workflows.
@@ -346,6 +377,7 @@ See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed comm
 
 Here's a complete example workflow for a Level 3 feature:
 
+**Option 1: Direct Start (clear requirements)**
 ```bash
 # Step 1: Initialize
 /van Add user authentication with OAuth2 support
@@ -354,6 +386,30 @@ Here's a complete example workflow for a Level 3 feature:
 /plan
 
 # Step 3: Explore design options for OAuth integration
+/creative
+
+# Step 4: Implement the feature
+/do
+
+# Step 5: Reflect on the implementation
+/reflect
+
+# Step 6: Archive the completed task
+/archive
+```
+
+**Option 2: With PRD (recommended for complex features)**
+```bash
+# Step 0: Generate PRD first
+/prd DEV-820: Implement user role-based access control for the dashboard
+
+# Step 1: Review PRD, then initialize with PRD reference
+/van Use PRD: memory-bank/prd/PRD-DEV-820-role-based-access.md
+
+# Step 2: Plan (VAN routes to PLAN for Level 3)
+/plan
+
+# Step 3: Explore design options
 /creative
 
 # Step 4: Implement the feature
@@ -400,9 +456,11 @@ graph LR
 - **`productContext.md`**: Product-specific context and requirements
 - **`systemPatterns.md`**: System patterns and architectural decisions
 - **`techContext.md`**: Technical context and technology stack
+- **`prd/`**: Product Requirements Documents (PRD-XXX-*.md)
 
 ### Generated Files
 
+- **`prd/PRD-[task_id]-[description].md`**: Product Requirements Documents (optional, pre-workflow)
 - **`creative/creative-[feature_name].md`**: Design decision documents (Level 3-4)
 - **`reflection/reflection-[task_id].md`**: Reflection documents
 - **`archive/archive-[task_id].md`**: Archive documents for completed tasks

@@ -63,7 +63,7 @@ alwaysApply: true
 **Before implementing any library-related code:**
 
 1. **Check**: Does this task involve external libraries, frameworks, or packages?
-2. **If YES**: 
+2. **If YES**:
    - First call `resolve-library-id` with the library name
    - Then call `get-library-docs` with the resolved library ID
    - Use the fetched documentation to write accurate code
@@ -182,34 +182,9 @@ If context7 MCP tool call fails:
 
 Before starting work, verify context7 MCP is configured:
 
-- Check `.cursor/mcp.json` or global MCP configuration
+- Check `$HOME/.cursor/mcp.json` or global MCP configuration
 - Ensure context7 server is accessible
 - Verify context7 server has access to library documentation sources
-
-## Where to Get context7 MCP Server
-
-The context7 MCP server can be found in several places:
-
-1. **GitHub**: Search for "context7 MCP server" on GitHub
-   - Look for repositories with "context7" and "MCP" in the name
-   - Check for official or community-maintained versions
-
-2. **Official MCP Registry**: Check the official MCP server registry
-   - Look for servers related to library documentation
-   - Verify compatibility with your Cursor version
-
-3. **Community Resources**:
-   - Cursor community forums
-   - Cursor Discord server
-   - MCP-related GitHub discussions
-
-4. **Installation**: Typically installed via npm/npx:
-   ```bash
-   npx -y @context7/mcp-server
-   ```
-   (Actual command may vary - check the specific server documentation)
-
-**Note**: The exact installation method and repository location may vary. Always check the specific MCP server documentation for the most up-to-date installation instructions.
 
 ## Library ID Format
 

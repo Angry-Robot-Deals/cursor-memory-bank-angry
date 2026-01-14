@@ -1,6 +1,6 @@
 ---
 description: Quick documentation approach for Level 1 Quick Bug Fix tasks
-globs: "**/level1/**", "**/documentation/**"
+globs: "**/level1/**", "**/memory-bank/**"
 alwaysApply: false
 ---
 

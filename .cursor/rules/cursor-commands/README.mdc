@@ -45,7 +45,7 @@ graph LR
     QA --> BUILD["/build<br>Implementation"]
     BUILD --> REFLECT["/reflect<br>Review"]
     REFLECT --> ARCHIVE["/archive<br>Document"]
-    
+
     style VAN fill:#4da6ff,stroke:#0066cc,color:white
     style PLAN fill:#ffa64d,stroke:#cc7a30,color:white
     style CREATIVE fill:#d971ff,stroke:#a33bc2,color:white
@@ -73,7 +73,7 @@ graph LR
 3. Task analysis and complexity determination
 4. Route to Level 1 workflow or PLAN mode
 
-**See:** `.cursor/rules/isolation_rules/visual-maps/van_mode_split/van-mode-map.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/visual-maps/van_mode_split/van-mode-map.mdc`
 
 ---
 
@@ -93,7 +93,7 @@ graph LR
 4. Challenge documentation
 5. Technology validation
 
-**See:** `.cursor/rules/isolation_rules/visual-maps/plan-mode-map.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/visual-maps/plan-mode-map.mdc`
 
 ---
 
@@ -113,7 +113,7 @@ graph LR
 4. Select best approach
 5. Document implementation guidelines
 
-**See:** `.cursor/rules/isolation_rules/visual-maps/creative-mode-map.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/visual-maps/creative-mode-map.mdc`
 
 ---
 
@@ -133,7 +133,7 @@ graph LR
 4. Update progress tracking
 5. Run validation checks
 
-**See:** `.cursor/rules/isolation_rules/visual-maps/build-mode-map.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/visual-maps/build-mode-map.mdc`
 
 ---
 
@@ -153,7 +153,7 @@ graph LR
 4. Suggest process improvements
 5. Create reflection document
 
-**See:** `.cursor/rules/isolation_rules/visual-maps/reflect-mode-map.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/visual-maps/reflect-mode-map.mdc`
 
 ---
 
@@ -178,10 +178,10 @@ graph LR
 
 **Important:** This command archives ONLY the current task in the chat context, not all completed tasks.
 
-**See:** 
-- `.cursor/rules/cursor-commands/archive-command.mdc`
-- `.cursor/rules/isolation_rules/Core/task-context-tracking.mdc`
-- `.cursor/rules/isolation_rules/visual-maps/archive-mode-map.mdc`
+**See:**
+- `$HOME/.cursor/rules/cursor-commands/archive-command.mdc`
+- `$HOME/.cursor/rules/isolation_rules/Core/task-context-tracking.mdc`
+- `$HOME/.cursor/rules/isolation_rules/visual-maps/archive-mode-map.mdc`
 
 ---
 
@@ -202,7 +202,7 @@ graph LR
 4. Minimal build test
 5. Generate QA report
 
-**See:** `.cursor/rules/isolation_rules/visual-maps/van_mode_split/van-qa-main.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/visual-maps/van_mode_split/van-qa-main.mdc`
 
 ---
 
@@ -218,7 +218,7 @@ The Memory Bank system now tracks which task is active in the current chat conte
 - Use `/archive TASK-ID` to archive a specific task
 - Use `/archive --list` to see all archivable tasks
 
-**See:** `.cursor/rules/isolation_rules/Core/task-context-tracking.mdc`
+**See:** `$HOME/.cursor/rules/isolation_rules/Core/task-context-tracking.mdc`
 
 ### sys8 MCP Integration
 
@@ -226,7 +226,7 @@ All date/time operations MUST use sys8 MCP server:
 - `get_current_datetime` for timestamps
 - `get_os_version` for platform detection
 
-**See:** `.cursor/rules/sys8-mcp-usage.mdc`
+**See:** `$HOME/.cursor/rules/sys8-mcp-usage.mdc`
 
 ### context7 MCP Integration
 
@@ -234,7 +234,7 @@ All library documentation MUST use context7 MCP server:
 - `resolve-library-id` for library identification
 - `get-library-docs` for up-to-date documentation
 
-**See:** `.cursor/rules/context7-mcp-usage.mdc`
+**See:** `$HOME/.cursor/rules/context7-mcp-usage.mdc`
 
 ---
 

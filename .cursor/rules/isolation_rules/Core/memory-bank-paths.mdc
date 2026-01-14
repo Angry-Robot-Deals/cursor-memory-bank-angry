@@ -16,27 +16,34 @@ alwaysApply: true
 * **System Patterns File:** `memory-bank/systemPatterns.md`
 * **Tech Context File:** `memory-bank/techContext.md`
 * **Style Guide File:** `memory-bank/style-guide.md`
+* **PRD Directory:** `memory-bank/prd/` - Product Requirements Documents
+  - Format: `PRD-[TASK-ID]-[brief-description].md`
+  - Example: `memory-bank/prd/PRD-DEV-848-facebook-duplicate-blocked-account.md`
+  - Archive: `memory-bank/prd/archive/` - Completed PRDs
+* **Tasks Directory:** `memory-bank/tasks/` - Task-specific documentation (ALL operational task docs)
+  - Format: `DEV-XXX-{description}.md`
+  - Examples: `memory-bank/tasks/DEV-848-implementation-plan.md`, `memory-bank/tasks/DEV-838-QA-FINAL-REPORT.md`
 * **Creative Phase Docs:** `memory-bank/creative/creative-[task_id]-[feature_name].md`
-* **Reflection Docs:** `memory-bank/reflection/reflection-[task_id].md`
+* **Reflection Docs:** `memory-bank/reflection/reflection-[task_id].md` - ALL reflections
+* **QA Reports:** `memory-bank/qa/` - ALL QA reports
 * **Archive Directory:** `memory-bank/archive/archive-[task_id].md`
-* **Reports Directory:** `memory-bank/reports/` - QA reports, test reports, diagnostic reports, debug reports
+* **Reports Directory:** `memory-bank/reports/` - Debug reports, diagnostic reports
+* **Docs Directory:** `memory-bank/docs/` - Documentation ABOUT Memory Bank system
 
 🚨 **MANDATORY: TASK ID IN ALL REPORT FILENAMES** 🚨
 **ALL report files created in ANY Memory Bank mode MUST include the task ID in the filename.**
 
 **Documentation Storage Rules:**
-- **QA/Test/Validation Reports:** `memory-bank/reports/qa-report-[task_id]-[phase].md`, `memory-bank/reports/test-report-[task_id]-[component].md`
+- **Task-Specific Documentation:** `memory-bank/tasks/DEV-[task_id]-*.md` - ALL operational task docs
+  - Examples: `DEV-848-implementation-plan.md`, `DEV-838-QA-FINAL-REPORT.md`, `DEV-816-testing-guide.md`
+- **QA/Test/Validation Reports:** `memory-bank/qa/qa-report-[task_id]-[phase].md` or `memory-bank/reports/test-report-[task_id]-[component].md`
   - Examples: `qa-report-DEV-0053-phase3.9.md`, `test-report-DEV-0053-obsidian-plugin.md`
 - **Debug/Diagnostic Reports:** `memory-bank/reports/debug-[task_id]-[feature].md`, `memory-bank/reports/diagnostic-[task_id]-[issue].md`
   - Examples: `debug-DEV-0053-autosync.md`, `diagnostic-DEV-0053-sync-manager.md`
-- **Deployment Checklists:** `documentation/reports/deploy-check-[task_id]-[environment].md` or `documentation/deployment/`
-  - Example: `deploy-check-DEV-0053-production.md`
-- **Testing Plans:** `documentation/reports/testing-plan-[task_id]-[component].md`
-  - Example: `testing-plan-DEV-0053-obsidian-plugin.md`
-- **Integration Test Plans:** `documentation/reports/integration-test-plan-[task_id]-[feature].md`
-  - Example: `integration-test-plan-DEV-0053-sync.md`
-- **Manual Testing Checklists:** `documentation/reports/manual-testing-checklist-[task_id]-[feature].md`
-  - Example: `manual-testing-checklist-DEV-0053-sync.md`
+- **Archive Location Priority:**
+  - Priority 1: `documentation/archive/` (if `documentation/` exists)
+  - Priority 2: `doc/archive/` (if `doc/` exists and `documentation/` doesn't)
+  - Priority 3: `memory-bank/archive/` (fallback)
 
 **Task ID format:** `[PREFIX]-[4-digit-number]` (e.g., `DEV-0053`, `FIN-0001`, `QA-0008`)
 **How to get task ID:** Read `memory-bank/activeContext.md` to get current task ID
