@@ -200,7 +200,7 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
 
 4. **Follow the workflow** - each command will guide you to the next step
 
-See [`.cursor/commands/README.md`](.cursor/commands/README.md) for detailed command documentation.
+See [COMMANDS_README.md](COMMANDS_README.md) for detailed command documentation.
 
 ## Basic Usage
 
@@ -634,7 +634,7 @@ The Memory Bank system is actively being developed and improved. Key points to u
 
 ## Resources
 
-- [Commands Documentation](.cursor/commands/README.md) - Detailed command usage guide
+- [Commands Documentation](COMMANDS_README.md) - Detailed command usage guide
 - [Commands Migration Guide](COMMANDS_MIGRATION.md) - Migration from custom modes to commands
 - [Memory Bank Optimizations](MEMORY_BANK_OPTIMIZATIONS.md) - Detailed overview of token efficiency improvements
 - [Release Notes](RELEASE_NOTES.md) - Information about the latest changes
