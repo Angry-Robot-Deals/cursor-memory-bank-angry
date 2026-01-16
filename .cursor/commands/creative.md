@@ -18,19 +18,19 @@ Updates:
 
 ### Step 1: Load Core Rules
 ```
-Load: $HOME/.cursor/rules/isolation_rules/main.mdc
-Load: $HOME/.cursor/rules/isolation_rules/Core/memory-bank-paths.mdc
+Load: .cursor/rules/isolation_rules/main.mdc
+Load: .cursor/rules/isolation_rules/Core/memory-bank-paths.mdc
 ```
 
 ### Step 2: Load CREATIVE Mode Map
 ```
-Load: $HOME/.cursor/rules/isolation_rules/visual-maps/creative-mode-map.mdc
+Load: .cursor/rules/isolation_rules/visual-maps/creative-mode-map.mdc
 ```
 
 ### Step 3: Load Creative Phase Enforcement
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Core/creative-phase-enforcement.mdc
-Load: $HOME/.cursor/rules/isolation_rules/Core/creative-phase-metrics.mdc
+Load: .cursor/rules/isolation_rules/Core/creative-phase-enforcement.mdc
+Load: .cursor/rules/isolation_rules/Core/creative-phase-metrics.mdc
 ```
 
 ### Step 4: Load Specialized Creative Rules (Lazy Loaded)
@@ -38,23 +38,23 @@ Load only when specific creative phase type is needed:
 
 **For Architecture Design:**
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-architecture.mdc
+Load: .cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-architecture.mdc
 ```
 
 **For UI/UX Design:**
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-uiux.mdc
+Load: .cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-uiux.mdc
 ```
 
 **For Algorithm Design:**
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-algorithm.mdc
+Load: .cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-algorithm.mdc
 ```
 
 ### MANDATORY Load Rules:
 ```
-Load: $HOME/.cursor/rules/sys8-mcp-usage.mdc
-Load: $HOME/.cursor/rules/context7-mcp-usage.mdc
+Load: .cursor/rules/sys8-mcp-usage.mdc
+Load: .cursor/rules/context7-mcp-usage.mdc
 ```
 
 ## Workflow

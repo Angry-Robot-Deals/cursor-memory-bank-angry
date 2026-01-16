@@ -2,6 +2,9 @@
 
 ## 🚨 CRITICAL: NEVER PUSH WITHOUT EXPLICIT USER REQUEST 🚨
 
+**Version**: 2.0.0
+**Last Updated**: 2025-01-19
+
 **This is a mandatory safety rule that MUST be followed at all times.**
 
 ## Rule Statement
@@ -127,5 +130,5 @@ When documenting commits in Memory Bank (`activeContext.md`, `tasks.md`):
 ---
 
 **Last Updated:** 2025-01-19
-**Version:** 1.0.0
+**Version:** 2.0.0
 **Priority:** CRITICAL

@@ -14,13 +14,13 @@ Transform brief, informal task descriptions into structured PRD documents that i
 
 ## Global Template
 
-**Template Location:** `$HOME/.cursor/templates/prd-template.md`
+**Template Location:** `.cursor/templates/prd-template.md`
 
 This template is shared across all projects and workspaces. Use it as the base structure for generating PRD documents.
 
 ## MANDATORY Load Rules:
 ```
-Load: $HOME/.cursor/rules/sys8-mcp-usage.mdc
+Load: .cursor/rules/sys8-mcp-usage.mdc
 ```
 
 ## Memory Bank Integration
@@ -28,11 +28,11 @@ Load: $HOME/.cursor/rules/sys8-mcp-usage.mdc
 **Output Directory:** `memory-bank/prd/`
 
 **File Naming Convention:** `PRD-{TASK_NUMBER}-{brief-description}.md`
-- Example: `PRD-DEV-817-user-notifications.md`
-- Example: `PRD-DEV-818-api-rate-limiting.md`
+- Example: `PRD-DEV-001-user-notifications.md`
+- Example: `PRD-DEV-001-api-rate-limiting.md`
 
 **Reads from:**
-- `$HOME/.cursor/templates/prd-template.md` - Global PRD template
+- `.cursor/templates/prd-template.md` - Global PRD template
 - `memory-bank/projectbrief.md` - Project foundation and context
 - `memory-bank/techContext.md` - Technical stack information
 - `memory-bank/systemPatterns.md` - Existing patterns and architecture
@@ -196,7 +196,7 @@ After PRD approval, proceed to:
 Type `/prd` followed by a brief task description:
 
 ```
-/prd DEV-817: Add notification system for account expiry warnings
+/prd DEV-001: Add notification system for account expiry warnings
 ```
 
 ```
@@ -248,7 +248,7 @@ After generating the PRD:
 ```
 ✅ PRD Generated Successfully
 
-📄 Document: memory-bank/prd/PRD-DEV-817-notification-system.md
+📄 Document: memory-bank/prd/PRD-DEV-001-notification-system.md
 📊 Complexity Estimate: Level 3
 🎯 Affected Modules: 3 (aio, api, notification-service)
 ⚠️ Risks Identified: 2
@@ -264,7 +264,7 @@ Next Steps:
 The generated PRD is designed to be used with the `/van` command:
 
 ```
-/van Use PRD: memory-bank/prd/PRD-DEV-817-notification-system.md
+/van Use PRD: memory-bank/prd/PRD-DEV-001-notification-system.md
 ```
 
 The VAN command will:
@@ -284,19 +284,19 @@ The VAN command will:
 
 ### Example 1: Feature Request
 ```
-/prd DEV-820: Implement user role-based access control for the dashboard. 
+/prd DEV-001: Implement user role-based access control for the dashboard. 
 Users should see different menu items based on their role (admin, manager, viewer).
 ```
 
 ### Example 2: Bug Fix
 ```
-/prd DEV-821: Fix issue where CSV export times out for large datasets. 
+/prd DEV-001: Fix issue where CSV export times out for large datasets. 
 Currently fails for exports > 10,000 rows.
 ```
 
 ### Example 3: Infrastructure Change
 ```
-/prd DEV-822: Migrate session storage from file-based to Redis for better 
+/prd DEV-001: Migrate session storage from file-based to Redis for better 
 scalability in multi-server environment.
 ```
 
@@ -319,12 +319,12 @@ Before finalizing PRD generation:
 ### Global Template Location
 The PRD template is stored globally for use across all projects:
 ```
-$HOME/.cursor/templates/prd-template.md
+.cursor/templates/prd-template.md
 ```
 
 ### Using the Template
 When generating a PRD:
-1. Read the global template from `$HOME/.cursor/templates/prd-template.md`
+1. Read the global template from `.cursor/templates/prd-template.md`
 2. Fill in the template with task-specific information
 3. Save the completed PRD to `memory-bank/prd/` in the current project
 
@@ -332,9 +332,9 @@ When generating a PRD:
 To modify the PRD structure for all projects:
 ```bash
 # Edit the global template
-open $HOME/.cursor/templates/prd-template.md
+open .cursor/templates/prd-template.md
 # or
-vim $HOME/.cursor/templates/prd-template.md
+vim .cursor/templates/prd-template.md
 ```
 
 ---

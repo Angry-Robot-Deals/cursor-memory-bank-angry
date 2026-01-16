@@ -2,9 +2,9 @@
 
 > **Personal Note**: Memory Bank is my personal hobby project that I develop for my own use in coding projects. As this is a personal project, I don't maintain an issues tracker or actively collect feedback. However, if you're using these rules and encounter issues, one of the great advantages is that you can ask the Cursor AI directly to modify or update the rules to better suit your specific workflow. The system is designed to be adaptable by the AI, allowing you to customize it for your own needs without requiring external support.
 
-## Version 1.0 - MCP Server Integration
+## Version 2.0 - MCP Server Integration
 
-> **Released:** December 14, 2025  
+> **Released:** January 16, 2026
 > Building upon v0.9's AI Quality Rules integration, this release introduces mandatory MCP (Model Context Protocol) server integration for enhanced accuracy, security, and up-to-date documentation access.
 
 ### 🌟 Major Features
@@ -71,7 +71,7 @@
 - Code example requirements
 - Version-specific documentation
 
-**Installation**: See [MCP Server Setup Guide](#mcp-server-setup) below
+**Repository**: [https://github.com/upstash/context7](https://github.com/upstash/context7)
 
 #### sys8 MCP Server
 **Purpose**: System operations (date/time, OS info, calculations, random strings, hashing)
@@ -83,7 +83,7 @@
 - Random string generation
 - String hashing operations
 
-**Installation**: See [MCP Server Setup Guide](#mcp-server-setup) below
+**Repository**: [https://github.com/Angry-Robot-Deals/mcp-sys8](https://github.com/Angry-Robot-Deals/mcp-sys8)
 
 ### 📝 Migration Notes
 - **MCP Servers Required**: For optimal functionality, install context7 and sys8 MCP servers
@@ -129,7 +129,10 @@ MCP servers can be installed and configured in Cursor's MCP settings. Here's whe
     },
     "sys8": {
       "command": "npx",
-      "args": ["-y", "@sys8/mcp-server"]
+      "args": [
+        "tsx",
+        "$HOME/code/AI/mcp/sys8/src/index.ts"
+      ]
     }
   }
 }
@@ -500,9 +503,9 @@ Released on: December 13, 2025
 
 ---
 
-## Version 1.0 - MCP Server Integration
+## Version 2.0 - MCP Server Integration
 
-> **Released:** December 14, 2025  
+> **Released:** January 16, 2026
 > Building upon v0.9's AI Quality Rules integration, this release introduces mandatory MCP (Model Context Protocol) server integration for enhanced accuracy, security, and up-to-date documentation access.
 
 ### 🌟 Major Features
@@ -569,7 +572,7 @@ Released on: December 13, 2025
 - Code example requirements
 - Version-specific documentation
 
-**Installation**: See [MCP Server Setup Guide](#mcp-server-setup) below
+**Repository**: [https://github.com/upstash/context7](https://github.com/upstash/context7)
 
 #### sys8 MCP Server
 **Purpose**: System operations (date/time, OS info, calculations, random strings, hashing)
@@ -581,7 +584,7 @@ Released on: December 13, 2025
 - Random string generation
 - String hashing operations
 
-**Installation**: See [MCP Server Setup Guide](#mcp-server-setup) below
+**Repository**: [https://github.com/Angry-Robot-Deals/mcp-sys8](https://github.com/Angry-Robot-Deals/mcp-sys8)
 
 ### 📝 Migration Notes
 - **MCP Servers Required**: For optimal functionality, install context7 and sys8 MCP servers
@@ -627,7 +630,10 @@ MCP servers can be installed and configured in Cursor's MCP settings. Here's whe
     },
     "sys8": {
       "command": "npx",
-      "args": ["-y", "@sys8/mcp-server"]
+      "args": [
+        "tsx",
+        "$HOME/code/AI/mcp/sys8/src/index.ts"
+      ]
     }
   }
 }

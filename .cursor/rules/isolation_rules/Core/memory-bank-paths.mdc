@@ -18,11 +18,11 @@ alwaysApply: true
 * **Style Guide File:** `memory-bank/style-guide.md`
 * **PRD Directory:** `memory-bank/prd/` - Product Requirements Documents
   - Format: `PRD-[TASK-ID]-[brief-description].md`
-  - Example: `memory-bank/prd/PRD-DEV-848-facebook-duplicate-blocked-account.md`
+  - Example: `memory-bank/prd/PRD-DEV-001-facebook-duplicate-blocked-account.md`
   - Archive: `memory-bank/prd/archive/` - Completed PRDs
 * **Tasks Directory:** `memory-bank/tasks/` - Task-specific documentation (ALL operational task docs)
   - Format: `DEV-XXX-{description}.md`
-  - Examples: `memory-bank/tasks/DEV-848-implementation-plan.md`, `memory-bank/tasks/DEV-838-QA-FINAL-REPORT.md`
+  - Examples: `memory-bank/tasks/DEV-001-implementation-plan.md`, `memory-bank/tasks/DEV-001-QA-FINAL-REPORT.md`
 * **Creative Phase Docs:** `memory-bank/creative/creative-[task_id]-[feature_name].md`
 * **Reflection Docs:** `memory-bank/reflection/reflection-[task_id].md` - ALL reflections
 * **QA Reports:** `memory-bank/qa/` - ALL QA reports
@@ -35,7 +35,7 @@ alwaysApply: true
 
 **Documentation Storage Rules:**
 - **Task-Specific Documentation:** `memory-bank/tasks/DEV-[task_id]-*.md` - ALL operational task docs
-  - Examples: `DEV-848-implementation-plan.md`, `DEV-838-QA-FINAL-REPORT.md`, `DEV-816-testing-guide.md`
+  - Examples: `DEV-001-implementation-plan.md`, `DEV-001-QA-FINAL-REPORT.md`, `DEV-001-testing-guide.md`
 - **QA/Test/Validation Reports:** `memory-bank/qa/qa-report-[task_id]-[phase].md` or `memory-bank/reports/test-report-[task_id]-[component].md`
   - Examples: `qa-report-DEV-0053-phase3.9.md`, `test-report-DEV-0053-obsidian-plugin.md`
 - **Debug/Diagnostic Reports:** `memory-bank/reports/debug-[task_id]-[feature].md`, `memory-bank/reports/diagnostic-[task_id]-[issue].md`
@@ -55,8 +55,8 @@ alwaysApply: true
 - Service root directories (except README.md)
 - Any directory containing source code
 
-**Verification Mandate:** 
-1. Before any `create_file` or `edit_file` operation on these core files, verify the path starts with `memory-bank/`. 
+**Verification Mandate:**
+1. Before any `create_file` or `edit_file` operation on these core files, verify the path starts with `memory-bank/`.
 2. If attempting to create a new core file (e.g., `tasks.md` at the start of a project), ensure it is created at `memory-bank/tasks.md`.
 3. Before creating any MD file, check if it's a report/documentation and place it in the appropriate directory per rules above.
 4. See `memory-bank/documentation-storage-rules.md` for complete documentation storage rules.

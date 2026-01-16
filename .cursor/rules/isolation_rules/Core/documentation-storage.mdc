@@ -93,9 +93,9 @@ alwaysApply: true
      - Bug fix reports
      - Completion reports
    - Examples:
-     - `memory-bank/tasks/DEV-848-implementation-plan.md`
-     - `memory-bank/tasks/DEV-838-QA-FINAL-REPORT.md`
-     - `memory-bank/tasks/DEV-816-testing-guide.md`
+     - `memory-bank/tasks/DEV-001-implementation-plan.md`
+     - `memory-bank/tasks/DEV-001-QA-FINAL-REPORT.md`
+     - `memory-bank/tasks/DEV-001-testing-guide.md`
 
 ### Documentation (`documentation/`)
 
@@ -171,9 +171,9 @@ alwaysApply: true
 
 ### ✅ CORRECT
 ```
-memory-bank/tasks/DEV-848-implementation-plan.md
-memory-bank/tasks/DEV-838-QA-FINAL-REPORT.md
-memory-bank/tasks/DEV-816-testing-guide.md
+memory-bank/tasks/DEV-001-implementation-plan.md
+memory-bank/tasks/DEV-001-QA-FINAL-REPORT.md
+memory-bank/tasks/DEV-001-testing-guide.md
 memory-bank/qa/qa-report-DEV-0053-phase3.9.md
 memory-bank/reports/test-report-DEV-0053-obsidian-plugin.md
 memory-bank/reports/debug-DEV-0053-autosync.md
@@ -187,7 +187,7 @@ project-service/README.md  (allowed)
 
 ### ❌ INCORRECT
 ```
-documentation/tasks/DEV-848-implementation-plan.md  (WRONG - use memory-bank/tasks/)
+documentation/tasks/DEV-001-implementation-plan.md  (WRONG - use memory-bank/tasks/)
 project-service/QA_REPORT.md  (WRONG - use memory-bank/qa/)
 project-service/TESTING_PLAN.md  (WRONG - use memory-bank/tasks/)
 project-service/DEBUG_AUTOSYNC.md  (WRONG - use memory-bank/reports/)

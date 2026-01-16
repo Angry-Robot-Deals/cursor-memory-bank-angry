@@ -48,7 +48,7 @@ NEVER execute `git push` unless explicitly requested by the user in the prompt
 - ✅ ALLOWED: `git commit` (always OK to commit locally)
 - ✅ ALLOWED: `git add`, `git status`, `git diff`, `git log` (informational commands)
 - ❌ FORBIDDEN: `git push` (only if user explicitly says: "push", "commit and push", "deploy")
-- See: `$HOME/.cursor/rules/git-push-restriction.mdc` for full details
+- See: `.cursor/rules/git-push-restriction.mdc` for full details
 - See: `memory-bank/git-workflow-rules.md` for workflow documentation
 
 > **TL;DR:** This system uses optimized context management and adaptive rule loading to maximize token efficiency while preserving the structured development approach.

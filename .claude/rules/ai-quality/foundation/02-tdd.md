@@ -1,0 +1,301 @@
+
+# RULE #2: TEST-DRIVEN DEVELOPMENT (TDD)
+
+> **Goal:** Use tests as hallucination filters. Tests automatically reject non-working AI-generated code.
+
+## 🎯 CORE PRINCIPLE
+
+**Write tests BEFORE implementation, not after.**
+
+Tests define "what success looks like" in executable form. AI writes code that must pass these tests.
+
+
+## 📋 RULE SPECIFICATION
+
+```yaml
+TDD_RULE:
+  sequence: "tests → implementation → verification"
+  test_coverage_minimum: 80%
+  include_cases:
+    - happy_path: "Basic successful scenario"
+    - edge_cases: "Boundary conditions"
+    - error_cases: "Error handling"
+  prompt_pattern: |
+    "Write tests for [method]. Include:
+    - Basic success case
+    - Edge cases: [list]
+    - Error cases: [list]
+    Then implement method so all tests pass"
+```
+
+
+## ✅ HOW TO APPLY
+
+### Step 1: Define What Success Looks Like
+
+```markdown
+## Method: addLike(videoId, ipAddress)
+
+### Success Criteria
+- Adds like to database
+- Increments video like count
+- Returns new count
+- Does NOT add duplicate from same IP
+- Handles database errors gracefully
+```
+
+### Step 2: Write Tests FIRST
+
+```typescript
+describe('addLike', () => {
+  // HAPPY PATH
+  it('should add like from new IP', async () => {
+    const result = await storage.addLike('video1', '192.168.1.1');
+    expect(result.added).toBe(true);
+    expect(result.count).toBe(1);
+  });
+  
+  // EDGE CASE: Duplicate
+  it('should not add duplicate from same IP', async () => {
+    await storage.addLike('video1', '192.168.1.1');
+    const result = await storage.addLike('video1', '192.168.1.1');
+    expect(result.added).toBe(false);
+    expect(result.count).toBe(1); // Still 1, not 2
+  });
+  
+  // EDGE CASE: Concurrent
+  it('should handle 100 concurrent likes from same IP', async () => {
+    const promises = Array(100).fill(null)
+      .map(() => storage.addLike('video1', '192.168.1.1'));
+    await Promise.all(promises);
+    
+    const count = await storage.getLikeCount('video1');
+    expect(count).toBe(1); // Only 1, not 100
+  });
+  
+  // ERROR CASE: Invalid input
+  it('should reject null IP address', async () => {
+    await expect(storage.addLike('video1', null))
+      .rejects.toThrow('IP address required');
+  });
+  
+  // ERROR CASE: Database failure
+  it('should handle database timeout gracefully', async () => {
+    // Mock timeout
+    jest.spyOn(db, 'query').mockRejectedValue(new Error('timeout'));
+    
+    await expect(storage.addLike('video1', '192.168.1.1'))
+      .rejects.toThrow('Database unavailable');
+  });
+});
+```
+
+### Step 3: Implement to Pass Tests
+
+```typescript
+// NOW implement - AI has clear success criteria
+async function addLike(videoId: string, ipAddress: string): Promise<LikeResult> {
+  // Validation (satisfies error test)
+  if (!ipAddress) {
+    throw new Error('IP address required');
+  }
+  
+  try {
+    return await db.transaction(async (tx) => {
+      // Check duplicate (satisfies edge case)
+      const existing = await tx.query(
+        'SELECT id FROM likes WHERE video_id = $1 AND ip_address = $2',
+        [videoId, ipAddress]
+      );
+      
+      if (existing.rows.length > 0) {
+        const count = await getCount(tx, videoId);
+        return { added: false, count };
+      }
+      
+      // Insert with constraint (satisfies concurrent test)
+      await tx.query(
+        `INSERT INTO likes (video_id, ip_address) 
+         VALUES ($1, $2) 
+         ON CONFLICT (video_id, ip_address) DO NOTHING`,
+        [videoId, ipAddress]
+      );
+      
+      const count = await getCount(tx, videoId);
+      return { added: true, count };
+    });
+  } catch (error) {
+    // Handle DB errors (satisfies error test)
+    if (error.message.includes('timeout')) {
+      throw new Error('Database unavailable');
+    }
+    throw error;
+  }
+}
+```
+
+
+## 📊 TEST CASE CATEGORIES
+
+### Happy Path (Required)
+Basic successful operation with valid inputs.
+
+```typescript
+it('should [expected behavior] with valid input', () => {
+  const result = functionUnderTest(validInput);
+  expect(result).toBe(expectedOutput);
+});
+```
+
+### Edge Cases (Required)
+Boundary conditions and unusual but valid inputs.
+
+```typescript
+// Boundary values
+it('handles minimum value', () => { /* ... */ });
+it('handles maximum value', () => { /* ... */ });
+it('handles zero', () => { /* ... */ });
+it('handles empty array', () => { /* ... */ });
+it('handles single element', () => { /* ... */ });
+
+// Special cases
+it('handles duplicates', () => { /* ... */ });
+it('handles concurrent access', () => { /* ... */ });
+it('handles Unicode characters', () => { /* ... */ });
+```
+
+### Error Cases (Required)
+Invalid inputs and failure scenarios.
+
+```typescript
+// Invalid input
+it('rejects null input', () => { /* ... */ });
+it('rejects invalid type', () => { /* ... */ });
+it('rejects out-of-range value', () => { /* ... */ });
+
+// Failures
+it('handles network failure', () => { /* ... */ });
+it('handles timeout', () => { /* ... */ });
+it('handles permission denied', () => { /* ... */ });
+```
+
+
+## 🔧 TDD PROMPT TEMPLATE
+
+When asking AI to implement:
+
+```markdown
+## Task: Implement [function name]
+
+### Tests (already written)
+```typescript
+[paste your tests here]
+```
+
+### Requirements
+- Function must pass ALL tests above
+- Method < 50 lines
+- Clear error messages
+
+### Implement the function to pass these tests.
+```
+
+
+## 📈 QUALITY IMPACT
+
+```
+Without TDD:
+├── Code written first
+├── Tests written after (or never)
+├── AI hallucinations undetected
+├── Edge cases missed
+└── Bug rate: High
+
+With TDD:
+├── Tests define success
+├── Code must pass tests
+├── Hallucinations filtered out
+├── Edge cases covered
+└── Bug rate: -40-50%
+```
+
+
+## ⚠️ ANTI-PATTERNS
+
+### ❌ Don't: Tests After Code
+```typescript
+// BAD: Write code, then write tests to match
+function add(a, b) { return a + b; }
+
+// Test written after - just validates existing (possibly wrong) behavior
+it('adds numbers', () => {
+  expect(add(1, 2)).toBe(3); // This doesn't catch edge cases
+});
+```
+
+### ❌ Don't: Weak Tests
+```typescript
+// BAD: Test doesn't actually verify behavior
+it('should work', () => {
+  const result = processOrder(order);
+  expect(result).toBeDefined(); // Too weak!
+});
+```
+
+### ✅ Do: Comprehensive Tests First
+```typescript
+// GOOD: Strong tests written before code
+describe('processOrder', () => {
+  it('calculates total correctly', () => {
+    const order = { items: [{ price: 10 }, { price: 20 }] };
+    const result = processOrder(order);
+    expect(result.total).toBe(30);
+  });
+  
+  it('applies discount', () => {
+    const order = { items: [{ price: 100 }], discount: 0.1 };
+    const result = processOrder(order);
+    expect(result.total).toBe(90);
+  });
+  
+  it('rejects negative prices', () => {
+    const order = { items: [{ price: -10 }] };
+    expect(() => processOrder(order)).toThrow('Invalid price');
+  });
+});
+
+// THEN implement to pass these tests
+```
+
+
+## 🔄 TDD WORKFLOW
+
+```mermaid
+graph TD
+    A["1. Write Test"] --> B["2. Run Test<br>(Must Fail)"]
+    B --> C["3. Implement Code"]
+    C --> D["4. Run Test<br>(Must Pass)"]
+    D --> E{"All Tests<br>Pass?"}
+    E -->|No| C
+    E -->|Yes| F["5. Refactor<br>(Optional)"]
+    F --> G["6. Next Test"]
+    G --> A
+```
+
+
+## ✅ VERIFICATION CHECKLIST
+
+Before implementation is complete:
+
+```
+□ All happy path tests pass
+□ All edge case tests pass
+□ All error case tests pass
+□ Test coverage ≥ 80%
+□ No skipped tests
+□ Tests are independent (no shared state)
+□ Tests are deterministic (no flaky tests)
+```
+
+
+*Tests are not optional - they are the definition of "done".*

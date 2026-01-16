@@ -182,7 +182,7 @@ If context7 MCP tool call fails:
 
 Before starting work, verify context7 MCP is configured:
 
-- Check `$HOME/.cursor/mcp.json` or global MCP configuration
+- Check `.cursor/mcp.json` or global MCP configuration
 - Ensure context7 server is accessible
 - Verify context7 server has access to library documentation sources
 

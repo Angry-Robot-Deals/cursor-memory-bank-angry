@@ -163,7 +163,7 @@ If sys8 MCP tool call fails:
 
 Before starting work, verify sys8 MCP is configured:
 
-- Check `$HOME/.cursor/mcp.json` or global MCP configuration
+- Check `.cursor/mcp.json` or global MCP configuration
 - Ensure sys8 server path is correct
 - Verify sys8 server is accessible
 

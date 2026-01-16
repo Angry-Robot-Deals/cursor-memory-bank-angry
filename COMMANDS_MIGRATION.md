@@ -10,7 +10,7 @@ The Memory Bank system previously used Cursor's custom modes feature, which has 
 
 ### Before (Custom Modes)
 - Custom modes were configured in Cursor settings
-- Each mode had its own instruction file in `custom_modes/`
+- Each mode had its own instruction file (deprecated approach)
 - Modes were selected from a dropdown in the chat interface
 
 ### After (Commands)
@@ -88,7 +88,7 @@ The Memory Bank system previously used Cursor's custom modes feature, which has 
     archive.md      # Archiving command
     README.md       # Commands documentation
 
-custom_modes/       # Legacy files (kept for reference)
+# Legacy custom_modes/ directory (removed - no longer needed)
   van_instructions.md
   plan_instructions.md
   creative_instructions.md
@@ -128,5 +128,5 @@ custom_modes/       # Legacy files (kept for reference)
 If you encounter any issues with the commands, check:
 - `.cursor/commands/README.md` for command documentation
 - `memory-bank/tasks.md` for current task status
-- Original `custom_modes/` files for reference (if needed)
+- Original documentation about custom modes (deprecated)
 

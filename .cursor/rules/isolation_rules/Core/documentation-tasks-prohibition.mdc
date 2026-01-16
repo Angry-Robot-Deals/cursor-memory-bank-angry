@@ -20,16 +20,16 @@ memory-bank/tasks/
 ```
 
 ### Examples of Correct Paths:
-- ✅ `memory-bank/tasks/DEV-848-implementation-plan.md`
-- ✅ `memory-bank/tasks/DEV-848-testing-guide.md`
-- ✅ `memory-bank/tasks/DEV-848-QA-FINAL-REPORT.md`
-- ✅ `memory-bank/tasks/DEV-848-QUICK-START.md`
-- ✅ `memory-bank/tasks/DEV-848-LOCAL-TESTING-RESULTS.md`
+- ✅ `memory-bank/tasks/DEV-001-implementation-plan.md`
+- ✅ `memory-bank/tasks/DEV-001-testing-guide.md`
+- ✅ `memory-bank/tasks/DEV-001-QA-FINAL-REPORT.md`
+- ✅ `memory-bank/tasks/DEV-001-QUICK-START.md`
+- ✅ `memory-bank/tasks/DEV-001-LOCAL-TESTING-RESULTS.md`
 
 ### Examples of WRONG Paths:
-- ❌ `documentation/tasks/DEV-848-implementation-plan.md`
-- ❌ `documentation/tasks/DEV-848-testing-guide.md`
-- ❌ `documentation/DEV-848-anything.md`
+- ❌ `documentation/tasks/DEV-001-implementation-plan.md`
+- ❌ `documentation/tasks/DEV-001-testing-guide.md`
+- ❌ `documentation/DEV-001-anything.md`
 
 ## 📋 File Type Routing
 
@@ -95,6 +95,6 @@ rmdir documentation/tasks/
 
 ---
 
-**Version:** 1.0.0
+**Version:** 2.0.0
 **Date:** 2026-01-06
 **Status:** ✅ ACTIVE - CRITICAL RULE

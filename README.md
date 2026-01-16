@@ -1,6 +1,21 @@
-# Memory Bank System v1.0
+# Memory Bank System v2.0
 
-A token-optimized, hierarchical task management system that uses Cursor 2.0 commands for efficient development workflows with integrated AI Quality Rules and mandatory MCP server integration.
+A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules and mandatory MCP server integration.
+
+## 🎯 Dual Platform Support
+
+Memory Bank now supports **two platforms**:
+
+| Platform | Best For | Interface | Documentation |
+|----------|----------|-----------|---------------|
+| **[Cursor IDE](https://cursor.com)** | Visual development, team collaboration | Graphical IDE with slash commands | This README |
+| **[Claude Code](https://claude.ai/code)** | CLI workflows, remote servers, automation | Command-line with `/mb-` commands | [CLAUDE_CODE_SETUP.md](CLAUDE_CODE_SETUP.md) |
+
+**Choose based on your workflow** - or use both! Memory Bank files are fully compatible across platforms.
+
+👉 **New to Memory Bank?**
+- **Quick start**: See [QUICK_START.md](QUICK_START.md) for 5-minute setup
+- **Detailed comparison**: See [PLATFORM_COMPARISON.md](PLATFORM_COMPARISON.md)
 
 ```mermaid
 graph TD
@@ -39,15 +54,22 @@ Memory Bank is a structured development workflow system that uses Cursor 2.0 com
 
 ### How It Works
 
-Version 1.0 builds upon v0.9 with mandatory MCP server integration and PRD generation. Memory Bank operates through **seven specialized commands** that work together as an integrated workflow:
+Version 2.0 builds upon v0.9 with mandatory MCP server integration and PRD generation. Memory Bank operates through **specialized commands** that work together as an integrated workflow:
 
-0. **`/prd`** - Generates Product Requirements Documents from brief task descriptions (optional, pre-workflow)
-1. **`/van`** - Initializes projects, detects platform, determines task complexity
-2. **`/plan`** - Creates detailed implementation plans based on complexity level
-3. **`/creative`** - Explores design options for components requiring design decisions
-4. **`/do`** - Systematically implements planned changes (formerly `/build`)
-5. **`/reflect`** - Reviews completed work and documents lessons learned
-6. **`/archive`** - Creates comprehensive documentation and updates Memory Bank
+### Core Workflow Commands
+
+1. **`/prd`** - Generates Product Requirements Documents from brief task descriptions (optional, pre-workflow)
+2. **`/van`** - Initializes projects, detects platform, determines task complexity
+3. **`/plan`** - Creates detailed implementation plans based on complexity level
+4. **`/creative`** - Explores design options for components requiring design decisions
+5. **`/do`** - Systematically implements planned changes (formerly `/build`)
+6. **`/reflect`** - Reviews completed work and documents lessons learned
+7. **`/archive`** - Creates comprehensive documentation and updates Memory Bank
+
+### Helper Commands
+
+1. **`/status`** - Checks current task status and workflow progress
+2. **`/continue`** - Resumes work on current task from last checkpoint
 
 Each command reads from and updates a shared **Memory Bank** directory (`memory-bank/`), maintaining persistent context across the entire workflow.
 
@@ -107,11 +129,18 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 
 ## Installation Instructions
 
+Memory Bank can be installed for **Cursor IDE**, **Claude Code**, or **both platforms**.
+
+### Choose Your Platform
+
+<details>
+<summary><b>📦 Cursor IDE Installation</b> (Click to expand)</summary>
+
 ### Prerequisites
 
 - **Cursor Editor**: Version 2.0 or higher is required (commands feature)
 - **AI Model**: Claude 4 Sonnet or Claude 4 Opus is recommended for best results, especially for `/creative` command's "Think" tool methodology
-- **MCP Servers** (Recommended): 
+- **MCP Servers** (Recommended):
   - **context7 MCP Server**: For up-to-date library documentation and code examples
   - **sys8 MCP Server**: For secure system operations (date/time, OS info, calculations, random strings, hashing)
 
@@ -120,7 +149,7 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 Simply clone this repository into your project directory:
 
 ```bash
-git clone https://github.com/vanzan01/cursor-memory-bank.git
+git clone git@github.com:Angry-Robot-Deals/cursor-memory-bank-angry.git
 ```
 
 #### Alternative (Manual)
@@ -128,13 +157,12 @@ git clone https://github.com/vanzan01/cursor-memory-bank.git
 After extracting it from the ZIP file:
 
 - Copy the `.cursor` folder to your project directory (contains both rules and commands)
-- The `custom_modes` folder is kept for reference but not required
 
 **Note**: Other documents are not necessary for Memory Bank operation - they are explanatory documents. You can copy them to a folder like `memory_bank_documents` if desired.
 
 ### Step 2: Configure MCP Servers (Recommended)
 
-Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanced accuracy and security:
+Memory Bank v2.0 integrates with MCP (Model Context Protocol) servers for enhanced accuracy and security:
 
 #### context7 MCP Server
 **Purpose**: Provides up-to-date library documentation and code examples
@@ -146,11 +174,9 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
 - Ensures code examples are from official sources
 
 **Installation**:
-1. Open Cursor's MCP settings
-2. Add context7 MCP server configuration
-3. Check the [MCP Server Setup Guide](#mcp-server-setup) below for detailed instructions
-
-**Where to find**: Search for "context7 MCP server" on GitHub or check the official MCP server registry
+1. Visit repository: [https://github.com/upstash/context7](https://github.com/upstash/context7)
+2. Follow installation instructions in the repository
+3. Configure in Cursor's MCP settings (see [MCP Server Configuration](#mcp-server-configuration) below)
 
 #### sys8 MCP Server
 **Purpose**: Provides secure system operations
@@ -163,11 +189,9 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
 - Secure string hashing
 
 **Installation**:
-1. Open Cursor's MCP settings
-2. Add sys8 MCP server configuration
-3. Check the [MCP Server Setup Guide](#mcp-server-setup) below for detailed instructions
-
-**Where to find**: Search for "sys8 MCP server" on GitHub or check the official MCP server registry
+1. Visit repository: [https://github.com/Angry-Robot-Deals/mcp-sys8](https://github.com/Angry-Robot-Deals/mcp-sys8)
+2. Follow installation instructions in the repository
+3. Configure in Cursor's MCP settings (see [MCP Server Configuration](#mcp-server-configuration) below)
 
 **Note**: Memory Bank will work without MCP servers, but with reduced accuracy and functionality. MCP servers are highly recommended for optimal results.
 
@@ -186,7 +210,7 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
 
 2. **Optional: Start with `/prd`** to generate detailed requirements (recommended for complex tasks):
    ```
-   /prd DEV-817: Add notification system for account expiry warnings
+   /prd DEV-001: Add notification system for account expiry warnings
    ```
 
 3. **Initialize with `/van`**:
@@ -195,12 +219,105 @@ Memory Bank v1.0 integrates with MCP (Model Context Protocol) servers for enhanc
    ```
    Or reference a PRD:
    ```
-   /van Use PRD: memory-bank/prd/PRD-DEV-817-notification-system.md
+   /van Use PRD: memory-bank/prd/PRD-DEV-001-notification-system.md
    ```
 
 4. **Follow the workflow** - each command will guide you to the next step
 
 See [COMMANDS_README.md](COMMANDS_README.md) for detailed command documentation.
+
+</details>
+
+<details>
+<summary><b>💻 Claude Code Installation</b> (Click to expand)</summary>
+
+### Prerequisites
+
+- **Claude Code CLI**: Install from [claude.ai/code](https://claude.ai/code)
+- **AI Model**: Claude 4 Sonnet or Claude 4 Opus (via Claude API)
+- **MCP Servers** (Recommended): Same as Cursor (context7, sys8)
+
+### Step 1: Install Claude Code
+
+Follow official installation instructions at [claude.ai/code](https://claude.ai/code).
+
+Verify installation:
+```bash
+claude --version
+```
+
+### Step 2: Get the Files
+
+Clone this repository or copy files to your project:
+
+```bash
+git clone git@github.com:Angry-Robot-Deals/cursor-memory-bank-angry.git
+```
+
+Copy to your project:
+```bash
+# Required: Copy CLAUDE.md (Claude Code configuration)
+cp cursor-memory-bank/CLAUDE.md /path/to/your-project/
+
+# Required: Copy .claude directory (commands, workflows, rules)
+cp -r cursor-memory-bank/.claude /path/to/your-project/
+```
+
+**Note**: Claude Code uses `.claude/` directory (NOT `.cursor/`). The `.cursor/` directory is only for Cursor IDE users.
+
+### Step 3: Configure MCP Servers
+
+Configure MCP servers in Claude Code settings (same as Cursor setup above).
+
+### Step 4: Start Using
+
+Navigate to your project and start Claude Code:
+```bash
+cd /path/to/your-project
+claude
+```
+
+Then describe what you want to do:
+```
+Initialize a new task for adding user authentication
+```
+
+Claude Code will automatically follow Memory Bank workflows!
+
+**Full Guide:** See [CLAUDE_CODE_SETUP.md](CLAUDE_CODE_SETUP.md) for detailed usage instructions.
+
+</details>
+
+<details>
+<summary><b>🔄 Installing for Both Platforms</b> (Click to expand)</summary>
+
+To use Memory Bank with both Cursor IDE and Claude Code:
+
+1. **Install both tools** (Cursor IDE + Claude Code CLI)
+2. **Copy all files** to your project:
+   ```bash
+   # Copy Cursor IDE configuration
+   cp -r cursor-memory-bank/.cursor /path/to/your-project/
+
+   # Copy Claude Code configuration
+   cp -r cursor-memory-bank/.claude /path/to/your-project/
+   cp cursor-memory-bank/CLAUDE.md /path/to/your-project/
+   ```
+3. **Configure MCP servers** once (shared configuration)
+4. **Use either platform** - Memory Bank files are compatible!
+
+**Note**: Each platform has its own directory:
+- Cursor IDE: `.cursor/` (commands in `.md`, rules in `.mdc`)
+- Claude Code: `.claude/` (commands and rules in `.md`) + `CLAUDE.md`
+- Both share: `memory-bank/` (task files, progress, archives)
+
+**Benefits:**
+- ✅ Use Cursor for visual development
+- ✅ Use Claude Code for CLI/remote work
+- ✅ Share the same `memory-bank/` files
+- ✅ Switch platforms seamlessly
+
+</details>
 
 ## Basic Usage
 
@@ -239,7 +356,7 @@ See [COMMANDS_README.md](COMMANDS_README.md) for detailed command documentation.
 
 **Usage:**
 ```
-/prd DEV-817: Add notification system for account expiry warnings
+/prd DEV-001: Add notification system for account expiry warnings
 ```
 
 **What it does:**
@@ -401,10 +518,10 @@ Here's a complete example workflow for a Level 3 feature:
 **Option 2: With PRD (recommended for complex features)**
 ```bash
 # Step 0: Generate PRD first
-/prd DEV-820: Implement user role-based access control for the dashboard
+/prd DEV-001: Implement user role-based access control for the dashboard
 
 # Step 1: Review PRD, then initialize with PRD reference
-/van Use PRD: memory-bank/prd/PRD-DEV-820-role-based-access.md
+/van Use PRD: memory-bank/prd/PRD-DEV-001-role-based-access.md
 
 # Step 2: Plan (VAN routes to PLAN for Level 3)
 /plan
@@ -560,25 +677,21 @@ Memory Bank adapts its workflow based on task complexity:
 - **Corrupted state**: Check `memory-bank/tasks.md` for task status
 - **File conflicts**: Review recent changes to Memory Bank files
 
-## Legacy Custom Modes (Deprecated)
+## MCP Server Configuration
 
-> **Note**: Custom modes are deprecated in favor of Cursor 2.0 commands. If you're using Cursor 2.0+, please use commands instead. Custom modes setup instructions are available in the `custom_modes/` directory for reference only.
+### Required MCP Servers
 
-If you're using an older version of Cursor that doesn't support commands, see the [Commands Migration Guide](COMMANDS_MIGRATION.md) for information about the legacy custom modes setup.
+Memory Bank v2.0 uses two MCP servers:
 
-## MCP Server Setup
+#### 1. context7 MCP Server
+- **Repository**: [https://github.com/upstash/context7](https://github.com/upstash/context7)
+- **Purpose**: Provides up-to-date library documentation and code examples
+- **Features**: Version-specific APIs, no hallucinations, real documentation
 
-### Finding MCP Servers
-
-MCP servers can be found in several places:
-
-1. **Official MCP Registry**: Check the official MCP server registry for available servers
-2. **GitHub**: Search for "MCP server" repositories on GitHub
-   - Search terms: "context7 MCP server", "sys8 MCP server", "MCP server library documentation"
-3. **Community Resources**: 
-   - Cursor community forums
-   - Cursor Discord server
-   - MCP-related GitHub discussions
+#### 2. sys8 MCP Server
+- **Repository**: [https://github.com/Angry-Robot-Deals/mcp-sys8](https://github.com/Angry-Robot-Deals/mcp-sys8)
+- **Purpose**: Secure system operations (date/time, OS info, calculations, hashing)
+- **Features**: Cross-platform compatibility, cryptographically secure operations
 
 ### Configuration
 
@@ -595,10 +708,13 @@ MCP servers are configured in Cursor's MCP settings. The configuration file is t
       "command": "npx",
       "args": ["-y", "@context7/mcp-server"]
     },
-    "sys8": {
-      "command": "npx",
-      "args": ["-y", "@sys8/mcp-server"]
-    }
+     "sys8": {
+        "command": "npx",
+        "args": [
+           "tsx",
+           "$HOME/code/AI/mcp/sys8/src/index.ts"
+        ]
+     }
   }
 }
 ```
@@ -621,7 +737,7 @@ MCP servers are configured in Cursor's MCP settings. The configuration file is t
 
 ## Version Information
 
-This is version v1.0 of the Memory Bank system. It introduces mandatory MCP server integration (context7 and sys8), enhanced accuracy, and improved security. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
+This is version v2.0 of the Memory Bank system. It introduces mandatory MCP server integration (context7 and sys8), enhanced accuracy, and improved security. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
 
 ### Ongoing Development
 
@@ -632,14 +748,27 @@ The Memory Bank system is actively being developed and improved. Key points to u
 - **Previous Version Available**: If you prefer the stability of the previous version (v0.1-legacy), you can continue using it while this version matures.
 - **Architectural Benefits**: Before deciding which version to use, please read the [Memory Bank Upgrade Guide](memory_bank_upgrade_guide.md) to understand the significant benefits of the new architecture.
 
-## Resources
+## Platform Documentation
 
-- [Commands Documentation](COMMANDS_README.md) - Detailed command usage guide
-- [Commands Migration Guide](COMMANDS_MIGRATION.md) - Migration from custom modes to commands
-- [Memory Bank Optimizations](MEMORY_BANK_OPTIMIZATIONS.md) - Detailed overview of token efficiency improvements
-- [Release Notes](RELEASE_NOTES.md) - Information about the latest changes
-- [Memory Bank Upgrade Guide](memory_bank_upgrade_guide.md) - Understanding the new architecture
-- [CREATIVE Mode and Claude's "Think" Tool](creative_mode_think_tool.md) - Design methodology explanation
+### Quick Start
+- [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) - **Project directory structure explained**
+- [PLATFORM_COMPARISON.md](PLATFORM_COMPARISON.md) - **Compare Cursor IDE vs Claude Code**
+
+### For Both Platforms
+- [MEMORY_BANK_OPTIMIZATIONS.md](MEMORY_BANK_OPTIMIZATIONS.md) - Token efficiency improvements
+- [RELEASE_NOTES.md](RELEASE_NOTES.md) - Version history and changes
+
+### For Cursor IDE Users
+- [COMMANDS_README.md](COMMANDS_README.md) - Detailed command usage guide
+- [COMMANDS_MIGRATION.md](COMMANDS_MIGRATION.md) - Migration from custom modes to commands
+
+### For Claude Code Users
+- [CLAUDE_CODE_SETUP.md](CLAUDE_CODE_SETUP.md) - **Complete Claude Code setup and usage guide**
+- [CLAUDE.md](CLAUDE.md) - Claude Code configuration file
+
+### Additional Resources
+- [memory_bank_upgrade_guide.md](memory_bank_upgrade_guide.md) - Understanding the architecture
+- [creative_mode_think_tool.md](creative_mode_think_tool.md) - Design methodology explanation
 
 ## Contributing
 
@@ -651,4 +780,4 @@ As mentioned in the personal note above, Memory Bank is a personal project. Howe
 
 ---
 
-*Note: This README is for v1.0 and subject to change as the system evolves.*
+*Note: This README is for v2.0 and subject to change as the system evolves.*

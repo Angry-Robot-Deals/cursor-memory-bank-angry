@@ -17,14 +17,14 @@ Updates:
 
 ### Step 1: Load Core Rules
 ```
-Load: $HOME/.cursor/rules/isolation_rules/main.mdc
-Load: $HOME/.cursor/rules/isolation_rules/Core/memory-bank-paths.mdc
-Load: $HOME/.cursor/rules/isolation_rules/Core/command-execution.mdc
+Load: .cursor/rules/isolation_rules/main.mdc
+Load: .cursor/rules/isolation_rules/Core/memory-bank-paths.mdc
+Load: .cursor/rules/isolation_rules/Core/command-execution.mdc
 ```
 
 ### Step 2: Load DO Mode Map
 ```
-Load: $HOME/.cursor/rules/isolation_rules/visual-maps/build-mode-map.mdc
+Load: .cursor/rules/isolation_rules/visual-maps/build-mode-map.mdc
 ```
 
 ### Step 3: Load Complexity-Specific Implementation Rules
@@ -32,26 +32,26 @@ Based on complexity level from `memory-bank/tasks.md`:
 
 **Level 1:**
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Level1/workflow-level1.mdc
-Load: $HOME/.cursor/rules/isolation_rules/Level1/optimized-workflow-level1.mdc
+Load: .cursor/rules/isolation_rules/Level1/workflow-level1.mdc
+Load: .cursor/rules/isolation_rules/Level1/optimized-workflow-level1.mdc
 ```
 
 **Level 2:**
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Level2/workflow-level2.mdc
+Load: .cursor/rules/isolation_rules/Level2/workflow-level2.mdc
 ```
 
 **Level 3-4:**
 ```
-Load: $HOME/.cursor/rules/isolation_rules/Level3/implementation-intermediate.mdc
-Load: $HOME/.cursor/rules/isolation_rules/Level4/phased-implementation.mdc
+Load: .cursor/rules/isolation_rules/Level3/implementation-intermediate.mdc
+Load: .cursor/rules/isolation_rules/Level4/phased-implementation.mdc
 ```
 
 ### MANDATORY Load Rules:
 ```
-Load: $HOME/.cursor/rules/git-push-restriction.mdc
-Load: $HOME/.cursor/rules/sys8-mcp-usage.mdc
-Load: $HOME/.cursor/rules/context7-mcp-usage.mdc
+Load: .cursor/rules/git-push-restriction.mdc
+Load: .cursor/rules/sys8-mcp-usage.mdc
+Load: .cursor/rules/context7-mcp-usage.mdc
 ```
 
 ## Workflow

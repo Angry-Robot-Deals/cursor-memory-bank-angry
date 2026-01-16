@@ -2,7 +2,11 @@
 
 This directory contains Cursor 2.0 commands that replace the deprecated custom modes feature. Each command implements a specific phase of the Memory Bank workflow with progressive rule loading to optimize context usage.
 
-**Version 1.0**: Commands now integrate with MCP servers (context7 and sys8) for enhanced accuracy and security. See [MCP Server Setup](#mcp-server-setup) below.
+**Version 2.0**: Commands now integrate with MCP servers (context7 and sys8) for enhanced accuracy and security.
+
+**MCP Servers**:
+- **context7**: [https://github.com/upstash/context7](https://github.com/upstash/context7) - Library documentation
+- **sys8**: [https://github.com/Angry-Robot-Deals/mcp-sys8](https://github.com/Angry-Robot-Deals/mcp-sys8) - System operations
 
 ## Available Commands
 
@@ -76,13 +80,49 @@ This directory contains Cursor 2.0 commands that replace the deprecated custom m
 **Next steps:**
 - After archiving complete → `/van` (for next task)
 
+### `/status` - Check Current Status
+**Purpose:** Check the status of the current task and workflow progress.
+
+**When to use:**
+- Anytime you want to see current task status
+- After returning to a project
+- To understand where you are in the workflow
+
+**What it shows:**
+- Current task ID and description
+- Complexity level
+- Current phase
+- What's completed, what's remaining
+- Suggested next steps
+
+### `/continue` - Continue Current Task
+**Purpose:** Resume work on the current task from the last checkpoint.
+
+**When to use:**
+- After a break or interruption
+- When resuming work on an active task
+- To automatically determine and continue from current phase
+
+**What it does:**
+- Reads current task state
+- Determines current phase
+- Automatically resumes work in appropriate phase
+- Shows context of where you left off
+
 ## Command Workflow
 
+### Main Workflow
 ```
 /van → /plan → /creative → /do → /reflect → /archive
   ↓       ↓        ↓         ↓         ↓          ↓
 Level 1  Level   Level    Level    Level     Level
 tasks    2-4     3-4      1-4      1-4       1-4
+```
+
+### Helper Commands
+```
+/status   - Check current task status (anytime)
+/continue - Resume work from current phase (anytime)
 ```
 
 ## Progressive Rule Loading
@@ -140,6 +180,16 @@ All commands read from and update files in the `memory-bank/` directory:
 /archive
 ```
 
+### Checking Task Status
+```
+/status
+```
+
+### Resuming Work
+```
+/continue
+```
+
 ## Migration from Custom Modes
 
 These commands replace the previous custom modes:
@@ -156,7 +206,7 @@ The functionality remains the same, but now uses Cursor 2.0's commands feature i
 
 ### Required MCP Servers
 
-Memory Bank v1.0 integrates with two MCP servers for optimal functionality:
+Memory Bank v2.0 integrates with two MCP servers for optimal functionality:
 
 #### context7 MCP Server
 **Purpose**: Library documentation and code examples
@@ -215,7 +265,10 @@ MCP servers are configured in Cursor's MCP settings. Configuration can be:
     },
     "sys8": {
       "command": "npx",
-      "args": ["-y", "@sys8/mcp-server"]
+      "args": [
+        "tsx",
+        "$HOME/code/AI/mcp/sys8/src/index.ts"
+      ]
     }
   }
 }
