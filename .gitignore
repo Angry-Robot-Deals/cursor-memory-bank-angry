@@ -106,8 +106,8 @@ tmp/
 temp/
 *.tmp
 *.temp
-*.bak
-*.backup
+**/*.bak
+**/*.backup*
 *.old
 
 # Memory Bank working files (uncomment if you want to ignore working files)

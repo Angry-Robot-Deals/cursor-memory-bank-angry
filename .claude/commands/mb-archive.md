@@ -1,70 +1,27 @@
-# Archive Task (ARCHIVE Phase)
+# /mb-archive - Archive Task
 
-You are working with the Memory Bank System. Archive the completed task and prepare for the next one.
+Complete and archive current task.
 
-## Instructions
+## Steps
+1. Create archive document with:
+   - Task summary
+   - Implementation details
+   - Reflection insights
+2. Update Backlog (if from Backlog)
+3. Reset `activeContext.md`
+4. Clear `tasks.md`
 
-1. **Create comprehensive archive document**:
-   - File: `memory-bank/archive/archive-{task_id}.md`
-   - Include:
-     - Task ID and description
-     - Complexity level and workflow path
-     - Implementation plan (from tasks.md)
-     - Design decisions (from creative/ if Level 3-4)
-     - Implementation summary
-     - Reflection insights
-     - Final status and outcomes
-     - Key metrics (time, files changed, tests added)
+## Read
+- `memory-bank/tasks.md`
+- `memory-bank/reflection/reflection-[task_id].md`
+- `memory-bank/creative/*.md` (Level 3-4)
 
-2. **Archive creative phase documents** (if Level 3-4):
-   - Move `memory-bank/creative/creative-{task_id}-*.md` references to archive
-   - Or keep them as reference for similar future tasks
+## Write
+- `memory-bank/archive/archive-[task_id].md`
+- `memory-bank/backlog.md` (if applicable)
+- `memory-bank/backlog-archive.md` (if applicable)
+- `memory-bank/tasks.md` (clear)
+- `memory-bank/activeContext.md` (reset)
 
-3. **Update Memory Bank files**:
-   - `memory-bank/tasks.md` - Move task to "Completed Tasks" section
-   - `memory-bank/activeContext.md` - Reset to empty (ready for next task)
-   - `memory-bank/progress.md` - Mark as archived
-
-4. **Clean up**:
-   - Remove temporary files if any
-   - Update task list
-   - Prepare for next task
-
-5. **Provide summary**:
-   - What was accomplished
-   - What files were created/modified
-   - Archived documentation location
-   - System ready for next task
-
-6. **Backlog Item Archiving** (v2.0):
-   
-   If task originated from Backlog (has BACKLOG-XXXX source):
-   
-   - Read `memory-bank/tasks.md` to find source BACKLOG-XXXX ID
-   - Read `memory-bank/backlog.md` to find the item (in "In Progress Items")
-   - Move item to `memory-bank/backlog-archive.md`:
-     - Update status to `completed`
-     - Add completion timestamp (use sys8 MCP)
-     - Add `**Archived From:** DEV-XXX` field
-     - Move to "Completed Items" section in archive
-   - Update Summary counts in both files
-   - Confirm: "✅ Backlog item BACKLOG-XXXX moved to archive"
-
-## Memory Bank Integration
-
-- Read from: All memory-bank/ files for current task
-- Write to: `memory-bank/archive/archive-{task_id}.md`, update tasks.md, reset activeContext.md
-- MCP servers: Use sys8 for timestamps
-
-## Rules to Follow
-
-- Follow all rules in `.claude/rules/memory-bank-paths.md`
-- Use MCP servers per `.claude/rules/mcp-integration.md`
-- Preserve all important information in archive
-- Make archive searchable and well-organized
-
-## Example Usage
-
-```
-/mb-archive
-```
+## Next
+Ready for new task → `/mb-init`
