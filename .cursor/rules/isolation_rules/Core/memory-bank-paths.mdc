@@ -9,6 +9,18 @@ alwaysApply: true
 **CRITICAL:** All core Memory Bank files reside within the `memory-bank/` directory at the project root. Do NOT create or modify these files outside this directory unless explicitly instructed for archiving purposes.
 
 * **Tasks File:** `memory-bank/tasks.md` - This file is used for active, in-progress task tracking, detailing steps, checklists, and component lists. Its content, particularly the detailed checklists, is merged into the main archive document for the task upon completion. After archival, `tasks.md` is cleared to be ready for the next task. It is an ephemeral working document during a task's lifecycle, with its persistent record captured in the task's archive file.
+* **Backlog File (Active):** `memory-bank/backlog.md` - Active task queue for future work (v2.0 - performance optimized). Contains only pending and in-progress tasks. Completed/cancelled tasks moved to archive.
+  - Format: BACKLOG-[4-digit-number] items (e.g., `BACKLOG-0001`, `BACKLOG-0042`)
+  - Statuses: `pending` | `in_progress` (only active items)
+  - Template: `.cursor/templates/backlog-template.md`
+  - Performance: ~10x faster reads (only active items, no archived)
+  
+* **Backlog Archive File:** `memory-bank/backlog-archive.md` - Historical record of completed and cancelled Backlog items (v2.0). Rarely read during normal operations, provides historical reference.
+  - Format: BACKLOG-[4-digit-number] items (same as active backlog)
+  - Statuses: `completed` | `cancelled` (only historical items)
+  - Template: `.cursor/templates/backlog-archive-template.md`
+  - Updated by: ARCHIVE command when task completes
+  - Purpose: Keeps active backlog small and fast
 * **Active Context File:** `memory-bank/activeContext.md`
 * **Progress File:** `memory-bank/progress.md`
 * **Project Brief File:** `memory-bank/projectbrief.md`

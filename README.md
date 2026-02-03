@@ -546,7 +546,9 @@ All Memory Bank files are stored in the `memory-bank/` directory:
 ```mermaid
 graph LR
     subgraph "Memory Bank Directory"
-        Tasks["tasks.md<br>Source of Truth"]
+        Tasks["tasks.md<br>Active Task"]
+        Backlog["backlog.md<br>Active Queue"]
+        BacklogArch["backlog-archive.md<br>Historical Items"]
         Active["activeContext.md<br>Current Focus"]
         Progress["progress.md<br>Implementation Status"]
         Brief["projectbrief.md<br>Project Foundation"]
@@ -556,6 +558,7 @@ graph LR
     end
     
     style Tasks fill:#f9d77e,stroke:#d9b95c,stroke-width:3px,color:black
+    style Backlog fill:#ff9980,stroke:#ff5533,stroke-width:2px,color:black
     style Active fill:#a8d5ff,stroke:#88b5e0,color:black
     style Progress fill:#c5e8b7,stroke:#a5c897,color:black
     style Brief fill:#d9b3ff,stroke:#b366ff,color:black
@@ -566,7 +569,11 @@ graph LR
 
 ### Core Files
 
-- **`tasks.md`**: Central source of truth for task tracking, checklists, and component lists
+- **`tasks.md`**: Central source of truth for active task tracking, checklists, and component lists
+- **`backlog.md`**: Pending task queue for future work (NEW in v2.1)
+  - Tasks can be added by `/prd` and `/van` commands
+  - Tasks can be selected and activated by `/van` command
+  - Format: `BACKLOG-XXXX` items with priority and complexity
 - **`activeContext.md`**: Maintains focus of current development phase
 - **`progress.md`**: Tracks implementation status and observations
 - **`projectbrief.md`**: Project foundation and context
@@ -581,6 +588,28 @@ graph LR
 - **`creative/creative-[feature_name].md`**: Design decision documents (Level 3-4)
 - **`reflection/reflection-[task_id].md`**: Reflection documents
 - **`archive/archive-[task_id].md`**: Archive documents for completed tasks
+
+### Backlog System (v2.0 - Performance Optimized)
+
+The Backlog provides a queue for future tasks:
+
+1. **Adding to Backlog**:
+   - `/prd` can identify and add follow-up tasks
+   - `/van` can add new tasks for later
+
+2. **Working from Backlog**:
+   - `/van` shows pending Backlog items on startup
+   - Select by ID: `/van BACKLOG-0001`
+   - Or choose from displayed list
+
+3. **Backlog Item Format**:
+   ```markdown
+   ### BACKLOG-0001: Task Title
+   - Status: pending | in_progress | completed
+   - Priority: critical | high | medium | low
+   - Complexity: Level 1-4
+   - Description: Brief but comprehensive description
+   ```
 
 ## Progressive Rule Loading
 

@@ -1,6 +1,6 @@
 # Check Current Task Status
 
-You are working with the Memory Bank System. Show the current task status and suggest next steps.
+You are working with the Memory Bank System. Show the current task status, Backlog summary, and suggest next steps.
 
 ## Instructions
 
@@ -8,6 +8,7 @@ You are working with the Memory Bank System. Show the current task status and su
    - `memory-bank/activeContext.md` - Current active task
    - `memory-bank/tasks.md` - Task details and progress
    - `memory-bank/progress.md` - Current phase
+   - `memory-bank/backlog.md` - Pending tasks queue (NEW)
 
 2. **Display status information**:
    - Task ID and description
@@ -17,25 +18,32 @@ You are working with the Memory Bank System. Show the current task status and su
    - What's been completed
    - What's remaining
 
-3. **Suggest next steps**:
+3. **Display Backlog summary** (NEW):
+   - Count by status (pending, in_progress, completed)
+   - List pending items (ID, Title, Priority)
+   - Highlight high-priority items
+
+4. **Suggest next steps**:
    - What should be done next?
    - Which command to run?
    - Any blockers or issues?
+   - Available Backlog items to work on
 
-4. **Show recent activity** (if available):
+5. **Show recent activity** (if available):
    - Last updated timestamp
    - Recent changes
    - Files modified
 
 ## Memory Bank Integration
 
-- Read from: `memory-bank/activeContext.md`, `memory-bank/tasks.md`, `memory-bank/progress.md`
+- Read from: `memory-bank/activeContext.md`, `memory-bank/tasks.md`, `memory-bank/progress.md`, `memory-bank/backlog.md`
 - Write to: None (read-only command)
 - MCP servers: Use sys8 for current timestamp comparison
 
 ## Rules to Follow
 
 - Follow all rules in `.claude/rules/memory-bank-paths.md`
+- Follow Backlog rules in `.claude/rules/core/backlog-management.md`
 - Use MCP servers per `.claude/rules/mcp-integration.md`
 
 ## Example Usage
@@ -47,7 +55,12 @@ You are working with the Memory Bank System. Show the current task status and su
 ## Example Output
 
 ```
-Current Task: TASK-20250116-001 - Add user authentication
+📊 Memory Bank Status
+
+═══════════════════════════════════════════════
+CURRENT TASK
+═══════════════════════════════════════════════
+Task: DEV-0053 - Add user authentication
 Complexity: Level 3 (Complex feature with design exploration)
 Phase: CREATIVE (Exploring design options)
 Progress: 60% complete
@@ -57,8 +70,33 @@ Completed:
 ✓ PLAN - Implementation plan created
 ⚠ CREATIVE - In progress (2 of 3 components designed)
 
-Next Steps:
+═══════════════════════════════════════════════
+BACKLOG SUMMARY
+═══════════════════════════════════════════════
+📋 Total: 5 items
+├── Pending: 3
+├── In Progress: 1 (current task)
+└── Completed: 1
+
+Pending Items:
+│ ID           │ Title                    │ Priority │ Complexity │
+├──────────────┼──────────────────────────┼──────────┼────────────┤
+│ BACKLOG-0004 │ Database migration       │ high     │ Level 2    │
+│ BACKLOG-0005 │ Caching layer            │ medium   │ Level 3    │
+│ BACKLOG-0006 │ Logging improvements     │ low      │ Level 1    │
+
+Archive Summary (from backlog-archive.md):
+📦 Total Archived: {n} items
+├── Completed: {n}
+└── Cancelled: {n}
+
+═══════════════════════════════════════════════
+NEXT STEPS
+═══════════════════════════════════════════════
 1. Complete design exploration for AuthProvider component
 2. Run /mb-design to finalize designs
 3. Proceed to /mb-do for implementation
+
+After completing current task:
+→ Use /mb-init to select from Backlog (3 pending items)
 ```

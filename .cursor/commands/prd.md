@@ -311,6 +311,98 @@ Before finalizing PRD generation:
 - [ ] Complexity level estimated
 - [ ] File saved to correct location
 - [ ] Summary output provided
+- [ ] Follow-up tasks identified for Backlog (if any)
+
+---
+
+## Backlog Integration
+
+After generating a PRD, the command SHOULD identify follow-up tasks and offer to add them to the Backlog.
+
+### Backlog Workflow
+
+```mermaid
+graph TD
+    PRD["PRD Generated"] --> Analyze["Analyze for Follow-up Tasks"]
+    Analyze --> HasTasks{"Follow-up<br>Tasks Found?"}
+    HasTasks -->|Yes| Prompt["Prompt: Add to Backlog?"]
+    HasTasks -->|No| Done["Complete"]
+    Prompt -->|Yes| Collect["Collect Task Details"]
+    Prompt -->|No| Done
+    Collect --> Generate["Generate BACKLOG-IDs"]
+    Generate --> Add["Add to backlog.md"]
+    Add --> Confirm["Confirm Additions"]
+    Confirm --> Done
+    
+    style PRD fill:#f9d77e,stroke:#d9b95c,color:black
+    style Add fill:#8cff8c,stroke:#4dbb5f,color:black
+    style Done fill:#a8d5ff,stroke:#88b5e0,color:black
+```
+
+### Adding Tasks to Backlog
+
+1. **Identify follow-up tasks** from PRD analysis:
+   - Related bug fixes
+   - Documentation updates
+   - Test coverage improvements
+   - Performance optimizations
+   - Future enhancements mentioned in PRD
+
+2. **Prompt user:**
+   ```
+   Based on PRD-DEV-001, I identified these potential follow-up tasks:
+   
+   1. Add unit tests for new authentication flow
+   2. Update API documentation for OAuth endpoints
+   3. Implement rate limiting for auth endpoints
+   
+   Would you like to add these to the Backlog?
+   [Yes] [No] [Modify list]
+   ```
+
+3. **For each task to add:**
+   - Generate BACKLOG-XXXX ID
+   - Set Source: PRD-{TASK_NUMBER}
+   - Set Priority: based on PRD analysis (default: medium)
+   - Set Complexity: based on PRD analysis (default: Level 2)
+   - Use sys8 MCP for creation date
+
+4. **Update Backlog file:**
+   - Create `memory-bank/backlog.md` if not exists
+   - Add items to "Pending Items" section
+   - Update Summary counts
+
+5. **Confirm to user:**
+   ```
+   ✅ Added 3 tasks to Backlog:
+   - BACKLOG-0001: Add unit tests for authentication
+   - BACKLOG-0002: Update API documentation
+   - BACKLOG-0003: Implement rate limiting
+   
+   Use /van to start working on any of these tasks.
+   ```
+
+### Example PRD Output with Backlog
+
+```
+✅ PRD Generated Successfully
+
+📄 Document: memory-bank/prd/PRD-DEV-001-notification-system.md
+📊 Complexity Estimate: Level 3
+🎯 Affected Modules: 3 (aio, api, notification-service)
+⚠️ Risks Identified: 2
+
+📋 Backlog Updates:
+- Added 3 follow-up tasks to Backlog
+- BACKLOG-0004: Error handling improvements
+- BACKLOG-0005: Notification templates
+- BACKLOG-0006: Admin dashboard integration
+
+Next Steps:
+1. Review the PRD document
+2. Run /van to initialize the task (or select from Backlog)
+3. Run /plan to create implementation plan
+```
 
 ---
 

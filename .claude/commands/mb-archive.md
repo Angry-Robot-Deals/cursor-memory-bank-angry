@@ -36,6 +36,20 @@ You are working with the Memory Bank System. Archive the completed task and prep
    - Archived documentation location
    - System ready for next task
 
+6. **Backlog Item Archiving** (v2.0):
+   
+   If task originated from Backlog (has BACKLOG-XXXX source):
+   
+   - Read `memory-bank/tasks.md` to find source BACKLOG-XXXX ID
+   - Read `memory-bank/backlog.md` to find the item (in "In Progress Items")
+   - Move item to `memory-bank/backlog-archive.md`:
+     - Update status to `completed`
+     - Add completion timestamp (use sys8 MCP)
+     - Add `**Archived From:** DEV-XXX` field
+     - Move to "Completed Items" section in archive
+   - Update Summary counts in both files
+   - Confirm: "✅ Backlog item BACKLOG-XXXX moved to archive"
+
 ## Memory Bank Integration
 
 - Read from: All memory-bank/ files for current task

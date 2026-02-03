@@ -98,7 +98,8 @@ All Memory Bank files reside in `memory-bank/` at project root:
 
 ```
 memory-bank/
-├── tasks.md              # Source of truth for task tracking
+├── tasks.md              # Source of truth for active task tracking
+├── backlog.md            # Pending task queue (NEW in v2.1)
 ├── activeContext.md      # Current focus and active task ID
 ├── progress.md           # Implementation status
 ├── projectbrief.md       # Project foundation
@@ -114,6 +115,27 @@ memory-bank/
 ├── qa/                   # QA reports
 ├── reports/              # Debug/diagnostic reports
 └── docs/                 # Documentation about Memory Bank system
+```
+
+### Backlog System (v2.0 - Performance Optimized)
+
+The Backlog (`memory-bank/backlog.md`) provides a queue for future tasks:
+
+- **Adding tasks**: `/mb-prd` and `/mb-init` can add tasks to Backlog
+- **Selecting tasks**: `/mb-init` shows pending items and allows selection
+- **Format**: `BACKLOG-XXXX` items with priority, complexity, description
+- **Statuses**: `pending` → `in_progress` → `completed`
+
+Example Backlog entry:
+```markdown
+### BACKLOG-0001: Implement error handling
+| Field | Value |
+|-------|-------|
+| **Status** | pending |
+| **Priority** | high |
+| **Complexity** | Level 2 |
+| **Created** | 2026-02-03 |
+| **Source** | PRD-DEV-0001 |
 ```
 
 ### Critical File Paths

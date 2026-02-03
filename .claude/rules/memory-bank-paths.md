@@ -5,6 +5,14 @@
 ## Core Files
 
 - **`memory-bank/tasks.md`** - Active task tracking (ephemeral, cleared after archival)
+- **`memory-bank/backlog.md`** - Active task queue (v2.0 optimized)
+  - Format: `BACKLOG-[4-digit-number]` items (e.g., `BACKLOG-0001`)
+  - Statuses: `pending` | `in_progress` (active items only)
+- **`memory-bank/backlog-archive.md`** - Historical Backlog items (v2.0)
+  - Statuses: `completed` | `cancelled` (archived items only)
+  - Updated by: ARCHIVE command automatically
+  - Added by: PRD and VAN commands
+  - Selected by: VAN command
 - **`memory-bank/activeContext.md`** - Current focus and active task ID
 - **`memory-bank/progress.md`** - Implementation status
 - **`memory-bank/projectbrief.md`** - Project foundation
@@ -13,6 +21,12 @@
 - **`memory-bank/techContext.md`** - Technology stack
 
 ## Generated Files
+
+### Backlog Items
+- **Location**: `memory-bank/backlog.md` (single file)
+- **Format**: `BACKLOG-[4-digit-number]` entries within the file
+- **Example entries**: `BACKLOG-0001`, `BACKLOG-0042`
+- **Template**: `.cursor/templates/backlog-template.md`
 
 ### PRD Documents
 - **Location**: `memory-bank/prd/`

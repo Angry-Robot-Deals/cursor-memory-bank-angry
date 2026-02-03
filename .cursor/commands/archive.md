@@ -143,6 +143,44 @@ Load: .cursor/rules/isolation_rules/Level4/archive-comprehensive.mdc
    - Reset `memory-bank/activeContext.md` for next task
    - Clear completed task details from `memory-bank/tasks.md` (keep structure)
 
+6. **Backlog Item Archiving** (v2.0)
+   
+   If the current task originated from a Backlog item (has BACKLOG-XXXX source):
+   
+   - **Read** `memory-bank/activeContext.md` or `memory-bank/tasks.md` to find source BACKLOG-XXXX ID
+   - **Read** `memory-bank/backlog.md` to find the item
+   - **Update** item status to `completed` and add completion timestamp
+   - **Move** item from "In Progress Items" section to `memory-bank/backlog-archive.md`
+   - **Add** to "Completed Items" section in archive with:
+     - Completion timestamp (use sys8 MCP `get_current_datetime`)
+     - Link to archived task: `**Archived From:** DEV-XXX`
+     - Keep all original metadata (priority, complexity, description, etc.)
+   - **Update** Summary counts in both files:
+     - `backlog.md`: Decrease "In Progress" count
+     - `backlog-archive.md`: Increase "Completed" count, update total
+   - **Update** both "Last Updated" timestamps using sys8 MCP
+   
+   **Example Move Operation:**
+   ```markdown
+   From: memory-bank/backlog.md "In Progress Items"
+   
+   ### BACKLOG-0001: Implement Backlog System
+   | **Status** | in_progress | → completed
+   | **Started** | 2026-02-03 05:49:10 UTC |
+   (add) | **Completed** | 2026-02-03 08:00:00 UTC |
+   (add) | **Archived From** | DEV-0001 |
+   
+   To: memory-bank/backlog-archive.md "Completed Items"
+   ```
+   
+   **Confirmation Output:**
+   ```
+   ✅ Task DEV-XXX archived successfully
+   ✅ Backlog item BACKLOG-XXXX moved to archive
+   📋 Archive location: [path]/archive-DEV-XXX.md
+   📦 Backlog archive: memory-bank/backlog-archive.md
+   ```
+
 ## Usage
 
 Type `/archive` to archive the completed task after reflection is done.
