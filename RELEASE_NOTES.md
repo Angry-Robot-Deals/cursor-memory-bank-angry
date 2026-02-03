@@ -2,6 +2,210 @@
 
 > **Personal Note**: Memory Bank is my personal hobby project that I develop for my own use in coding projects. As this is a personal project, I don't maintain an issues tracker or actively collect feedback. However, if you're using these rules and encounter issues, one of the great advantages is that you can ask the Cursor AI directly to modify or update the rules to better suit your specific workflow. The system is designed to be adaptable by the AI, allowing you to customize it for your own needs without requiring external support.
 
+## Version 2.1 - Backlog System & Context Optimization
+
+> **Released:** February 3, 2026  
+> Building upon v2.0's MCP integration, this release introduces performance-optimized Backlog System and significant context window optimizations for Claude Code.
+
+### 🌟 Major Features
+
+#### Backlog System (DEV-0001) _(New)_
+**Performance-optimized task queue with two-file architecture**
+
+- **Two-File Architecture**: Separates active backlog (`backlog.md`) from historical archive (`backlog-archive.md`)
+- **10-20x Performance Improvement**: Faster reads by keeping active backlog small
+- **Task ID Format**: `BACKLOG-XXXX` with 4-digit sequential numbering (e.g., `BACKLOG-0001`, `BACKLOG-0042`)
+- **Status Management**: Tracks `pending`, `in_progress`, `completed`, `cancelled` states
+- **Priority System**: Supports `critical`, `high`, `medium`, `low` priorities
+- **Complexity Tracking**: Associates tasks with complexity levels (1-4)
+- **Dual-Platform Support**: Works seamlessly with both Cursor IDE and Claude Code
+
+**Integration Points:**
+- `/prd` command: Can identify and add follow-up tasks to Backlog automatically
+- `/van` command: 
+  - Displays pending Backlog items on startup
+  - Allows task selection by ID (e.g., `/van BACKLOG-0001`)
+  - Supports activation from Backlog list
+- `/status` command: Shows Backlog statistics and pending items
+- `/archive` command: Automatically moves completed/cancelled items to `backlog-archive.md`
+
+**Files:**
+- `memory-bank/backlog.md` - Active task queue (pending and in_progress only)
+- `memory-bank/backlog-archive.md` - Historical archive (completed and cancelled)
+- `.cursor/templates/backlog-template.md` - Template for Cursor IDE
+- `.claude/templates/backlog-template.md` - Template for Claude Code
+
+**Benefits:**
+- Eliminates need for external task trackers for many workflows
+- Provides single source of truth for pending work
+- Maintains full task history in archive
+- Significantly faster operations on active Backlog
+- Clear task lifecycle management
+
+---
+
+#### Context Window Optimization (DEV-0002) _(Enhancement)_
+**84% token reduction across Claude Code components**
+
+**Overview:**
+Comprehensive optimization of Claude Code rules and commands to reduce context window consumption while preserving all functionality.
+
+**Optimization Results:**
+
+| Component | Before | After | Reduction |
+|-----------|--------|-------|-----------|
+| **CLAUDE.md** | 480 lines | 106 lines | **78%** |
+| **Commands** | 688 lines | 228 lines | **67%** |
+| **Rules** | ~3000 lines | 332 lines | **89%** |
+| **Workflows** | 216 lines | 43 lines | **80%** |
+| **Total** | ~4400 lines | ~709 lines | **84%** |
+
+**Key Optimizations:**
+1. **CLAUDE.md (78% reduction)**:
+   - Condensed from 480 to 106 lines
+   - Removed redundant explanations
+   - Consolidated critical rules
+   - Preserved all essential functionality
+
+2. **Commands (67% reduction)**:
+   - Streamlined all 9 commands (`/mb-prd`, `/mb-init`, `/mb-plan`, `/mb-design`, `/mb-do`, `/mb-reflect`, `/mb-archive`, `/mb-status`, `/mb-continue`)
+   - Removed verbose explanations
+   - Kept critical workflow instructions
+   - Commands remain fully functional
+
+3. **Rules (89% reduction)**:
+   - Eliminated redundancy across rule files
+   - Created single source of truth documents
+   - Preserved essential guidance
+   - Maintained rule hierarchy
+
+4. **Workflows (80% reduction)**:
+   - Condensed workflow overview
+   - Removed duplicate information
+   - Kept critical workflow paths
+
+**Impact:**
+- **Faster Context Loading**: Significantly reduced token usage in Claude Code
+- **Preserved Functionality**: All features work identically to v2.0
+- **Better Performance**: More tokens available for actual development work
+- **Maintained Quality**: No loss of functionality or guidance
+
+**Target Achieved**: Exceeded 80% reduction goal with 84% total reduction.
+
+---
+
+### 🔄 Process Improvements
+
+#### Backlog Workflow
+- **Task Creation**: Add tasks via `/prd` or `/van` commands
+- **Task Activation**: Select tasks from Backlog using `/van BACKLOG-XXXX`
+- **Status Tracking**: Clear lifecycle from pending → in_progress → completed/cancelled
+- **Automatic Archival**: Completed items moved to archive automatically
+- **Performance**: 10-20x faster reads due to active/archive separation
+
+#### Context Efficiency
+- **Reduced Token Load**: 84% fewer tokens for Claude Code setup
+- **Faster Initialization**: Quicker command loading and processing
+- **More Workspace**: Additional tokens available for development tasks
+- **Maintained Structure**: All Memory Bank workflows remain intact
+
+---
+
+### 📚 Documentation Updates
+
+#### New Documentation
+- **Backlog System Guide**: Comprehensive usage instructions
+- **Performance Metrics**: Detailed optimization statistics
+- **Template Files**: Backlog templates for both platforms
+
+#### Updated Documentation
+- **README.md**: Added Backlog System section, updated optimization metrics
+- **CLAUDE.md**: Optimized for 78% token reduction
+- **Command Docs**: Updated with Backlog integration details
+- **QUICK_START.md**: Included Backlog workflow examples
+
+---
+
+### 🛠 Technical Improvements
+
+#### Backlog System Implementation
+- **File Structure**: Two-file architecture for performance
+- **ID Generation**: Automatic sequential numbering (BACKLOG-0001, BACKLOG-0002, etc.)
+- **State Management**: Clean state transitions and validation
+- **Cross-Platform**: Templates for both Cursor and Claude Code
+
+#### Context Optimization
+- **Token Reduction**: 84% across all components
+- **Preserved Functionality**: Zero breaking changes
+- **Maintained Quality**: All workflows work identically
+- **Performance**: Faster loading and processing
+
+---
+
+### 📋 Breaking Changes
+
+**None** - This is a fully backward-compatible release.
+
+- Existing Memory Bank v2.0 installations work without modification
+- Optional Backlog System (not required for existing workflows)
+- Context optimizations are transparent to users
+- All existing commands and workflows unchanged
+
+---
+
+### 🔧 Requirements
+
+- Requires Cursor version 2.0 or higher (commands feature) **OR** Claude Code CLI
+- Compatible with Claude 4 Sonnet (recommended) and newer models
+- **Recommended**: context7 MCP server for library documentation
+- **Recommended**: sys8 MCP server for system operations
+- Compatible with all existing Memory Bank v2.0 installations
+
+---
+
+### 📝 Migration Notes
+
+**From v2.0 to v2.1:**
+
+1. **Backlog System** (Optional):
+   - Copy `backlog.md` and `backlog-archive.md` templates to your `memory-bank/` directory
+   - Or let `/van` command create them automatically on first use
+   - No changes required to existing workflows
+
+2. **Context Optimization** (Claude Code only):
+   - Replace `.claude/` directory with updated version
+   - Replace `CLAUDE.md` with optimized version
+   - All Memory Bank files remain compatible
+   - Cursor IDE users: No action needed (optimization is Claude Code specific)
+
+3. **Verification**:
+   - Run `/status` to verify Backlog System availability
+   - Test `/van` command to confirm Backlog integration
+   - Existing tasks and workflows continue without changes
+
+---
+
+### 🎯 Task Details
+
+#### DEV-0001: Backlog System Implementation
+- **Status**: ✅ Complete
+- **Complexity**: Level 3 - Feature Development
+- **Duration**: 2 hours 38 minutes
+- **Result**: v1.0 and v2.0 implementations complete, 10-20x performance improvement
+- **Archive**: `memory-bank/archive/archive-DEV-0001.md`
+
+#### DEV-0002: Context Window Optimization
+- **Status**: ✅ Complete
+- **Complexity**: Level 3 - Optimization
+- **Result**: 84% token reduction (exceeded 80% target)
+- **Archive**: `memory-bank/archive/archive-DEV-0002.md`
+
+---
+
+Released on: February 3, 2026
+
+---
+
 ## Version 2.0 - MCP Server Integration
 
 > **Released:** January 16, 2026

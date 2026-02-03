@@ -51,6 +51,8 @@ cursor-memory-bank/
 │
 └── memory-bank/                    # Shared Memory Bank Files
     ├── tasks.md                    # Active task tracking
+    ├── backlog.md                  # Active task queue (v2.1 - NEW)
+    ├── backlog-archive.md          # Historical backlog (v2.1 - NEW)
     ├── activeContext.md            # Current task context
     ├── progress.md                 # Implementation progress
     ├── projectbrief.md             # Project foundation
@@ -94,8 +96,9 @@ cursor-memory-bank/
 
 **Memory Bank Files:**
 - All files in `memory-bank/` directory
+- Task tracking: `tasks.md`, `backlog.md`, `backlog-archive.md` (v2.1)
 - PRD documents, creative docs, reflections, archives
-- Task tracking and progress files
+- Progress and context files
 
 **Documentation:**
 - `PLATFORM_COMPARISON.md` - Compare platforms

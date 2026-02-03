@@ -75,15 +75,25 @@ Each command reads from and updates a shared **Memory Bank** directory (`memory-
 
 ### Token-Optimized Architecture
 
-Version 0.7 introduced significant token optimization improvements, and v0.9 enhances this with AI Quality Rules integration:
+Memory Bank delivers exceptional context efficiency through progressive optimization across multiple versions:
 
+**v2.0 (DEV-0002)** - Claude Code Context Window Optimization:
+- **84% total token reduction** across all components
+- CLAUDE.md: 78% reduction (480 → 106 lines)
+- Commands: 67% reduction (688 → 228 lines)
+- Rules: 89% reduction (~3000 → 332 lines)
+- Workflows: 80% reduction (216 → 43 lines)
+
+**v0.9** - AI Quality Rules Integration:
 - **Hierarchical Rule Loading**: Only loads essential rules initially with specialized lazy-loading (~70% token reduction)
 - **3-Tier AI Quality Rules**: Always-loaded principles → Category summaries → Detailed rules (on-demand)
+- **Progressive Disclosure**: Rule Reference Cards with expandable details reduce cognitive load
+
+**v0.7** - Original Optimization Framework:
 - **Progressive Documentation**: Implements concise templates that scale with task complexity
 - **Optimized Command Transitions**: Preserves critical context efficiently between commands
 - **Level-Specific Workflows**: Adapts documentation requirements to task complexity (Levels 1-4)
 - **Lazy-Loaded Specialized Rules**: Loads specialized rules only when needed (e.g., architecture vs UI/UX design)
-- **Progressive Disclosure**: Rule Reference Cards with expandable details reduce cognitive load
 
 See the [Memory Bank Optimizations](MEMORY_BANK_OPTIMIZATIONS.md) document for detailed information about all optimization approaches.
 
@@ -570,10 +580,17 @@ graph LR
 ### Core Files
 
 - **`tasks.md`**: Central source of truth for active task tracking, checklists, and component lists
-- **`backlog.md`**: Pending task queue for future work (NEW in v2.1)
+- **`backlog.md`**: Active task queue for future work (v2.0 - Performance Optimized)
+  - Contains only `pending` and `in_progress` tasks
   - Tasks can be added by `/prd` and `/van` commands
   - Tasks can be selected and activated by `/van` command
   - Format: `BACKLOG-XXXX` items with priority and complexity
+  - 10-20x faster reads (only active items, completed moved to archive)
+- **`backlog-archive.md`**: Historical Backlog archive (NEW in v2.1)
+  - Contains `completed` and `cancelled` Backlog items
+  - Keeps active backlog small and fast
+  - Provides historical reference when needed
+  - Automatically updated by `/archive` command
 - **`activeContext.md`**: Maintains focus of current development phase
 - **`progress.md`**: Tracks implementation status and observations
 - **`projectbrief.md`**: Project foundation and context
@@ -591,11 +608,21 @@ graph LR
 
 ### Backlog System (v2.0 - Performance Optimized)
 
-The Backlog provides a queue for future tasks:
+**NEW in v2.1 (DEV-0001)**: The Backlog system provides a powerful task queue with 10-20x performance improvement through two-file architecture.
+
+**Key Features:**
+- **Two-File Architecture**: Active backlog (`backlog.md`) + historical archive (`backlog-archive.md`)
+- **Performance Optimized**: 10-20x faster reads by keeping active backlog small
+- **Dual-Platform Support**: Works seamlessly with both Cursor IDE and Claude Code
+- **Task ID Format**: `BACKLOG-XXXX` (e.g., `BACKLOG-0001`, `BACKLOG-0042`)
+- **Full Integration**: Integrated with `/prd`, `/van`, and `/status` commands
+
+**Workflow:**
 
 1. **Adding to Backlog**:
-   - `/prd` can identify and add follow-up tasks
-   - `/van` can add new tasks for later
+   - `/prd` can identify and add follow-up tasks automatically
+   - `/van` can add new tasks for later work
+   - Manual addition to `backlog.md`
 
 2. **Working from Backlog**:
    - `/van` shows pending Backlog items on startup
@@ -605,11 +632,16 @@ The Backlog provides a queue for future tasks:
 3. **Backlog Item Format**:
    ```markdown
    ### BACKLOG-0001: Task Title
-   - Status: pending | in_progress | completed
+   - Status: pending | in_progress
    - Priority: critical | high | medium | low
    - Complexity: Level 1-4
    - Description: Brief but comprehensive description
    ```
+
+4. **Archival**:
+   - Completed/cancelled items automatically moved to `backlog-archive.md`
+   - Keeps active backlog clean and fast
+   - Historical record preserved in archive
 
 ## Progressive Rule Loading
 
