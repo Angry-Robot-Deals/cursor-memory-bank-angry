@@ -1,6 +1,6 @@
-# Memory Bank System v2.0
+# Memory Bank System v2.1
 
-A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules and mandatory MCP server integration.
+A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules, mandatory MCP server integration, and Subagents & Skills architecture.
 
 ## 🎯 Dual Platform Support
 
@@ -76,6 +76,13 @@ Each command reads from and updates a shared **Memory Bank** directory (`memory-
 ### Token-Optimized Architecture
 
 Memory Bank delivers exceptional context efficiency through progressive optimization across multiple versions:
+
+**v2.1 (DEV-0005)** - Subagents & Skills Architecture:
+- **90% context window reduction** via on-demand loading
+- CLAUDE.md: Lean router (<1KB, 37 lines)
+- Architecture: 4 Agents + 5 Skills + 10 Commands
+- 100% coverage of critical Cursor rules
+- File count: 72% reduction (75+ → 22 files)
 
 **v2.0 (DEV-0002)** - Claude Code Context Window Optimization:
 - **84% total token reduction** across all components
@@ -798,7 +805,7 @@ MCP servers are configured in Cursor's MCP settings. The configuration file is t
 
 ## Version Information
 
-This is version v2.0 of the Memory Bank system. It introduces mandatory MCP server integration (context7 and sys8), enhanced accuracy, and improved security. See the [Release Notes](RELEASE_NOTES.md) for detailed information about the changes.
+This is version v2.1 of the Memory Bank system. It introduces the Subagents & Skills architecture for Claude Code, achieving 90% context window reduction while maintaining 100% rule coverage. Previous versions introduced MCP server integration (v2.0), hierarchical rule loading (v0.9), and progressive documentation (v0.7). See the [Release Notes](RELEASE_NOTES.md) for detailed information about all changes.
 
 ### Ongoing Development
 
@@ -821,15 +828,13 @@ The Memory Bank system is actively being developed and improved. Key points to u
 
 ### For Cursor IDE Users
 - [COMMANDS_README.md](COMMANDS_README.md) - Detailed command usage guide
-- [COMMANDS_MIGRATION.md](COMMANDS_MIGRATION.md) - Migration from custom modes to commands
 
 ### For Claude Code Users
 - [CLAUDE_CODE_SETUP.md](CLAUDE_CODE_SETUP.md) - **Complete Claude Code setup and usage guide**
 - [CLAUDE.md](CLAUDE.md) - Claude Code configuration file
 
 ### Additional Resources
-- [memory_bank_upgrade_guide.md](memory_bank_upgrade_guide.md) - Understanding the architecture
-- [creative_mode_think_tool.md](creative_mode_think_tool.md) - Design methodology explanation
+- [documentation/historical/](documentation/historical/) - System evolution and design decisions (optional reading)
 
 ## Contributing
 

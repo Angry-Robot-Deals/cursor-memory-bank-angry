@@ -1,22 +1,18 @@
-# /mb-reflect - Review Implementation
+# /mb-reflect - Review & Quality Mode
 
-Document lessons learned.
+**Role**: Reviewer Agent
+**Source**: `.claude/agents/reviewer.md`
 
-## Steps
-1. Review implementation vs plan
-2. Document:
-   - What worked well
-   - Challenges encountered
-   - Lessons learned
-3. Create reflection document
+## Instructions
+1.  **LOAD**: Read `.claude/agents/reviewer.md` and adopt that persona.
+2.  **SKILL**: Read `.claude/skills/security.md` and `.claude/skills/testing.md`.
+3.  **CONTEXT**: Read `memory-bank/tasks.md` and `memory-bank/style-guide.md`.
+4.  **ACTION**:
+    - Review changes against Definition of Done.
+    - Verify tests pass.
+    - Check for security vulnerabilities.
+    - Create reflection document.
+5.  **OUTPUT**: `memory-bank/reflection/reflection-[id].md`.
 
-## Read
-- `memory-bank/tasks.md`
-- Implemented code
-
-## Write
-- `memory-bank/reflection/reflection-[task_id].md`
-- `memory-bank/tasks.md`
-
-## Next
-→ `/mb-archive`
+## Next Steps
+- Task complete? → `/mb-archive`

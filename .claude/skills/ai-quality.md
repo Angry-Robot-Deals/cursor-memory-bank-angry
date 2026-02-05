@@ -1,10 +1,4 @@
----
-description: Core AI Quality principles - ALWAYS LOADED for all modes
-globs: _principles.mdc
-alwaysApply: true
----
-
-# AI QUALITY RULES - CORE PRINCIPLES
+# AI Quality & Best Practices
 
 > **TL;DR:** These 5 pillars guide AI-assisted development. Apply them consistently for 30-50% better code quality and 40-50% fewer bugs.
 
@@ -120,14 +114,22 @@ Before proceeding, ask:
 
 ---
 
-## 📂 LOADING MORE DETAILS
+## 🚩 COMMON MISTAKES
 
-For detailed guidance on specific rules:
-- `foundation/` - Rules 1-3 (Decomposition, TDD, Size)
-- `context/` - Rules 4-6 (Requirements, DoD, Corner Cases)
-- `architecture/` - Rules 7-9 (Skeleton, Iterative, Cognitive)
-- `quality/` - Rules 10-12 (Review, Boundaries, Complexity)
-- `technical/` - Rules 13-15 (Transaction, MB Structure, Prompts)
+### ❌ DON'T
+- Write code before tests
+- Create methods > 50 lines
+- Track > 9 objects per method
+- Review entire features at once
+- Start without clear requirements
+- Skip corner case analysis
+
+### ✅ DO
+- Tests → Code → Review → Next
+- Keep methods small and focused
+- One method at a time
+- Define boundaries explicitly
+- Document requirements upfront
 
 ---
 

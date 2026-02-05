@@ -1,106 +1,35 @@
-# Memory Bank System v2.0
+# Memory Bank System v2.1 (Subagents)
 
-Token-optimized task management for Claude Code. Commands in `.claude/commands/`, rules in `.claude/rules/`.
+**Concept**: A lightweight router that delegates to specialized Agents.
 
-## Commands
+## 🤖 Agents (Roles)
+Use these slash commands to switch context:
 
-| Command | Purpose | When |
-|---------|---------|------|
-| `/mb-prd` | Generate PRD from task description | Optional, before init |
-| `/mb-init` | Initialize task, set complexity 1-4 | Start here |
-| `/mb-plan` | Create implementation plan | Level 2-4 |
-| `/mb-design` | Design decisions (5-phase) | Level 3-4 |
-| `/mb-do` | Implement with TDD | All levels |
-| `/mb-reflect` | Review & lessons learned | All levels |
-| `/mb-archive` | Archive task, cleanup | All levels |
-| `/mb-status` | Show current status | Anytime |
-| `/mb-continue` | Resume current task | Anytime |
+| Role | Command | Focus |
+|------|---------|-------|
+| **Planner** | `/mb-plan` | Task breakdown, Backlog management |
+| **Architect** | `/mb-design` | System design, Interfaces, Data models |
+| **Developer** | `/mb-do` | TDD, Implementation, Refactoring |
+| **Reviewer** | `/mb-reflect` | QA, Security check, Validation |
 
-**Workflows:**
-- Level 1: init → do → reflect → archive
-- Level 2: init → plan → do → reflect → archive
-- Level 3-4: init → plan → design → do → reflect → archive
+## 🧠 Skills (Knowledge)
+Agents automatically load these, or request them via:
+- `/load-skill ai-quality` - 15 AI development rules
+- `/load-skill memory-bank-system` - File organization, task tracking
+- `/load-skill security` - Security best practices
+- `/load-skill performance` - Performance optimization
+- `/load-skill testing` - Testing strategies
 
-## Critical Rules
+## 📂 Core Memory (Always Loaded)
+- `memory-bank/activeContext.md` (Current State)
+- `memory-bank/tasks.md` (Current Plan)
 
-### 1. MCP Servers (MANDATORY)
+## 🚨 Critical Rules (Global)
+1.  **Memory Bank is Truth**: Never work outside `memory-bank/`.
+2.  **No Git Push**: Never push without explicit user request.
+3.  **MCP Mandatory**: Always use `sys8` (time/os) and `context7` (docs).
 
-**sys8** - Use for ALL system operations:
-- `get_current_datetime` - timestamps
-- `get_os_version` - platform info
-
-**context7** - Use for ALL library docs:
-- `resolve-library-id` → `get-library-docs`
-
-**NEVER** use `Date()`, hardcode timestamps, or hallucinate library APIs.
-
-### 2. Git Push (MANDATORY)
-
-**NEVER** push without explicit user request ("push", "git push", "commit and push").
-
-Allowed: `git add`, `git commit`, `git status`, `git diff`, `git log`
-Forbidden: `git push` (without permission)
-
-### 3. File Paths (MANDATORY)
-
-All Memory Bank files in `memory-bank/`:
-- `tasks.md` - Active task (source of truth)
-- `activeContext.md` - Current task ID
-- `progress.md` - Status tracking
-- `backlog.md` - Pending queue
-- `prd/PRD-[id]-[desc].md` - Requirements
-- `creative/creative-[id]-[name].md` - Design docs
-- `reflection/reflection-[id].md` - Reviews
-- `archive/archive-[id].md` - Completed tasks
-
-**Task ID format:** `DEV-XXXX` (4-digit). Get from `activeContext.md`.
-
-**NEVER** create files outside `memory-bank/` or in `documentation/tasks/`.
-
-### 4. Task Context (MANDATORY)
-
-- `activeContext.md` identifies CURRENT task
-- Archive only current task, not all completed
-- System auto-assigns task IDs if not provided
-
-## AI Quality (5 Pillars)
-
-1. **Decomposition** - Max 50 lines/method, 7-9 objects
-2. **Test-First** - TDD always, DoD explicit
-3. **Architecture-First** - Skeleton before code
-4. **Focused Work** - One thing at a time
-5. **Context Management** - Right info at right time
-
-See `.claude/rules/ai-quality-principles.md` for 15 detailed rules.
-
-## Quick Reference
-
-**Starting a task:**
+## Quick Start
+```bash
+/mb-init "New task description"  # Starts with Planner
 ```
-/mb-init [task description]
-```
-
-**With PRD:**
-```
-/mb-prd [task description]
-/mb-init Use PRD: memory-bank/prd/PRD-XXX.md
-```
-
-**Check status:**
-```
-/mb-status
-```
-
-## Project Type
-
-This is a workflow configuration project. No build/test commands.
-- Claude Code config: `CLAUDE.md`, `.claude/`
-- Cursor IDE config: `.cursor/`
-- Shared: `memory-bank/`
-
-## Details
-
-- Setup: `CLAUDE_CODE_SETUP.md`
-- Commands: `.claude/commands/README.md`
-- Rules: `.claude/rules/`
-- Comparison: `PLATFORM_COMPARISON.md`

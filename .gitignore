@@ -103,7 +103,7 @@ coverage/
 
 # Temporary files
 tmp/
-temp/
+/temp
 *.tmp
 *.temp
 **/*.bak

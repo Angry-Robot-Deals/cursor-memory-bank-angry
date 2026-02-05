@@ -42,8 +42,9 @@ claude
 ## Need Help?
 
 - **Command details**: `.claude/commands/README.md`
-- **Full setup guide**: `CLAUDE_CODE_SETUP.md`
-- **Workflow overview**: `.claude/workflows/workflow-overview.md`
+- **System overview**: `CLAUDE.md`
+- **Agents**: `.claude/agents/` (4 specialized roles)
+- **Skills**: `.claude/skills/` (4 knowledge modules)
 
 ---
 

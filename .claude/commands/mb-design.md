@@ -1,20 +1,16 @@
-# /mb-design - Design Decisions
+# /mb-design - Architecture & Design Mode
 
-Explore design options for Level 3-4 tasks.
+**Role**: Architect Agent
+**Source**: `.claude/agents/architect.md`
 
-## 5-Phase Process
-1. **Problem** - Define scope
-2. **Options** - List 3-5 alternatives
-3. **Analysis** - Compare pros/cons
-4. **Decision** - Select approach
-5. **Guidelines** - Implementation rules
+## Instructions
+1.  **LOAD**: Read `.claude/agents/architect.md` and adopt that persona.
+2.  **CONTEXT**: Read `memory-bank/tasks.md` and `memory-bank/systemPatterns.md`.
+3.  **ACTION**:
+    - Identify components needing design.
+    - Create `memory-bank/creative/creative-[id]-[name].md`.
+    - Document decisions and tradeoffs.
+4.  **OUTPUT**: New creative docs + `tasks.md` update.
 
-## Read
-- `memory-bank/tasks.md`
-
-## Write
-- `memory-bank/creative/creative-[task_id]-[component].md`
-- `memory-bank/tasks.md`
-
-## Next
-→ `/mb-do`
+## Next Steps
+- Design complete? → `/mb-do`

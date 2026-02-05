@@ -22,17 +22,39 @@ Tests define "what success looks like" in executable form. AI writes code that m
 TDD_RULE:
   sequence: "tests → implementation → verification"
   test_coverage_minimum: 80%
+  mocking_discipline:
+    allow: ["system boundaries", "external dependencies", "side effects"]
+    prohibit: ["internal business logic", "data structures for 'fitting'", "intermediate values"]
   include_cases:
     - happy_path: "Basic successful scenario"
     - edge_cases: "Boundary conditions"
     - error_cases: "Error handling"
-  prompt_pattern: |
-    "Write tests for [method]. Include:
-    - Basic success case
-    - Edge cases: [list]
-    - Error cases: [list]
-    Then implement method so all tests pass"
 ```
+
+---
+
+## 🔒 STRICT MOCKING DISCIPLINE (MANDATORY)
+
+### 1. What is ALLOWED to be mocked
+Mock **ONLY** system boundaries and external dependencies:
+- HTTP / REST / GraphQL calls
+- Database drivers / repositories (interfaces only, NO domain data fitting)
+- Filesystem access
+- Message brokers / queues / external SDKs
+- Time / Random / Environment
+
+### 2. What is STRICTLY FORBIDDEN to mock
+- **Internal business logic:** Calculations, transformations, validations, decision trees.
+- **Data fitting:** Creating mocks or domain objects that "just happen" to match the expected answer.
+- **Intermediate results:** Mocking a service to return a pre-calculated result.
+
+### 3. Behavior-Based Mocking
+- Mocks must verify **interaction contracts**, not just provide data.
+- **MANDATORY ASSERTIONS:**
+  - Which methods were called?
+  - How many times?
+  - With which parameters?
+- **Intent Check:** "If I break the business logic, will this test fail?" If the answer is NO, the test is invalid.
 
 ---
 
@@ -255,27 +277,22 @@ it('should work', () => {
 
 ### ✅ Do: Comprehensive Tests First
 ```typescript
-// GOOD: Strong tests written before code
+// GOOD: Strong tests with interaction verification
 describe('processOrder', () => {
-  it('calculates total correctly', () => {
+  it('calculates total and calls payment gateway', async () => {
+    // ARRANGE: Raw inputs, mock only system edge
     const order = { items: [{ price: 10 }, { price: 20 }] };
-    const result = processOrder(order);
+    const mockPayment = { charge: jest.fn().mockResolvedValue({ success: true }) };
+    
+    // ACT: Run real business logic
+    const result = await processOrder(order, mockPayment);
+    
+    // ASSERT: Verify result AND interaction
     expect(result.total).toBe(30);
-  });
-  
-  it('applies discount', () => {
-    const order = { items: [{ price: 100 }], discount: 0.1 };
-    const result = processOrder(order);
-    expect(result.total).toBe(90);
-  });
-  
-  it('rejects negative prices', () => {
-    const order = { items: [{ price: -10 }] };
-    expect(() => processOrder(order)).toThrow('Invalid price');
+    expect(mockPayment.charge).toHaveBeenCalledWith(30);
+    expect(mockPayment.charge).toHaveBeenCalledTimes(1);
   });
 });
-
-// THEN implement to pass these tests
 ```
 
 ---
@@ -304,10 +321,11 @@ Before implementation is complete:
 □ All happy path tests pass
 □ All edge case tests pass
 □ All error case tests pass
+□ NO data fitting (mocks don't return pre-shaped domain data)
+□ Interaction assertions included (calledWith, calledTimes)
+□ Business logic (calc/logic/trees) executes unmocked
 □ Test coverage ≥ 80%
 □ No skipped tests
-□ Tests are independent (no shared state)
-□ Tests are deterministic (no flaky tests)
 ```
 
 ---

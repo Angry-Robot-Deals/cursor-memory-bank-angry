@@ -1,24 +1,14 @@
-# /mb-plan - Create Implementation Plan
+# /mb-plan - Planning Mode
 
-Plan for Level 2-4 tasks.
+**Role**: Planner Agent
+**Source**: `.claude/agents/planner.md`
 
-## Steps
-1. Read task from `tasks.md`
-2. Review codebase structure
-3. Create implementation plan with:
-   - Steps and files to modify
-   - Testing strategy (TDD)
-   - Components needing design (→ `/mb-design`)
-4. Update `tasks.md` with plan
+## Instructions
+1.  **LOAD**: Read `.claude/agents/planner.md` and adopt that persona.
+2.  **CONTEXT**: Read `memory-bank/tasks.md` and `memory-bank/activeContext.md`.
+3.  **ACTION**: Create detailed implementation plan.
+4.  **OUTPUT**: Update `memory-bank/tasks.md`.
 
-## Read
-- `memory-bank/tasks.md`
-- `memory-bank/activeContext.md`
-
-## Write
-- `memory-bank/tasks.md`
-- `memory-bank/progress.md`
-
-## Next
-- Design needed: → `/mb-design`
-- No design: → `/mb-do`
+## Next Steps
+- Complexity > 2? → `/mb-design`
+- Ready to code? → `/mb-do`

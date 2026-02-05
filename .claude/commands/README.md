@@ -78,8 +78,8 @@ Commands provide consistent, predictable workflow management for Memory Bank dev
 
 - **Command reference**: This directory (9 command files)
 - **Setup guide**: `CLAUDE_CODE_SETUP.md` (root)
-- **Rules**: `.claude/rules/`
-- **Workflows**: `.claude/workflows/workflow-overview.md`
+- **Agents**: `.claude/agents/` (4 specialized roles)
+- **Skills**: `.claude/skills/` (4 knowledge modules)
 
 ## Testing Commands
 

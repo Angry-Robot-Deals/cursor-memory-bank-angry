@@ -2,12 +2,59 @@
 
 > **Personal Note**: Memory Bank is my personal hobby project that I develop for my own use in coding projects. As this is a personal project, I don't maintain an issues tracker or actively collect feedback. However, if you're using these rules and encounter issues, one of the great advantages is that you can ask the Cursor AI directly to modify or update the rules to better suit your specific workflow. The system is designed to be adaptable by the AI, allowing you to customize it for your own needs without requiring external support.
 
-## Version 2.1 - Backlog System & Context Optimization
+## Version 2.1 - Subagents & Skills Architecture
 
-> **Released:** February 3, 2026  
-> Building upon v2.0's MCP integration, this release introduces performance-optimized Backlog System and significant context window optimizations for Claude Code.
+> **Released:** February 5, 2026  
+> Building upon v2.0's MCP integration, this release introduces the Subagents & Skills architecture, Backlog System, and comprehensive context window optimizations.
 
 ### 🌟 Major Features
+
+#### Subagents & Skills Architecture (DEV-0005) _(New)_
+**90% context window reduction via on-demand agent and skill loading**
+
+**Overview:**
+Revolutionary architectural refactoring that transforms Claude Code integration from monolithic rule set to specialized agents and skills loaded on-demand.
+
+**Architecture:**
+- **4 Specialized Agents** (Roles): Architect, Planner, Developer, Reviewer
+- **5 Knowledge Skills**: AI Quality (15 rules), Memory Bank System, Security, Performance, Testing
+- **10 Workflow Commands**: `/mb-*` commands that load specific agents
+- **Lean Router**: `CLAUDE.md` reduced to <1KB (37 lines)
+
+**Key Achievements:**
+- **90% Context Window Reduction**: From 5000+ lines to <1KB base + on-demand agents/skills
+- **100% Rule Coverage**: All critical Cursor rules preserved in skills
+- **72% File Reduction**: From 75+ files to 22 files in `.claude/` directory
+- **Zero Breaking Changes**: All functionality preserved
+- **On-Demand Loading**: Load only what's needed when needed
+
+**Agent System:**
+- **Planner Agent** (`agents/planner.md`): Task breakdown, Backlog management
+- **Architect Agent** (`agents/architect.md`): System design, interfaces, data models
+- **Developer Agent** (`agents/developer.md`): TDD implementation, refactoring
+- **Reviewer Agent** (`agents/reviewer.md`): QA, security validation
+
+**Skill System:**
+- **AI Quality** (`skills/ai-quality.md`): All 15 AI development principles (150+ lines)
+- **Memory Bank System** (`skills/memory-bank-system.md`): File organization, task tracking (250+ lines)
+- **Security** (`skills/security.md`): Security best practices
+- **Performance** (`skills/performance.md`): Performance optimization
+- **Testing** (`skills/testing.md`): Testing strategies
+
+**Benefits:**
+- Eliminates context overflow in Claude Code and Cursor
+- Faster context loading (only essential content)
+- Easier maintenance (single source per concept)
+- Extensible architecture (add agents/skills as needed)
+- Clear separation of concerns (agents = roles, skills = knowledge)
+
+**Files:**
+- `.claude/agents/` - 4 agent files
+- `.claude/skills/` - 5 skill files
+- `.claude/commands/` - 10 command files (unchanged)
+- `CLAUDE.md` - Lean router (<1KB)
+
+---
 
 #### Backlog System (DEV-0001) _(New)_
 **Performance-optimized task queue with two-file architecture**

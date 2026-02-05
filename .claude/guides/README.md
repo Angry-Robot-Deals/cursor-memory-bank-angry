@@ -18,7 +18,8 @@ If you create helpful guides for using Memory Bank with Claude Code, they can be
 
 ## Main Documentation
 
-For now, see the main documentation:
-- `CLAUDE_CODE_SETUP.md` - Complete setup and usage guide
-- `.claude/workflows/workflow-overview.md` - Workflow phases
-- `.claude/rules/` - Core rules and principles
+See the main documentation:
+- `CLAUDE.md` - System overview (<1KB)
+- `.claude/commands/README.md` - Command reference
+- `.claude/agents/` - Specialized AI roles (4 files)
+- `.claude/skills/` - Knowledge modules (4 files)
