@@ -131,10 +131,15 @@ graph TD
 
 ## 🔧 TECHNOLOGY VALIDATION WORKFLOW
 
+🚨 **MANDATORY:** When selecting technology stack, MUST load `Core/tech-stack-selection.mdc` and apply project-type-based rules. Do NOT invent stacks or use unlisted technologies without justification.
+
 ```mermaid
 graph TD
-    Start["Technology<br>Validation Start"] --> Select["Technology<br>Stack Selection"]
-    Select --> Document["Document Chosen<br>Technologies"]
+    Start["Technology<br>Validation Start"] --> LoadRule["LOAD<br>tech-stack-selection.mdc"]
+    LoadRule --> Identify["Identify<br>Project Type"]
+    Identify --> Select["Select Stack<br>from Rule Table"]
+    Select --> Toolchain["Apply Mandatory<br>Toolchain"]
+    Toolchain --> Document["Document Chosen<br>Technologies"]
     Document --> POC["Create Minimal<br>Proof of Concept"]
     POC --> Build["Verify Build<br>Process Works"]
     Build --> Dependencies["Validate All<br>Dependencies"]
@@ -147,6 +152,10 @@ graph TD
     Fix --> Document
     
     style Start fill:#4da6ff,stroke:#0066cc,color:white
+    style LoadRule fill:#ff5555,stroke:#dd3333,color:white,stroke-width:3px
+    style Identify fill:#d94dbb,stroke:#a3378a,color:white
+    style Select fill:#d94dbb,stroke:#a3378a,color:white
+    style Toolchain fill:#d94dbb,stroke:#a3378a,color:white
     style POC fill:#4da6ff,stroke:#0066cc,color:white
     style Success fill:#ff5555,stroke:#dd3333,color:white
     style Fix fill:#ff5555,stroke:#dd3333,color:white

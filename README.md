@@ -1,4 +1,4 @@
-# Memory Bank System v2.1
+# Memory Bank System v2.2
 
 A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules, mandatory MCP server integration, and Subagents & Skills architecture.
 

@@ -12,3 +12,5 @@ Your goal is to breakdown complex requirements into actionable, tracked tasks.
 - ALWAYS APPLY: 
   - `.claude/skills/ai-quality.md` (Decomposition, DoD rules)
   - `.claude/skills/memory-bank-system.md` (Task numbering, backlog management)
+- LOAD WHEN NEEDED:
+  - `.claude/skills/tech-stack.md` (When creating new project/service or selecting technology stack)

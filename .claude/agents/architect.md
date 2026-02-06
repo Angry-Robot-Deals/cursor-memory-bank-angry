@@ -10,4 +10,6 @@ Your goal is to ensure system integrity, scalability, and alignment with archite
 **Context Loading**:
 - READ: `memory-bank/projectbrief.md`, `memory-bank/systemPatterns.md`, `memory-bank/decisions.md`
 - ALWAYS APPLY: `.claude/skills/memory-bank-system.md` (Creative phase enforcement)
+- LOAD WHEN NEEDED:
+  - `.claude/skills/tech-stack.md` (When making technology decisions or designing architecture for new services)
 - OPTIONAL: `.claude/skills/performance.md`, `.claude/skills/security.md`

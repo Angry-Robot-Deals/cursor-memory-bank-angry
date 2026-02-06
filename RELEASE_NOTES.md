@@ -2,6 +2,63 @@
 
 > **Personal Note**: Memory Bank is my personal hobby project that I develop for my own use in coding projects. As this is a personal project, I don't maintain an issues tracker or actively collect feedback. However, if you're using these rules and encounter issues, one of the great advantages is that you can ask the Cursor AI directly to modify or update the rules to better suit your specific workflow. The system is designed to be adaptable by the AI, allowing you to customize it for your own needs without requiring external support.
 
+## Version 2.2 - Tech Stack Selection Rule
+
+> **Released:** February 6, 2026  
+> Building upon v2.1's Subagents & Skills architecture, this release introduces mandatory tech stack selection rules for consistent project initialization.
+
+### 🌟 Major Features
+
+#### Tech Stack Selection Rule (DEV-0006) _(New)_
+**Mandatory project-type-based technology stack selection**
+
+**Overview:**
+Eliminates guesswork in technology selection by providing explicit, rule-based stack recommendations for 22 project types. Ensures consistency and prevents technical debt from incorrect technology choices.
+
+**Key Components:**
+- **Cursor Rule**: `.cursor/rules/isolation_rules/Core/tech-stack-selection.mdc` (427 lines)
+- **Claude Skill**: `.claude/skills/tech-stack.md` (219 lines)
+- **22 Project Types**: From Static Landing Pages to AI Pipelines
+- **Decision Tree**: Visual Mermaid diagrams for stack selection
+- **Mandatory Toolchains**: Python (uv/ruff/pytest), Node.js (pnpm/TypeScript/eslint/vitest)
+- **Docker Rules**: Enforced for all backend services
+
+**Project Types Covered:**
+- **Frontend**: Static Landing, Multi-Page, Web SEO, SPA/Dashboard
+- **Backend API**: Microservice, High-Load, Python API, Gateway
+- **AI/ML**: LLM API, Pipelines/RAG, Search/Semantic
+- **Real-time**: Chat, Audio/Video, WebSockets
+- **Background**: Jobs, Workers, Event-Driven
+- **Media**: File Processing, Streaming
+- **Platform**: Monorepo, Auth, Prototyping
+
+**Integration:**
+- **PRD Mode**: Tech stack selection in requirements phase
+- **VAN Mode**: Mandatory stack validation for new projects
+- **PLAN Mode**: Technology validation workflow updated
+
+**Architecture Cleanup:**
+- Removed `.cursorrules` (legacy cross-contamination)
+- Full isolation: `.cursor/` ← → `.claude/` (no mixing)
+- Memory Bank as shared context layer
+
+**Benefits:**
+- Eliminates tech stack guesswork
+- Prevents wrong technology choices
+- Ensures consistent toolchains
+- Enforces best practices (Docker, testing, linting)
+- Clear forbidden patterns
+
+**Files:**
+- `.cursor/rules/isolation_rules/Core/tech-stack-selection.mdc`
+- `.claude/skills/tech-stack.md`
+- `memory-bank/reflection/reflection-DEV-0006.md`
+- `memory-bank/qa/qa-report-DEV-0006-final.md`
+
+**Grade:** A+ (5/5 QA checks passed)
+
+---
+
 ## Version 2.1 - Subagents & Skills Architecture
 
 > **Released:** February 5, 2026  

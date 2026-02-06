@@ -24,6 +24,14 @@ When initializing a new task in VAN mode:
 - MUST scan existing tasks and archives to find next available number
 - See: `Core/task-numbering-system.mdc` for full details
 
+🚨 MANDATORY: TECH STACK SELECTION 🚨
+When task involves creating a new project, service, or module:
+- MUST load `Core/tech-stack-selection.mdc` for tech stack rules
+- MUST select stack based on project type (NOT invented or guessed)
+- MUST validate mandatory toolchains (Python: uv/ruff/pytest, Node: pnpm/TypeScript/eslint/vitest)
+- MUST enforce Docker rules for backend services
+- See: `Core/tech-stack-selection.mdc` for full details
+
 > **TL;DR:** This visual map defines the VAN mode process for project initialization, task analysis, and technical validation. It guides users through platform detection, file verification, complexity determination, and technical validation to ensure proper setup before implementation.
 
 ## 🧭 VAN MODE PROCESS FLOW
