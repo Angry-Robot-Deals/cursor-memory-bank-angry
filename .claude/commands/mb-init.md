@@ -14,6 +14,7 @@ disable-model-invocation: true
 2.  **ACTION**:
     - Analyze the user request.
     - Determine complexity level (1-4).
+    - **Context Gathering**: For complex tasks, ensure context is gathered (via `/mb-prd`) before planning.
     - **If new project/service**: Load `.claude/skills/tech-stack.md` and identify required stack.
     - Create/Update `memory-bank/tasks.md` with new task.
     - Update `memory-bank/activeContext.md`.

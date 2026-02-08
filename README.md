@@ -58,9 +58,9 @@ Version 2.0 builds upon v0.9 with mandatory MCP server integration and PRD gener
 
 ### Core Workflow Commands
 
-1. **`/prd`** - Generates Product Requirements Documents from brief task descriptions (optional, pre-workflow)
-2. **`/van`** - Initializes projects, detects platform, determines task complexity
-3. **`/plan`** - Creates detailed implementation plans based on complexity level
+1. **`/prd`** - Generates Product Requirements Documents with **Context Gathering**, **Solution Exploration** (2-3 approaches), and **User Consultation**.
+2. **`/van`** - Initializes projects, detects platform, determines task complexity. Now suggests `/prd` for complex tasks.
+3. **`/plan`** - Creates detailed implementation plans with **Rollback Strategy**, **Validation Checklist**, and component breakdown.
 4. **`/creative`** - Explores design options for components requiring design decisions
 5. **`/do`** - Systematically implements planned changes (formerly `/build`)
 6. **`/reflect`** - Reviews completed work and documents lessons learned
@@ -385,10 +385,10 @@ To use Memory Bank with both Cursor IDE and Claude Code:
 
 **What it does:**
 - Analyzes brief task description
-- Scans codebase to identify affected modules
+- **Context Gathering**: Scans codebase and identifies constraints
+- **Solution Exploration**: Proposes 2-3 technical approaches with pros/cons
 - Creates structured PRD with problem statement, scope, technical considerations
 - Estimates complexity level
-- Identifies risks and mitigation strategies
 - Saves to `memory-bank/prd/PRD-{TASK_NUMBER}-{description}.md`
 
 **Next steps:**
@@ -426,7 +426,7 @@ To use Memory Bank with both Cursor IDE and Claude Code:
 - Reads task requirements from `memory-bank/tasks.md`
 - Reviews codebase structure
 - Creates implementation plan (complexity-appropriate)
-- Performs technology validation (Level 2-4)
+- **Detailed Design**: Includes Rollback Plan and Validation Checklist
 - Identifies components requiring creative phases
 - Updates `memory-bank/tasks.md` with complete plan
 

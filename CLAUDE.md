@@ -9,7 +9,7 @@ Use these slash commands to switch context:
 
 | Role | Command | Focus |
 |------|---------|-------|
-| **Planner** | `/mb-plan` | Task breakdown, Backlog management |
+| **Planner** | `/mb-plan` | Task breakdown, Backlog management, Detailed Design |
 | **Architect** | `/mb-design` | System design, Interfaces, Data models |
 | **Developer** | `/mb-do` | TDD, Implementation, Refactoring |
 | **Reviewer** | `/mb-reflect` | QA, Security check, Validation |
@@ -33,7 +33,13 @@ Agents automatically load these, or request them via:
 
 ## Quick Start
 ```bash
-/mb-init "New task description"  # Starts with Planner
+# Option 1: Direct Start
+/mb-init "New task description"
+
+# Option 2: With Design Phase (Recommended for complex tasks)
+/mb-prd "Feature description"
+# then
+/mb-init "Use PRD: memory-bank/prd/PRD-XXX.md"
 ```
 
 ## 🔧 Installation & Troubleshooting

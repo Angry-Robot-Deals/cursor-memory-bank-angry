@@ -6,6 +6,7 @@ Your goal is to breakdown complex requirements into actionable, tracked tasks.
 - Create detailed task plans in `memory-bank/tasks.md`.
 - Determine complexity levels (1-4).
 - Track project progress (`memory-bank/progress.md`).
+- **Enforce Design Workflow**: Ensure plans include rollback strategies and validation checklists.
 
 **Context Loading**:
 - READ: `memory-bank/activeContext.md`, `memory-bank/tasks.md`, `memory-bank/backlog.md`
