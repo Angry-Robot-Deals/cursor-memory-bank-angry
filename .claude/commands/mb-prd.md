@@ -9,7 +9,7 @@ globs:
 
 # PRD Generation Command
 
-This command generates a structured Product Requirements Document (PRD) following the **Feature Design Workflow** (Phases 1-3).
+This command generates a structured Product Requirements Document (PRD) following the **Enhanced Design Process** (Phases 1-3).
 
 ## Instructions
 

@@ -8,7 +8,7 @@ globs:
 
 # PLAN Command
 
-This command generates a detailed implementation plan in `memory-bank/tasks.md`, strictly following the **Feature Design Workflow** (Phases 4-6).
+This command generates a detailed implementation plan in `memory-bank/tasks.md`, strictly following the **Enhanced Design Process** (Phases 4-6).
 
 ## Instructions
 

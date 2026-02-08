@@ -1,11 +1,11 @@
 # Design Improvements for Initialization & Planning (DEV-0008)
 
 ## Overview
-This task integrates the "Feature Design and Planning Workflow" from [extractum-skills/run_design.md](https://github.com/extractumio/extractum-skills/blob/main/domain-specific/vibecoding/commands/run_design.md) into the core Memory Bank system.
+This task integrates an enhanced, rigorous design and planning workflow into the core Memory Bank system to improve code quality and security.
 
-## Source Analysis & Gap Analysis
+## Workflow Analysis
 
-The source document defines a 6-phase workflow:
+The enhanced workflow defines a 6-phase process:
 1.  **Context Gathering**: Study docs, scope, constraints.
 2.  **Solution Brainstorming**: 3+ approaches, evaluation, rejection criteria.
 3.  **User Consultation**: Present options, get approval.
@@ -51,4 +51,4 @@ The source document defines a 6-phase workflow:
 - [ ] **Verify**: Check templates and prompts.
 
 ## References
-- Source: https://github.com/extractumio/extractum-skills/blob/main/domain-specific/vibecoding/commands/run_design.md
+- Internal Design Standards

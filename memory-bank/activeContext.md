@@ -11,10 +11,10 @@
 - **Version**: v2.3
 
 ## Current Focus
-Verifying the implementation of the "Feature Design and Planning Workflow" from the provided source document.
+Verifying the implementation of the "Enhanced Design Process" workflow.
 
 ## Key Changes
-1.  **Adhere to Source**: Implemented the workflow from `extractum-skills/run_design.md`.
+1.  **Adhere to Best Practices**: Implemented a rigorous design workflow.
 2.  **Split Phases**:
     -   `/prd`: Cover Phases 1-3 (Context, Brainstorming, Consultation).
     -   `/plan`: Cover Phases 4-6 (Detailed Design, Security Design, Implementation Plan).

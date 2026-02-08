@@ -8,7 +8,7 @@
 - **Priority**: High
 
 ## Implementation Plan
-- [x] Analyze source document (`run_design.md`) and identify gaps
+- [x] Analyze design requirements and identify gaps
 - [x] Update Cursor `/prd` command (Phases 1-3)
 - [x] Update Cursor `/plan` command (Phases 4-5 & Security)
 - [x] Update Claude commands to match

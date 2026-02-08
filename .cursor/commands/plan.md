@@ -1,6 +1,6 @@
 # PLAN Command - Task Planning
 
-This command creates detailed implementation plans based on complexity level determined in VAN mode, strictly following the **Feature Design Workflow** (Phases 4-6).
+This command creates detailed implementation plans based on complexity level determined in VAN mode, strictly following the **Enhanced Design Process** (Phases 4-6).
 
 ## Memory Bank Integration
 
@@ -84,7 +84,7 @@ Load: .cursor/rules/context7-mcp-usage.mdc
 
 ## Implementation Plan Template (Design Document)
 
-The plan in `memory-bank/tasks.md` MUST follow this structure (adapted from *Feature Design Workflow* Phase 5):
+The plan in `memory-bank/tasks.md` MUST follow this structure (adapted from *Enhanced Design Process* Phase 5):
 
 ```markdown
 # [Feature Name] Implementation Plan

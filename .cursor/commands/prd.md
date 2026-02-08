@@ -4,7 +4,7 @@ This command creates comprehensive Product Requirements Documents (PRDs) from br
 
 ## Purpose
 
-Transform brief, informal task descriptions into structured PRD documents that strictly follow the **Feature Design Workflow** (Phases 1-3):
+Transform brief, informal task descriptions into structured PRD documents that strictly follow the **Enhanced Design Process** (Phases 1-3):
 - **Phase 1: Context Gathering** (Docs, Scope, Constraints)
 - **Phase 2: Solution Exploration** (Multiple Approaches, Evaluation, Anti-Patterns)
 - **Phase 3: User Consultation** (Alternatives Presentation, Approval)
