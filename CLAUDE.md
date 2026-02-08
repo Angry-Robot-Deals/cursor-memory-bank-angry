@@ -33,3 +33,16 @@ Agents automatically load these, or request them via:
 ```bash
 /mb-init "New task description"  # Starts with Planner
 ```
+
+## 🔧 Installation & Troubleshooting
+
+### First Time in This Project?
+See `.claude/INSTALLATION_GUIDE.md` for setup instructions.
+
+### Error: "Agent type not found"?
+**Cause:** Missing `.claude/agents/` directory.
+**Fix:** Copy Memory Bank structure to your project (see INSTALLATION_GUIDE.md).
+
+### Error: "memory-bank/[dir] not found"?
+**Cause:** Memory Bank not initialized.
+**Fix:** `mkdir -p memory-bank/{tasks,creative,reflection,qa,reports,archive}`
