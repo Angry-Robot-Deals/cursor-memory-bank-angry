@@ -1,4 +1,27 @@
-# Memory Bank v2.1 Installation Guide
+# Memory Bank v2.3 Installation Guide
+
+> **New in v2.3:** All commands now follow Agent Skills standard with YAML frontmatter for better Claude Code integration.
+
+## 🎯 Where to Install?
+
+Choose installation location based on your needs:
+
+| Installation Type | Location | Use When | Benefits | Trade-offs |
+|------------------|----------|----------|----------|------------|
+| **Project-level** (Recommended) | `.claude/` in project | Project-specific customization | Isolated, version-controlled, team sharing | Install per project |
+| **User-level** (Global) | `~/.claude/` in home | Available in ALL projects | One-time setup, always available | Changes affect all projects |
+
+### Decision Tree
+
+```
+Do you need project-specific agents/skills?
+├─ YES → Project-level installation (.claude/)
+└─ NO → Do you use Memory Bank in multiple projects?
+   ├─ YES → User-level installation (~/.claude/)
+   └─ NO → Project-level installation (.claude/)
+```
+
+---
 
 ## Quick Installation for Existing Projects
 
@@ -141,23 +164,97 @@ cp -r /path/to/cursor-memory-bank-angry/.claude/commands .claude/
 
 ---
 
-## Project-Specific vs. Global Installation
+## Project-Level Installation (Recommended)
 
-### Project-Specific (Recommended)
-- Install in each project directory
-- Customize agents/skills per project
-- Better isolation
+**Best for:**
+- Project-specific customization
+- Team collaboration (committed to git)
+- Different Memory Bank configurations per project
 
-### Global Installation (Advanced)
+**Location:** `.claude/` in project directory
+
+**Install:**
 ```bash
-# Copy to Claude Code global directory
+cd /path/to/your-project
+
+# Copy structure (as shown above in Quick Installation)
+cp -r /path/to/cursor-memory-bank-angry/.claude .
+cp /path/to/cursor-memory-bank-angry/CLAUDE.md .
+
+# Initialize Memory Bank
+mkdir -p memory-bank/{tasks,creative,reflection,qa,reports,archive,prd,docs}
+touch memory-bank/{tasks,backlog,backlog-archive,activeContext,progress,projectbrief}.md
+```
+
+**Benefits:**
+- ✅ Version-controlled with project
+- ✅ Team members get same configuration
+- ✅ Customize agents/skills per project
+- ✅ Isolated from other projects
+
+**Trade-offs:**
+- ❌ Need to install in each project
+- ❌ Updates require manual sync
+
+---
+
+## User-Level Installation (Global)
+
+**Best for:**
+- Using Memory Bank in many projects
+- Personal workflow consistency
+- Quick access without per-project setup
+
+**Location:** `~/.claude/` in home directory
+
+**Install:**
+```bash
+# Copy to global Claude Code directory
+cp -r /path/to/cursor-memory-bank-angry/.claude/agents ~/.claude/agents
+cp -r /path/to/cursor-memory-bank-angry/.claude/skills ~/.claude/skills
+cp -r /path/to/cursor-memory-bank-angry/.claude/commands ~/.claude/commands
+cp /path/to/cursor-memory-bank-angry/CLAUDE.md ~/.claude/CLAUDE.md
+
+# Create Memory Bank in each project you use it
+cd /path/to/your-project
+mkdir -p memory-bank/{tasks,creative,reflection,qa,reports,archive,prd,docs}
+touch memory-bank/{tasks,backlog,backlog-archive,activeContext,progress,projectbrief}.md
+```
+
+**Benefits:**
+- ✅ Available in ALL projects automatically
+- ✅ One-time setup
+- ✅ Consistent workflow everywhere
+- ✅ Easier to maintain/update
+
+**Trade-offs:**
+- ❌ Changes affect all projects
+- ❌ Not version-controlled with project
+- ❌ Team members need separate installation
+- ❌ Still need `memory-bank/` per project
+
+**Important:** Even with user-level installation, each project needs its own `memory-bank/` directory structure!
+
+---
+
+## Hybrid Installation (Advanced)
+
+**Scenario:** User-level agents/skills, project-level customizations.
+
+```bash
+# Install base system globally
 cp -r .claude/agents ~/.claude/agents
 cp -r .claude/skills ~/.claude/skills
 cp -r .claude/commands ~/.claude/commands
-cp CLAUDE.md ~/.claude/
+
+# In specific projects, override/extend as needed
+cd /path/to/special-project
+mkdir -p .claude/skills
+cp ~/.claude/skills/ai-quality.md .claude/skills/
+# Edit .claude/skills/ai-quality.md for project-specific rules
 ```
 
-**Note:** Global installation makes agents/skills available in ALL projects.
+**Use case:** Core workflow globally, project-specific tweaks locally.
 
 ---
 

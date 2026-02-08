@@ -1,3 +1,8 @@
+---
+name: mb-design
+description: Explore architectural and design decisions for complex features (Level 3-4)
+---
+
 # /mb-design - Architecture & Design Mode
 
 **Role**: Architect Agent

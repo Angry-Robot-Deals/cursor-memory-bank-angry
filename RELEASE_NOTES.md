@@ -2,6 +2,98 @@
 
 > **Personal Note**: Memory Bank is my personal hobby project that I develop for my own use in coding projects. As this is a personal project, I don't maintain an issues tracker or actively collect feedback. However, if you're using these rules and encounter issues, one of the great advantages is that you can ask the Cursor AI directly to modify or update the rules to better suit your specific workflow. The system is designed to be adaptable by the AI, allowing you to customize it for your own needs without requiring external support.
 
+## Version 2.3 - Agent Skills Standard Compliance
+
+> **Released:** February 8, 2026  
+> Building upon v2.2's tech stack selection, this release introduces full [Agent Skills](https://agentskills.io) standard compliance for all Claude Code commands, ensuring proper formatting and documentation for multi-project usage.
+
+### 🌟 Major Features
+
+#### Agent Skills Standard Compliance _(New)_
+**Full YAML frontmatter support and comprehensive installation documentation**
+
+**Overview:**
+All Memory Bank commands now follow the official Agent Skills standard format with proper YAML frontmatter, enabling correct command recognition in Claude Code and providing clear guidance for both project-level and user-level installations.
+
+**Key Components:**
+- **YAML Frontmatter**: All 9 commands now have proper `name` and `description` fields
+- **Agent Skills Standard**: Compliance with https://agentskills.io format
+- **Installation Documentation**: Clear guidance for project vs user-level installation
+- **Troubleshooting Guide**: Root cause analysis for common errors
+
+**Commands Updated:**
+All 9 Memory Bank commands now include YAML frontmatter:
+1. `mb-init.md` - Initialize new task
+2. `mb-plan.md` - Create implementation plan
+3. `mb-design.md` - Architectural design
+4. `mb-do.md` - TDD implementation
+5. `mb-reflect.md` - Review & reflection
+6. `mb-archive.md` - Archive completed task
+7. `mb-prd.md` - Generate PRD
+8. `mb-status.md` - Check task status
+9. `mb-continue.md` - Resume task
+
+**Format Example:**
+```yaml
+---
+name: mb-reflect
+description: Review completed task and create reflection document
+---
+```
+
+**Special Handling:**
+- `mb-init` and `mb-archive` marked with `disable-model-invocation: true` (user must invoke manually)
+
+**Documentation Enhancements:**
+- **INSTALLATION.md**: Added "Where to Install" decision tree
+  - Project-level (`.claude/`) - Recommended for teams
+  - User-level (`~/.claude/`) - Best for individual multi-project use
+  - Hybrid approach explained
+  - Comparison table with benefits/trade-offs
+
+- **TROUBLESHOOTING.md**: Added comprehensive sections
+  - "Understanding Skills vs Commands vs Agents" explanation
+  - YAML frontmatter requirements documented
+  - Root cause analysis for "Agent type not found" error
+  - Verification commands for installation
+
+- **CLAUDE.md**: Updated with Agent Skills standard notice
+  - Links to installation documentation
+  - Clear troubleshooting quick reference
+
+- **README.md**: Updated to v2.3
+  - Agent Skills standard compliance mentioned
+  - Installation guide links updated
+
+**Problem Solved:**
+Fixed "Agent type 'mb-reflect:mb-reflect' not found" error that occurred when using Memory Bank commands in projects without proper installation. The root cause was missing YAML frontmatter, which prevented Claude Code from recognizing commands correctly.
+
+**Benefits:**
+- ✅ Commands work correctly in Claude Code
+- ✅ Proper autocomplete support
+- ✅ Clear installation instructions (project vs user)
+- ✅ Better command descriptions for Claude's context
+- ✅ Full Agent Skills standard compliance
+- ✅ Zero breaking changes - backward compatible
+
+**Files:**
+- Updated: `.claude/commands/mb-*.md` (9 files)
+- Updated: `INSTALLATION.md` (comprehensive guide)
+- Updated: `TROUBLESHOOTING.md` (root cause analysis)
+- Updated: `CLAUDE.md` (Agent Skills notice)
+- Updated: `README.md` (v2.3 description)
+- Created: `memory-bank/reports/command-audit-DEV-0007.md` (audit report)
+
+**Testing:**
+- ✅ All commands have YAML frontmatter
+- ✅ Format validates against Agent Skills standard
+- ✅ Documentation clarity verified
+- ✅ Installation paths tested
+
+**Grade:** A+ (Zero breaking changes, 100% compliance)
+
+---
+
 ## Version 2.2 - Tech Stack Selection Rule
 
 > **Released:** February 6, 2026  
@@ -9,7 +101,7 @@
 
 ### 🌟 Major Features
 
-#### Tech Stack Selection Rule (DEV-0006) _(New)_
+#### Tech Stack Selection Rule _(New)_
 **Mandatory project-type-based technology stack selection**
 
 **Overview:**
@@ -66,7 +158,7 @@ Eliminates guesswork in technology selection by providing explicit, rule-based s
 
 ### 🌟 Major Features
 
-#### Subagents & Skills Architecture (DEV-0005) _(New)_
+#### Subagents & Skills Architecture _(New)_
 **90% context window reduction via on-demand agent and skill loading**
 
 **Overview:**
@@ -113,7 +205,7 @@ Revolutionary architectural refactoring that transforms Claude Code integration 
 
 ---
 
-#### Backlog System (DEV-0001) _(New)_
+#### Backlog System _(New)_
 **Performance-optimized task queue with two-file architecture**
 
 - **Two-File Architecture**: Separates active backlog (`backlog.md`) from historical archive (`backlog-archive.md`)
@@ -148,7 +240,7 @@ Revolutionary architectural refactoring that transforms Claude Code integration 
 
 ---
 
-#### Context Window Optimization (DEV-0002) _(Enhancement)_
+#### Context Window Optimization _(Enhancement)_
 **84% token reduction across Claude Code components**
 
 **Overview:**
@@ -291,14 +383,14 @@ Comprehensive optimization of Claude Code rules and commands to reduce context w
 
 ### 🎯 Task Details
 
-#### DEV-0001: Backlog System Implementation
+#### Backlog System Implementation
 - **Status**: ✅ Complete
 - **Complexity**: Level 3 - Feature Development
 - **Duration**: 2 hours 38 minutes
 - **Result**: v1.0 and v2.0 implementations complete, 10-20x performance improvement
 - **Archive**: `memory-bank/archive/archive-DEV-0001.md`
 
-#### DEV-0002: Context Window Optimization
+#### Context Window Optimization
 - **Status**: ✅ Complete
 - **Complexity**: Level 3 - Optimization
 - **Result**: 84% token reduction (exceeded 80% target)

@@ -1,3 +1,9 @@
+---
+name: mb-archive
+description: Archive completed task with comprehensive documentation and Memory Bank updates
+disable-model-invocation: true
+---
+
 # /mb-archive - Archive Task
 
 Complete and archive current task.

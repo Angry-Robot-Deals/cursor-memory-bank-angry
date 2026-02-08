@@ -1,3 +1,8 @@
+---
+name: mb-continue
+description: Resume work on current task from last checkpoint with context awareness
+---
+
 # /mb-continue - Resume Task
 
 Continue from where you left off.

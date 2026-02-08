@@ -6,7 +6,8 @@ This command creates comprehensive Product Requirements Documents (PRDs) from br
 
 Transform brief, informal task descriptions into structured PRD documents that include:
 - Clear problem statement and objectives
-- Affected modules and subsystems analysis
+- **Context Gathering**: Analysis of existing code and constraints
+- **Solution Exploration**: Evaluation of technical approaches
 - System impact assessment
 - Expected outcomes and success criteria
 - Technical considerations
@@ -27,9 +28,9 @@ Load: .cursor/rules/sys8-mcp-usage.mdc
 
 **Output Directory:** `memory-bank/prd/`
 
-**File Naming Convention:** `PRD-{TASK_NUMBER}-{brief-description}.md`
-- Example: `PRD-DEV-001-user-notifications.md`
-- Example: `PRD-DEV-001-api-rate-limiting.md`
+**File Naming Convention:** `PRD-{brief-description}.md`
+- Example: `PRD-user-notifications.md`
+- Example: `PRD-api-rate-limiting.md`
 
 **Reads from:**
 - `.cursor/templates/prd-template.md` - Global PRD template
@@ -42,20 +43,37 @@ Load: .cursor/rules/sys8-mcp-usage.mdc
 ```mermaid
 graph TD
     Start["User Input:<br>Brief Task Description"] --> Parse["Parse Task Description"]
-    Parse --> Analyze["Analyze Codebase<br>& Project Structure"]
-    Analyze --> Identify["Identify Affected:<br>• Modules<br>• Subsystems<br>• Dependencies"]
-    Identify --> Generate["Generate PRD Document"]
+    Parse --> Context["Context Gathering:<br>• Identify Components<br>• Read Relevant Code<br>• Document Constraints"]
+    Context --> Explore["Solution Exploration:<br>• Generate 2-3 Approaches<br>• Evaluate Pros/Cons<br>• Check Security"]
+    Explore --> Consult["User Consultation:<br>• Present Options<br>• Wait for Approval"]
+    Consult --> Generate["Generate PRD Document"]
     Generate --> Save["Save to memory-bank/prd/"]
     Save --> Summary["Output Summary<br>& Next Steps"]
     
     style Start fill:#f9d77e,stroke:#d9b95c,color:black
     style Parse fill:#a8d5ff,stroke:#88b5e0,color:black
-    style Analyze fill:#a8d5ff,stroke:#88b5e0,color:black
-    style Identify fill:#c5e8b7,stroke:#a5c897,color:black
+    style Context fill:#c5e8b7,stroke:#a5c897,color:black
+    style Explore fill:#c5e8b7,stroke:#a5c897,color:black
+    style Consult fill:#ffb3ba,stroke:#ff6b6b,color:black
     style Generate fill:#e699d9,stroke:#d94dbb,color:black
     style Save fill:#8cff8c,stroke:#4dbb5f,color:black
     style Summary fill:#8cff8c,stroke:#4dbb5f,color:black
 ```
+
+### Phase 1: Context Gathering (New)
+Before generating the PRD, the agent MUST:
+1.  **Identify Components**: Determine which parts of the system are affected (e.g., AIO Pro, API, Content Generator).
+2.  **Study Code**: Read relevant files (Models, Controllers, Configs) to understand existing patterns.
+3.  **Document Constraints**: Identify database, performance, integration, and security constraints.
+
+### Phase 2: Solution Exploration (New)
+In the "Technical Considerations" section, the agent MUST:
+1.  **Generate Approaches**: Propose 2-3 distinct technical approaches.
+2.  **Evaluate**: List Pros/Cons for each.
+3.  **Rejection Criteria**: Explicitly check for security risks or anti-patterns (e.g., raw SQL, lack of validation).
+
+### Phase 3: User Consultation (New)
+If significant architectural decisions are needed, the agent SHOULD present the approaches to the user and **wait for approval** before finalizing the PRD.
 
 ## PRD Document Structure
 
@@ -95,34 +113,34 @@ Each generated PRD follows this template:
 
 ---
 
-## 3. Affected Systems Analysis
+## 3. Context & Analysis (Enhanced)
 
-### 3.1 Modules
+### 3.1 Affected Systems
 | Module | Path | Impact Level |
 |--------|------|--------------|
 | {module} | {path} | Low/Medium/High |
 
-### 3.2 Subsystems
-{List subsystems that may be affected}
+### 3.2 Existing Code Analysis
+{Insights from reading current implementation}
 
-### 3.3 Dependencies
-{Internal and external dependencies}
-
-### 3.4 Database Changes
-{Any database schema changes required}
+### 3.3 Constraints
+- **Database**: {Changes needed?}
+- **Performance**: {Latency/Load impact}
+- **Security**: {Input validation, Auth}
 
 ---
 
-## 4. Technical Considerations
+## 4. Technical Approach (Enhanced)
 
-### 4.1 Architecture Impact
+### 4.1 Proposed Solution
+{Selected approach details}
+
+### 4.2 Alternative Approaches Considered
+- **Option A**: {Description} (Pros/Cons)
+- **Option B**: {Description} (Pros/Cons)
+
+### 4.3 Architecture Impact
 {How does this affect system architecture?}
-
-### 4.2 Performance Considerations
-{Any performance implications}
-
-### 4.3 Security Considerations
-{Security aspects to consider}
 
 ### 4.4 Integration Points
 {APIs, services, external systems}
@@ -196,7 +214,7 @@ After PRD approval, proceed to:
 Type `/prd` followed by a brief task description:
 
 ```
-/prd DEV-001: Add notification system for account expiry warnings
+/prd Add notification system for account expiry warnings
 ```
 
 ```
@@ -211,13 +229,10 @@ Type `/prd` followed by a brief task description:
 
 The command extracts from user input:
 
-1. **Task Number** (if provided): DEV-XXX, TASK-XXX, or similar patterns
-2. **Task Title**: Brief description of the task
-3. **Initial Context**: Any additional details provided
+1. **Task Title**: Brief description of the task
+2. **Initial Context**: Any additional details provided
 
-If no task number is provided, the assistant will:
-- Prompt for a task number, OR
-- Generate a temporary ID: `PRD-TEMP-{timestamp}`
+File naming will use a slug based on the task title.
 
 ## Codebase Analysis
 
@@ -242,13 +257,13 @@ The assistant will automatically analyze:
 
 After generating the PRD:
 
-1. **Save File**: PRD saved to `memory-bank/prd/PRD-{TASK_NUMBER}-{slug}.md`
+1. **Save File**: PRD saved to `memory-bank/prd/PRD-{slug}.md`
 
 2. **Summary Output**:
 ```
 ✅ PRD Generated Successfully
 
-📄 Document: memory-bank/prd/PRD-DEV-001-notification-system.md
+📄 Document: memory-bank/prd/PRD-notification-system.md
 📊 Complexity Estimate: Level 3
 🎯 Affected Modules: 3 (aio, api, notification-service)
 ⚠️ Risks Identified: 2
@@ -264,7 +279,7 @@ Next Steps:
 The generated PRD is designed to be used with the `/van` command:
 
 ```
-/van Use PRD: memory-bank/prd/PRD-DEV-001-notification-system.md
+/van Use PRD: memory-bank/prd/PRD-notification-system.md
 ```
 
 The VAN command will:
@@ -280,26 +295,6 @@ The VAN command will:
 3. **Reference Issues**: Include issue/ticket numbers when available
 4. **Review Before VAN**: Always review generated PRD before proceeding
 
-## Examples
-
-### Example 1: Feature Request
-```
-/prd DEV-001: Implement user role-based access control for the dashboard. 
-Users should see different menu items based on their role (admin, manager, viewer).
-```
-
-### Example 2: Bug Fix
-```
-/prd DEV-001: Fix issue where CSV export times out for large datasets. 
-Currently fails for exports > 10,000 rows.
-```
-
-### Example 3: Infrastructure Change
-```
-/prd DEV-001: Migrate session storage from file-based to Redis for better 
-scalability in multi-server environment.
-```
-
 ## Verification Checklist
 
 Before finalizing PRD generation:
@@ -307,6 +302,8 @@ Before finalizing PRD generation:
 - [ ] Task number extracted or generated
 - [ ] Problem statement clearly defined
 - [ ] Affected modules identified
+- [ ] **Context Gathering complete** (code read & analyzed)
+- [ ] **Alternative approaches evaluated**
 - [ ] Success criteria are measurable
 - [ ] Complexity level estimated
 - [ ] File saved to correct location
@@ -350,7 +347,7 @@ graph TD
 
 2. **Prompt user:**
    ```
-   Based on PRD-DEV-001, I identified these potential follow-up tasks:
+   Based on the generated PRD, I identified these potential follow-up tasks:
    
    1. Add unit tests for new authentication flow
    2. Update API documentation for OAuth endpoints
@@ -362,7 +359,7 @@ graph TD
 
 3. **For each task to add:**
    - Generate BACKLOG-XXXX ID
-   - Set Source: PRD-{TASK_NUMBER}
+   - Set Source: PRD-{slug}
    - Set Priority: based on PRD analysis (default: medium)
    - Set Complexity: based on PRD analysis (default: Level 2)
    - Use sys8 MCP for creation date
@@ -387,7 +384,7 @@ graph TD
 ```
 ✅ PRD Generated Successfully
 
-📄 Document: memory-bank/prd/PRD-DEV-001-notification-system.md
+📄 Document: memory-bank/prd/PRD-notification-system.md
 📊 Complexity Estimate: Level 3
 🎯 Affected Modules: 3 (aio, api, notification-service)
 ⚠️ Risks Identified: 2

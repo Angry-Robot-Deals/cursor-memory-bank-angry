@@ -1,3 +1,8 @@
+---
+name: mb-reflect
+description: Review completed task and create reflection document with lessons learned
+---
+
 # /mb-reflect - Review & Quality Mode
 
 **Role**: Reviewer Agent

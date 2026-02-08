@@ -61,6 +61,9 @@ Load: .cursor/rules/sys8-mcp-usage.mdc
    - Read `memory-bank/tasks.md` if exists
    - Analyze task requirements (from input or selected Backlog item)
    - Determine complexity level (1-4)
+   
+   **Context Gathering Note:**
+   If starting a new task, consider if you need to run `/prd` first to gather context and explore solutions, especially for complex features (Level 3-4).
 
 5. **Route Based on Complexity**
    - **Level 1:** Continue in VAN mode, proceed to implementation
@@ -140,4 +143,4 @@ Type `/van` followed by your task description or initialization request.
 
 - **Level 1 tasks:** Proceed directly to `/do` command
 - **Level 2-4 tasks:** Use `/plan` command for detailed planning
-
+- **Complex Features:** Consider running `/prd` before `/plan` for detailed requirements and solution exploration.

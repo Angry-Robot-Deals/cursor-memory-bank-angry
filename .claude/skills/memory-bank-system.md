@@ -34,7 +34,7 @@
 
 ### MANDATORY: Task ID in ALL Report Filenames
 
-**Format:** `[PREFIX]-[4-digit-number]` (e.g., `DEV-0053`, `FIN-0001`)
+**Format:** `[PREFIX]-[4-digit-number]` (e.g., `TASK-0001`, `FIN-0001`)
 
 **Report Types:**
 - QA reports: `qa-report-[task_id]-[phase].md`
@@ -61,7 +61,7 @@
 ```
 
 **Examples:**
-- `DEV-0053` (Development task #53)
+- `TASK-0001` (General task #1)
 - `FIN-0001` (Finance task #1)
 - `QA-0008` (QA task #8)
 

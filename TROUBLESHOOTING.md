@@ -1,5 +1,46 @@
 # Memory Bank Troubleshooting Guide
 
+> **New in v2.3:** All commands now use Agent Skills standard format with YAML frontmatter.
+
+## Understanding Skills vs Commands vs Agents
+
+### What's What?
+
+| Term | What It Is | Location | Example |
+|------|-----------|----------|---------|
+| **Skill** | Knowledge module or command | `.claude/skills/` or `.claude/commands/` | `ai-quality.md` |
+| **Agent** | Role/persona | `.claude/agents/` | `planner.md` |
+| **Command** | Slash command (skill with frontmatter) | `.claude/commands/` | `mb-init.md` |
+
+**Key Point:** In v2.3, commands ARE skills. They use Agent Skills standard format (YAML frontmatter).
+
+### Agent Skills Standard Format
+
+**All commands now have YAML frontmatter:**
+
+```yaml
+---
+name: mb-reflect
+description: Review completed task and create reflection document
+---
+
+# Command content here...
+```
+
+**Required fields:**
+- `name`: Command name (without `/`)
+- `description`: What it does (used by Claude for context)
+
+**Optional fields:**
+- `disable-model-invocation: true` - User must invoke manually (e.g., `/mb-archive`)
+
+**Why this matters:** Claude Code uses this format to:
+- Register slash commands
+- Understand when to suggest commands
+- Load command context automatically
+
+---
+
 ## Common Claude Code Errors
 
 ### ❌ Error: "Agent type 'mb-reflect:mb-reflect' not found"
@@ -10,7 +51,39 @@ Error: Agent type 'mb-reflect:mb-reflect' not found.
 Available agents: Bash, general-purpose, statusline-setup, Explore, Plan...
 ```
 
-**Cause:** You're in a project that doesn't have Memory Bank v2.1 structure installed.
+**Root Cause Analysis:**
+
+This error occurs when command file has **incorrect frontmatter format**.
+
+**Correct format (v2.3):**
+```yaml
+---
+name: mb-reflect
+description: Review completed task
+---
+```
+
+**Incorrect formats that cause this error:**
+```yaml
+# WRONG: Using context: fork with invalid agent type
+---
+name: mb-reflect
+context: fork
+agent: mb-reflect  # ← This causes error (not a valid agent type)
+---
+```
+
+**Why this happens:**
+- Commands in `~/.claude/commands/` or `.claude/commands/` create slash commands
+- If frontmatter has `context: fork` + `agent: [name]`, Claude tries to run as subagent
+- `mb-reflect` is not a valid subagent type (valid: `Bash`, `general-purpose`, `Explore`, etc.)
+
+**Solution (v2.3+):**
+All Memory Bank commands use correct format now (YAML frontmatter without `context: fork`).
+
+**Still seeing this error?**
+
+**Cause:** You're in a project that doesn't have Memory Bank v2.3 structure installed.
 
 **Diagnosis:**
 ```bash
@@ -110,7 +183,20 @@ claude
 
 **Possible Causes:**
 
-1. **Missing Agents/Skills**
+1. **Missing YAML Frontmatter (Pre-v2.3)**
+   ```bash
+   # Check if commands have frontmatter
+   head -5 .claude/commands/mb-reflect.md
+   # Should start with:
+   # ---
+   # name: mb-reflect
+   # description: ...
+   # ---
+   ```
+   
+   **Fix:** Update to v2.3 (all commands have proper frontmatter).
+
+2. **Missing Agents/Skills**
    ```bash
    # Verify agents exist
    ls .claude/agents/
@@ -121,7 +207,7 @@ claude
    # Should show 5 skill files
    ```
 
-2. **Corrupted CLAUDE.md**
+3. **Corrupted CLAUDE.md**
    ```bash
    # Check CLAUDE.md size
    wc -l CLAUDE.md
@@ -131,7 +217,7 @@ claude
    cp /path/to/cursor-memory-bank-angry/CLAUDE.md .
    ```
 
-3. **Wrong Claude Code Version**
+4. **Wrong Claude Code Version**
    ```bash
    claude --version
    # Should be recent version (2026+)

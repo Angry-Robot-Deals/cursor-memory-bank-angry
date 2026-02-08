@@ -49,7 +49,7 @@ cp -r cursor-memory-bank/.cursor /path/to/project/
 Type `/` in Cursor chat to see commands:
 
 ```
-/prd DEV-001: Add notifications    # Optional: Generate PRD
+/prd Add notifications             # Optional: Generate PRD
 /van Add user authentication       # Initialize task
 /plan                              # Create plan
 /creative                          # Explore designs (if needed)

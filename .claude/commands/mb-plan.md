@@ -1,3 +1,8 @@
+---
+name: mb-plan
+description: Create detailed implementation plan for current task with technology stack validation
+---
+
 # /mb-plan - Planning Mode
 
 **Role**: Planner Agent

@@ -1,6 +1,6 @@
-# Memory Bank System v2.2
+# Memory Bank System v2.3
 
-A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules, mandatory MCP server integration, and Subagents & Skills architecture.
+A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules, mandatory MCP server integration, Subagents & Skills architecture, and full [Agent Skills](https://agentskills.io) standard compliance.
 
 ## 🎯 Dual Platform Support
 
@@ -77,14 +77,21 @@ Each command reads from and updates a shared **Memory Bank** directory (`memory-
 
 Memory Bank delivers exceptional context efficiency through progressive optimization across multiple versions:
 
-**v2.1 (DEV-0005)** - Subagents & Skills Architecture:
+**v2.3** - Agent Skills Standard Compliance:
+- **Full [Agent Skills](https://agentskills.io) standard support** with YAML frontmatter
+- All 9 commands properly formatted for Claude Code integration
+- Clear documentation for project-level vs user-level installation
+- Improved troubleshooting with root cause analysis
+- Zero breaking changes - backward compatible with v2.1
+
+**v2.1** - Subagents & Skills Architecture:
 - **90% context window reduction** via on-demand loading
 - CLAUDE.md: Lean router (<1KB, 37 lines)
 - Architecture: 4 Agents + 5 Skills + 10 Commands
 - 100% coverage of critical Cursor rules
 - File count: 72% reduction (75+ → 22 files)
 
-**v2.0 (DEV-0002)** - Claude Code Context Window Optimization:
+**v2.0** - Claude Code Context Window Optimization:
 - **84% total token reduction** across all components
 - CLAUDE.md: 78% reduction (480 → 106 lines)
 - Commands: 67% reduction (688 → 228 lines)
@@ -227,7 +234,7 @@ Memory Bank v2.0 integrates with MCP (Model Context Protocol) servers for enhanc
 
 2. **Optional: Start with `/prd`** to generate detailed requirements (recommended for complex tasks):
    ```
-   /prd DEV-001: Add notification system for account expiry warnings
+   /prd Add notification system for account expiry warnings
    ```
 
 3. **Initialize with `/van`**:
@@ -236,7 +243,7 @@ Memory Bank v2.0 integrates with MCP (Model Context Protocol) servers for enhanc
    ```
    Or reference a PRD:
    ```
-   /van Use PRD: memory-bank/prd/PRD-DEV-001-notification-system.md
+   /van Use PRD: memory-bank/prd/PRD-notification-system.md
    ```
 
 4. **Follow the workflow** - each command will guide you to the next step
@@ -373,7 +380,7 @@ To use Memory Bank with both Cursor IDE and Claude Code:
 
 **Usage:**
 ```
-/prd DEV-001: Add notification system for account expiry warnings
+/prd Add notification system for account expiry warnings
 ```
 
 **What it does:**
@@ -535,10 +542,10 @@ Here's a complete example workflow for a Level 3 feature:
 **Option 2: With PRD (recommended for complex features)**
 ```bash
 # Step 0: Generate PRD first
-/prd DEV-001: Implement user role-based access control for the dashboard
+/prd Implement user role-based access control for the dashboard
 
 # Step 1: Review PRD, then initialize with PRD reference
-/van Use PRD: memory-bank/prd/PRD-DEV-001-role-based-access.md
+/van Use PRD: memory-bank/prd/PRD-role-based-access.md
 
 # Step 2: Plan (VAN routes to PLAN for Level 3)
 /plan
@@ -615,7 +622,7 @@ graph LR
 
 ### Backlog System (v2.0 - Performance Optimized)
 
-**NEW in v2.1 (DEV-0001)**: The Backlog system provides a powerful task queue with 10-20x performance improvement through two-file architecture.
+**NEW in v2.1**: The Backlog system provides a powerful task queue with 10-20x performance improvement through two-file architecture.
 
 **Key Features:**
 - **Two-File Architecture**: Active backlog (`backlog.md`) + historical archive (`backlog-archive.md`)
@@ -805,7 +812,7 @@ MCP servers are configured in Cursor's MCP settings. The configuration file is t
 
 ## Version Information
 
-This is version v2.1 of the Memory Bank system. It introduces the Subagents & Skills architecture for Claude Code, achieving 90% context window reduction while maintaining 100% rule coverage. Previous versions introduced MCP server integration (v2.0), hierarchical rule loading (v0.9), and progressive documentation (v0.7). See the [Release Notes](RELEASE_NOTES.md) for detailed information about all changes.
+This is version v2.3 of the Memory Bank system. It introduces full [Agent Skills](https://agentskills.io) standard compliance for Claude Code, ensuring all commands work correctly with proper YAML frontmatter and clear installation documentation for both project-level and user-level usage. Previous versions introduced the Subagents & Skills architecture (v2.1), MCP server integration (v2.0), hierarchical rule loading (v0.9), and progressive documentation (v0.7). See the [Release Notes](RELEASE_NOTES.md) for detailed information about all changes.
 
 ### Ongoing Development
 
@@ -846,4 +853,4 @@ As mentioned in the personal note above, Memory Bank is a personal project. Howe
 
 ---
 
-*Note: This README is for v2.0 and subject to change as the system evolves.*
+*Note: This README is for v2.3 and subject to change as the system evolves.*

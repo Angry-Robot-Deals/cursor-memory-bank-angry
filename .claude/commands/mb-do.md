@@ -1,3 +1,8 @@
+---
+name: mb-do
+description: Implement planned changes using TDD and AI quality principles
+---
+
 # /mb-do - Implementation Mode
 
 **Role**: Developer Agent

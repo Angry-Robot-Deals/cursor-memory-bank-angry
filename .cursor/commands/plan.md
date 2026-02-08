@@ -61,21 +61,31 @@ Load: .cursor/rules/context7-mcp-usage.mdc
    - Read `memory-bank/activeContext.md` for current context
    - Review codebase structure
 
-2. **Create Implementation Plan**
+2. **Detailed Design (Enhanced)**
+   - **Component Breakdown**: List every modified and new file.
+   - **Integration Points**: Define API endpoints, DB queries, Docker services.
+   - **Data Flow**: Trace input -> processing -> output.
+   - **Security Checks**: Validate input, check SQL injection risks, secrets handling.
+
+3. **Create Implementation Plan**
    - **Level 2:** Document planned changes, files to modify, implementation steps
    - **Level 3:** Create comprehensive plan with components, dependencies, challenges
    - **Level 4:** Create phased implementation plan with architectural considerations
+   
+   **Mandatory Plan Sections:**
+   - **Rollback Plan**: How to revert changes (git commands, migration down).
+   - **Validation Checklist**: Specific checks (Yii2 patterns, Docker restart, etc.).
 
-3. **Technology Validation** (Level 2-4)
+4. **Technology Validation** (Level 2-4)
    - Document technology stack selection
    - Create proof of concept if needed
    - Verify dependencies and build configuration
 
-4. **Identify Creative Phases**
+5. **Identify Creative Phases**
    - Flag components requiring design decisions
    - Document which components need creative exploration
 
-5. **Update Memory Bank**
+6. **Update Memory Bank**
    - Update `memory-bank/tasks.md` with complete plan
    - Mark planning phase as complete
 
@@ -83,8 +93,95 @@ Load: .cursor/rules/context7-mcp-usage.mdc
 
 Type `/plan` to start planning based on the task in `memory-bank/tasks.md`.
 
+## Implementation Plan Template
+
+The plan in `memory-bank/tasks.md` MUST follow this structure:
+
+```markdown
+# [Feature Name] Implementation Plan
+
+## Overview
+[Problem, goals, success criteria]
+
+## Architecture Impact
+- Components: [AIO/API/Content Generator/...]
+- Databases: [stats/bi_aggregate]
+- Docker: [services affected]
+
+## Implementation Steps
+
+### Step 1: [Name]
+**Files:**
+- `path/to/file1`
+- `path/to/file2`
+
+**Changes:**
+```php
+// Specific code examples
+class Example extends ActiveRecord {
+    // ...
+}
+```
+
+**Rationale:** [why this step]
+
+### Step 2: [Name]
+...
+
+## Database Migration
+
+```php
+// Migration code
+public function safeUp() {
+    // ...
+}
+
+public function safeDown() {
+    // ...
+}
+```
+
+## Testing
+
+**Manual testing:**
+1. [Step-by-step verification]
+2. Check UI at http://aio-pro.co.local
+3. Verify API response
+
+**Automated tests:**
+- Unit tests: [files/scenarios]
+- Integration tests: [if needed]
+
+## Deployment
+
+```bash
+# Commands to deploy
+cd _docker/ && docker compose up -d --build
+bash _docker/bin/deploy.sh
+docker exec aether-aio bash -c "cd /var/www/aio && php yii migrate --interactive=0"
+```
+
+## Rollback
+
+```bash
+# How to revert
+php yii migrate/down
+# Restore from backup if needed
+```
+
+## Validation Checklist
+
+- [ ] Code follows Yii2/Python patterns
+- [ ] Reused existing utilities/models
+- [ ] Database migration tested
+- [ ] Docker services restart successfully
+- [ ] Feature works as expected
+- [ ] No regressions
+- [ ] Input validation implemented
+- [ ] SQL queries use query builder
+```
+
 ## Next Steps
 
 - **If creative phases identified:** Use `/creative` command
 - **If no creative phases:** Proceed to `/do` command
-

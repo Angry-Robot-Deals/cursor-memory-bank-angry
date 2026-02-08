@@ -168,7 +168,7 @@ Load: .cursor/rules/isolation_rules/Level4/archive-comprehensive.mdc
    | **Status** | in_progress | → completed
    | **Started** | 2026-02-03 05:49:10 UTC |
    (add) | **Completed** | 2026-02-03 08:00:00 UTC |
-   (add) | **Archived From** | DEV-0001 |
+   (add) | **Archived From** | BACKLOG-0001 |
    
    To: memory-bank/backlog-archive.md "Completed Items"
    ```

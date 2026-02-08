@@ -1,3 +1,9 @@
+---
+name: mb-init
+description: Initialize a new Memory Bank task with complexity detection and automatic task numbering
+disable-model-invocation: true
+---
+
 # /mb-init - Initialize New Task
 
 **Role**: Planner Agent (Initial)

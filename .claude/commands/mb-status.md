@@ -1,3 +1,8 @@
+---
+name: mb-status
+description: Check current Memory Bank task status, progress, and Backlog summary
+---
+
 # /mb-status - Check Status
 
 Show current task and Backlog status.

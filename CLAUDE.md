@@ -1,6 +1,8 @@
-# Memory Bank System v2.1 (Subagents)
+# Memory Bank System v2.3 (Agent Skills)
 
 **Concept**: A lightweight router that delegates to specialized Agents.
+
+> **v2.3:** All commands follow [Agent Skills](https://agentskills.io) standard with YAML frontmatter for proper Claude Code integration.
 
 ## 🤖 Agents (Roles)
 Use these slash commands to switch context:
@@ -36,13 +38,27 @@ Agents automatically load these, or request them via:
 
 ## 🔧 Installation & Troubleshooting
 
+### Where to Install?
+
+**Project-level (Recommended):** `.claude/` in project directory
+- Best for: Project-specific customization, team collaboration
+- See: `INSTALLATION.md` → "Project-Level Installation"
+
+**User-level (Global):** `~/.claude/` in home directory
+- Best for: Using Memory Bank in many projects
+- See: `INSTALLATION.md` → "User-Level Installation"
+
 ### First Time in This Project?
-See `.claude/INSTALLATION_GUIDE.md` for setup instructions.
+See `INSTALLATION.md` for complete setup instructions.
 
 ### Error: "Agent type not found"?
-**Cause:** Missing `.claude/agents/` directory.
-**Fix:** Copy Memory Bank structure to your project (see INSTALLATION_GUIDE.md).
+**Cause:** Missing `.claude/agents/` directory or incorrect YAML frontmatter.
+**Fix:** See `TROUBLESHOOTING.md` → "Agent type not found" section.
 
 ### Error: "memory-bank/[dir] not found"?
 **Cause:** Memory Bank not initialized.
 **Fix:** `mkdir -p memory-bank/{tasks,creative,reflection,qa,reports,archive}`
+
+### Commands Don't Autocomplete?
+**Cause:** Missing YAML frontmatter in command files (pre-v2.3).
+**Fix:** Update to v2.3 or add frontmatter manually (see `TROUBLESHOOTING.md`).

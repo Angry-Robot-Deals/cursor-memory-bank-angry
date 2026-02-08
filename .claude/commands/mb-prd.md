@@ -1,3 +1,8 @@
+---
+name: mb-prd
+description: Generate Product Requirements Document with technology stack selection
+---
+
 # /mb-prd - Generate PRD
 
 Create Product Requirements Document.

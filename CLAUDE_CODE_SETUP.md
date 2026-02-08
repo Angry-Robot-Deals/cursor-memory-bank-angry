@@ -102,7 +102,7 @@ Claude Code uses Memory Bank slash commands with `/mb-` prefix:
 
 | Command | Purpose | Example |
 |---------|---------|---------|
-| `/mb-prd` | Generate Product Requirements Document | `/mb-prd DEV-001: Add notifications` |
+| `/mb-prd` | Generate Product Requirements Document | `/mb-prd Add email notifications` |
 | `/mb-init` | Initialize new task | `/mb-init Add user authentication` |
 | `/mb-plan` | Create implementation plan | `/mb-plan` |
 | `/mb-design` | Explore design options | `/mb-design` |
@@ -116,7 +116,7 @@ Claude Code uses Memory Bank slash commands with `/mb-` prefix:
 
 **1. Generate PRD (Optional):**
 ```bash
-/mb-prd DEV-001: Implement rate limiting for API endpoints
+/mb-prd Implement rate limiting for API endpoints
 ```
 
 **2. Initialize Task:**
@@ -227,9 +227,9 @@ Claude Code supports MCP servers. Configure them in your Claude Code settings:
 
 ### 5. Use PRD for Complex Features
 ```bash
-/mb-prd DEV-001: Complex feature description
+/mb-prd Complex feature description
 # Then reference the PRD when initializing
-/mb-init Use PRD: memory-bank/prd/PRD-DEV-001-*.md
+/mb-init Use PRD: memory-bank/prd/PRD-*.md
 ```
 
 ## Workflow Examples
@@ -238,9 +238,9 @@ Claude Code supports MCP servers. Configure them in your Claude Code settings:
 
 ```bash
 # Session 1: PRD and Planning
-/mb-prd DEV-001: Add email notification system
+/mb-prd Add email notification system
 # Review generated PRD, then:
-/mb-init Use PRD: memory-bank/prd/PRD-DEV-001-email-notifications.md
+/mb-init Use PRD: memory-bank/prd/PRD-email-notifications.md
 /mb-plan
 
 # Session 2: Design and Implementation
@@ -318,9 +318,9 @@ If you're already using Memory Bank in Cursor:
 ### Generate PRD Before Starting
 
 ```bash
-/mb-prd TASK-001: Feature description
+/mb-prd Feature description
 # Then use the PRD
-/mb-init Use PRD: memory-bank/prd/PRD-TASK-001-*.md
+/mb-init Use PRD: memory-bank/prd/PRD-*.md
 ```
 
 ## Support and Resources

@@ -62,7 +62,7 @@ Load these rules in order:
 ═══════════════════════════════════════════════
 CURRENT TASK
 ═══════════════════════════════════════════════
-Task: DEV-0053 - Add user authentication
+Task: Add user authentication
 Complexity: Level 3 (Complex feature with design exploration)
 Phase: CREATIVE (Exploring design options)
 Progress: 60% complete
