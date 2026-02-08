@@ -2,6 +2,56 @@
 
 > **Personal Note**: Memory Bank is my personal hobby project that I develop for my own use in coding projects. As this is a personal project, I don't maintain an issues tracker or actively collect feedback. However, if you're using these rules and encounter issues, one of the great advantages is that you can ask the Cursor AI directly to modify or update the rules to better suit your specific workflow. The system is designed to be adaptable by the AI, allowing you to customize it for your own needs without requiring external support.
 
+## Version 2.4 - Enhanced Design Process
+
+> **Released:** February 8, 2026  
+> Building upon v2.3's Agent Skills compliance, this release introduces a rigorous 6-phase design and planning workflow for improved code quality and security.
+
+### 🌟 Major Features
+
+#### Enhanced Design Process _(New)_
+**Structured design workflow with Context Gathering, Solution Exploration, User Consultation, and Security Design**
+
+**Overview:**
+PRD and Plan commands now follow a strict 6-phase workflow (Enhanced Design Process). PRD covers Phases 1-3 (requirement gathering); Plan covers Phases 4-6 (detailed design and implementation).
+
+**PRD Command (Phases 1-3):**
+- **Phase 1: Context Gathering** — Study docs, scope determination, constraint identification
+- **Phase 2: Solution Exploration** — Generate 3+ distinct approaches, evaluate against criteria, reject anti-patterns
+- **Phase 3: User Consultation** — Present alternatives and wait for user approval before finalizing
+
+**Plan Command (Phases 4-6):**
+- **Phase 4: Detailed Design** — Component breakdown, interface design, data flow
+- **Phase 5: Implementation Plan** — Security Summary, Threat Model (Appendix A), Security Controls Checklist, Rollback Strategy, Validation Checklist
+- **Phase 6: Documentation Updates** — Identify required doc updates
+
+**Security Integration (Appendix A):**
+- Threat Model (Assets, Threats, Mitigations)
+- Security Controls Checklist (Input Validation, Output Encoding, Access Control, Secrets Protection, Infrastructure)
+- Anti-Patterns: Trusting user input, logging secrets, hardcoding secrets, SQL concatenation, unvalidated paths
+
+**Files Updated:**
+- `.cursor/commands/prd.md` — Phases 1-3 workflow
+- `.cursor/commands/plan.md` — Phases 4-6 workflow, Implementation Plan template
+- `.claude/commands/mb-prd.md` — Aligned with Cursor PRD
+- `.claude/commands/mb-plan.md` — Aligned with Cursor Plan
+- `.claude/agents/architect.md` — Owns Phases 1-3
+- `.claude/agents/planner.md` — Owns Phases 4-6
+- `README.md` — Core Workflow Commands updated
+
+**Benefits:**
+- ✅ Rigorous design before implementation
+- ✅ Multiple approaches evaluated (3+)
+- ✅ User approval gate for architectural decisions
+- ✅ Mandatory security design (Threat Model, Controls)
+- ✅ Rollback and validation in every plan
+- ✅ Zero breaking changes — backward compatible
+
+**Task:** DEV-0008  
+**Reflection:** `memory-bank/reflection/reflection-DEV-0008.md`
+
+---
+
 ## Version 2.3 - Agent Skills Standard Compliance
 
 > **Released:** February 8, 2026  

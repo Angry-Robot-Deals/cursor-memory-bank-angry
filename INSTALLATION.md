@@ -1,6 +1,6 @@
-# Memory Bank v2.3 Installation Guide
+# Memory Bank v2.4 Installation Guide
 
-> **New in v2.3:** All commands now follow Agent Skills standard with YAML frontmatter for better Claude Code integration.
+> **New in v2.4:** Enhanced Design Process (6-phase workflow) in `/prd` and `/plan`. All commands follow Agent Skills standard.
 
 ## 🎯 Where to Install?
 

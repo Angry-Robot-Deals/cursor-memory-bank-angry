@@ -1,4 +1,4 @@
-# Memory Bank System v2.3
+# Memory Bank System v2.4
 # ... (rest of the file content preserved, only updating the Core Workflow Commands section)
 
 A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules, mandatory MCP server integration, Subagents & Skills architecture, and full [Agent Skills](https://agentskills.io) standard compliance.
@@ -77,6 +77,12 @@ Each command reads from and updates a shared **Memory Bank** directory (`memory-
 ### Token-Optimized Architecture
 
 Memory Bank delivers exceptional context efficiency through progressive optimization across multiple versions:
+
+**v2.4** - Enhanced Design Process:
+- **6-phase workflow**: PRD (Phases 1-3), Plan (Phases 4-6)
+- **Security Design**: Threat Model, Appendix A checklist
+- **3+ approaches**: Mandatory solution exploration before selection
+- **User consultation gate**: Approval before finalizing
 
 **v2.3** - Agent Skills Standard Compliance:
 - **Full [Agent Skills](https://agentskills.io) standard support** with YAML frontmatter
@@ -813,7 +819,7 @@ MCP servers are configured in Cursor's MCP settings. The configuration file is t
 
 ## Version Information
 
-This is version v2.3 of the Memory Bank system. It introduces full [Agent Skills](https://agentskills.io) standard compliance for Claude Code, ensuring all commands work correctly with proper YAML frontmatter and clear installation documentation for both project-level and user-level usage. Previous versions introduced the Subagents & Skills architecture (v2.1), MCP server integration (v2.0), hierarchical rule loading (v0.9), and progressive documentation (v0.7). See the [Release Notes](RELEASE_NOTES.md) for detailed information about all changes.
+This is version v2.4 of the Memory Bank system. It introduces the Enhanced Design Process (6-phase workflow) for `/prd` and `/plan` commands, improving code quality and security. Previous versions introduced Agent Skills compliance (v2.3), Subagents & Skills architecture (v2.1), MCP server integration (v2.0), hierarchical rule loading (v0.9), and progressive documentation (v0.7). See the [Release Notes](RELEASE_NOTES.md) for detailed information about all changes.
 
 ### Ongoing Development
 
@@ -854,4 +860,4 @@ As mentioned in the personal note above, Memory Bank is a personal project. Howe
 
 ---
 
-*Note: This README is for v2.3 and subject to change as the system evolves.*
+*Note: This README is for v2.4 and subject to change as the system evolves.*

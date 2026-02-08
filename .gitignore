@@ -110,16 +110,6 @@ tmp/
 **/*.backup*
 *.old
 
-# Memory Bank working files (uncomment if you want to ignore working files)
-# memory-bank/tasks.md
-# memory-bank/activeContext.md
-# memory-bank/progress.md
-
-# Memory Bank generated files (uncomment if you want to ignore generated files)
-# memory-bank/creative/
-# memory-bank/reflection/
-# memory-bank/archive/
-
 # IDE and editor files
 *.sublime-project
 *.sublime-workspace
@@ -147,4 +137,4 @@ $RECYCLE.BIN/
 # *.tar
 # *.zip
 
-/memory-bank/
+/memory-bank

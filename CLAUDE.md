@@ -1,8 +1,8 @@
-# Memory Bank System v2.3 (Agent Skills)
+# Memory Bank System v2.4 (Agent Skills)
 
 **Concept**: A lightweight router that delegates to specialized Agents.
 
-> **v2.3:** All commands follow [Agent Skills](https://agentskills.io) standard with YAML frontmatter for proper Claude Code integration.
+> **v2.4:** Enhanced Design Process (6-phase workflow) in `/mb-prd` and `/mb-plan`. All commands follow [Agent Skills](https://agentskills.io) standard.
 
 ## 🤖 Agents (Roles)
 Use these slash commands to switch context:
