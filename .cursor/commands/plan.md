@@ -1,6 +1,6 @@
 # PLAN Command - Task Planning
 
-This command creates detailed implementation plans based on complexity level determined in VAN mode.
+This command creates detailed implementation plans based on complexity level determined in VAN mode, strictly following the **Feature Design Workflow** (Phases 4-6).
 
 ## Memory Bank Integration
 
@@ -56,132 +56,139 @@ Load: .cursor/rules/context7-mcp-usage.mdc
 
 ## Workflow
 
-1. **Read Task Context**
-   - Read `memory-bank/tasks.md` to get complexity level
-   - Read `memory-bank/activeContext.md` for current context
-   - Review codebase structure
+1.  **Read Task Context**
+    -   Read `memory-bank/tasks.md` to get complexity level and requirements.
+    -   Read `memory-bank/activeContext.md` for current context.
+    -   Review `memory-bank/prd/*.md` if available.
 
-2. **Detailed Design (Enhanced)**
-   - **Component Breakdown**: List every modified and new file.
-   - **Integration Points**: Define API endpoints, DB queries, Docker services.
-   - **Data Flow**: Trace input -> processing -> output.
-   - **Security Checks**: Validate input, check SQL injection risks, secrets handling.
+2.  **Phase 4: Detailed Design**
+    -   **Component Breakdown**: Expand selected approach into specific file changes.
+    -   **Interface Design**: Define function signatures, API contracts.
+    -   **Data Flow**: Trace input -> processing -> output.
+    -   **Security Design**: Perform **Threat Modeling** and map to **Security Controls** (Appendix A).
 
-3. **Create Implementation Plan**
-   - **Level 2:** Document planned changes, files to modify, implementation steps
-   - **Level 3:** Create comprehensive plan with components, dependencies, challenges
-   - **Level 4:** Create phased implementation plan with architectural considerations
-   
-   **Mandatory Plan Sections:**
-   - **Rollback Plan**: How to revert changes (git commands, migration down).
-   - **Validation Checklist**: Specific checks (Yii2 patterns, Docker restart, etc.).
+3.  **Phase 5: Implementation Plan Creation**
+    -   Create a comprehensive plan in `memory-bank/tasks.md` using the **Design Document Template**.
+    -   Include **Rollback Strategy** and **Validation Commands**.
 
-4. **Technology Validation** (Level 2-4)
-   - Document technology stack selection
-   - Create proof of concept if needed
-   - Verify dependencies and build configuration
+4.  **Phase 6: Documentation Updates**
+    -   Identify which project docs need updating (Architecture, Security, API, etc.).
 
-5. **Identify Creative Phases**
-   - Flag components requiring design decisions
-   - Document which components need creative exploration
+5.  **Technology Validation** (Level 2-4)
+    -   Document technology stack selection.
+    -   Verify dependencies and build configuration.
 
-6. **Update Memory Bank**
-   - Update `memory-bank/tasks.md` with complete plan
-   - Mark planning phase as complete
+6.  **Update Memory Bank**
+    -   Update `memory-bank/tasks.md` with the complete plan.
+    -   Mark planning phase as complete.
 
-## Usage
+## Implementation Plan Template (Design Document)
 
-Type `/plan` to start planning based on the task in `memory-bank/tasks.md`.
-
-## Implementation Plan Template
-
-The plan in `memory-bank/tasks.md` MUST follow this structure:
+The plan in `memory-bank/tasks.md` MUST follow this structure (adapted from *Feature Design Workflow* Phase 5):
 
 ```markdown
 # [Feature Name] Implementation Plan
 
-## Overview
-[Problem, goals, success criteria]
+## 1. Overview
+[Problem statement, goals, success criteria]
 
-## Architecture Impact
-- Components: [AIO/API/Content Generator/...]
-- Databases: [stats/bi_aggregate]
-- Docker: [services affected]
+## 2. Security Summary
+- **Attack Surface**: [Increased/Decreased/Unchanged]
+- **New Permissions**: [List or "None"]
+- **Sensitive Data**: [Yes/No - describe handling]
+- **Risks**: [List identified risks]
 
-## Implementation Steps
+## 3. Architecture Impact
+- **Components**: [List affected components]
+- **Integration**: [Diagram or description of integration points]
+
+## 4. Detailed Design
+
+### 4.1 Component Changes
+- **File**: `path/to/file`
+- **Changes**: [Description]
+- **Reason**: [Why needed]
+
+### 4.2 New Components
+- **File**: `path/to/new_file`
+- **Purpose**: [What it does]
+- **Dependencies**: [Imports/Uses]
+
+### 4.3 API Changes
+- **Endpoint**: [METHOD /path]
+- **Auth**: [Required/Optional]
+- **Validation**: [Rules applied]
+
+### 4.4 Database Changes
+- **Table**: [Name]
+- **Migration**: [Description]
+
+## 5. Security Design (Appendix A)
+
+### 5.1 Threat Model
+- **Assets**: [Data/Resources at risk]
+- **Threats**: [Malicious actors/vectors]
+- **Mitigations**: [Prevention strategies]
+
+### 5.2 Security Controls Checklist
+- [ ] Input Validation (All boundaries)
+- [ ] Output Encoding (HTML, SQL, Shell)
+- [ ] Access Control (AuthN/AuthZ, Least Privilege)
+- [ ] Secrets Protection (No hardcoded secrets)
+- [ ] Infrastructure (Minimal privileges)
+
+## 6. Implementation Steps
 
 ### Step 1: [Name]
 **Files:**
-- `path/to/file1`
-- `path/to/file2`
-
+- `path/to/file`
 **Changes:**
 ```php
-// Specific code examples
-class Example extends ActiveRecord {
-    // ...
-}
+// Specific code example
 ```
-
-**Rationale:** [why this step]
+**Rationale:** [Why this step first]
 
 ### Step 2: [Name]
 ...
 
-## Database Migration
+## 7. Test Plan
+- **Unit Tests**: [Files/Scenarios]
+- **Integration Tests**: [Cross-component]
+- **Security Tests**: [Input validation, Injection, Auth bypass]
 
-```php
-// Migration code
-public function safeUp() {
-    // ...
-}
-
-public function safeDown() {
-    // ...
-}
-```
-
-## Testing
-
-**Manual testing:**
-1. [Step-by-step verification]
-2. Check UI at http://aio-pro.co.local
-3. Verify API response
-
-**Automated tests:**
-- Unit tests: [files/scenarios]
-- Integration tests: [if needed]
-
-## Deployment
-
+## 8. Rollback Strategy
 ```bash
-# Commands to deploy
-cd _docker/ && docker compose up -d --build
-bash _docker/bin/deploy.sh
-docker exec aether-aio bash -c "cd /var/www/aio && php yii migrate --interactive=0"
-```
-
-## Rollback
-
-```bash
-# How to revert
+# Git revert or migration down commands
 php yii migrate/down
-# Restore from backup if needed
+git checkout HEAD~1
 ```
 
-## Validation Checklist
-
-- [ ] Code follows Yii2/Python patterns
-- [ ] Reused existing utilities/models
-- [ ] Database migration tested
-- [ ] Docker services restart successfully
-- [ ] Feature works as expected
+## 9. Validation Checklist
+- [ ] All implementation steps completed
+- [ ] Unit & Integration tests passing
+- [ ] Security controls verified (Appendix A)
+- [ ] Feature works as specified
 - [ ] No regressions
-- [ ] Input validation implemented
-- [ ] SQL queries use query builder
+- [ ] Documentation updated
+
+## 10. Next Steps
+- Proceed to `/do` command.
 ```
 
-## Next Steps
+## Security Requirements (Appendix A Reference)
 
-- **If creative phases identified:** Use `/creative` command
-- **If no creative phases:** Proceed to `/do` command
+**Principles:**
+- Fail-closed (deny by default).
+- Least privilege.
+- No secrets in code/logs.
+
+**Anti-Patterns (Reject these):**
+- Trusting user input.
+- Logging sensitive data.
+- Hardcoding secrets.
+- SQL string concatenation.
+- Unvalidated file paths.
+
+## Usage
+
+Type `/plan` to generate this detailed plan in `memory-bank/tasks.md`.

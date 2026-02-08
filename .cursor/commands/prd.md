@@ -4,14 +4,10 @@ This command creates comprehensive Product Requirements Documents (PRDs) from br
 
 ## Purpose
 
-Transform brief, informal task descriptions into structured PRD documents that include:
-- Clear problem statement and objectives
-- **Context Gathering**: Analysis of existing code and constraints
-- **Solution Exploration**: Evaluation of technical approaches
-- System impact assessment
-- Expected outcomes and success criteria
-- Technical considerations
-- Acceptance criteria
+Transform brief, informal task descriptions into structured PRD documents that strictly follow the **Feature Design Workflow** (Phases 1-3):
+- **Phase 1: Context Gathering** (Docs, Scope, Constraints)
+- **Phase 2: Solution Exploration** (Multiple Approaches, Evaluation, Anti-Patterns)
+- **Phase 3: User Consultation** (Alternatives Presentation, Approval)
 
 ## Global Template
 
@@ -22,6 +18,7 @@ This template is shared across all projects and workspaces. Use it as the base s
 ## MANDATORY Load Rules:
 ```
 Load: .cursor/rules/sys8-mcp-usage.mdc
+Load: .cursor/rules/context7-mcp-usage.mdc
 ```
 
 ## Memory Bank Integration
@@ -43,9 +40,9 @@ Load: .cursor/rules/sys8-mcp-usage.mdc
 ```mermaid
 graph TD
     Start["User Input:<br>Brief Task Description"] --> Parse["Parse Task Description"]
-    Parse --> Context["Context Gathering:<br>• Identify Components<br>• Read Relevant Code<br>• Document Constraints"]
-    Context --> Explore["Solution Exploration:<br>• Generate 2-3 Approaches<br>• Evaluate Pros/Cons<br>• Check Security"]
-    Explore --> Consult["User Consultation:<br>• Present Options<br>• Wait for Approval"]
+    Parse --> Context["Phase 1: Context Gathering<br>• Study Docs & Code<br>• Scope Determination<br>• Identify Constraints"]
+    Context --> Explore["Phase 2: Solution Exploration<br>• Generate 3+ Approaches<br>• Evaluate Criteria<br>• Check Anti-Patterns"]
+    Explore --> Consult["Phase 3: User Consultation<br>• Present Alternatives<br>• WAIT for Approval"]
     Consult --> Generate["Generate PRD Document"]
     Generate --> Save["Save to memory-bank/prd/"]
     Save --> Summary["Output Summary<br>& Next Steps"]
@@ -60,20 +57,21 @@ graph TD
     style Summary fill:#8cff8c,stroke:#4dbb5f,color:black
 ```
 
-### Phase 1: Context Gathering (New)
+### Phase 1: Context Gathering
 Before generating the PRD, the agent MUST:
-1.  **Identify Components**: Determine which parts of the system are affected (e.g., AIO Pro, API, Content Generator).
-2.  **Study Code**: Read relevant files (Models, Controllers, Configs) to understand existing patterns.
-3.  **Document Constraints**: Identify database, performance, integration, and security constraints.
+1.  **Study Project Documentation**: Read `README.md`, `CLAUDE.md`, Architecture docs, Security docs.
+2.  **Scope Determination**: Map feature to relevant areas (Security, File Ops, Events, UI, DB, etc.).
+3.  **Identify Constraints**: Document Security (see Appendix A), Performance, Compatibility.
 
-### Phase 2: Solution Exploration (New)
+### Phase 2: Solution Exploration
 In the "Technical Considerations" section, the agent MUST:
-1.  **Generate Approaches**: Propose 2-3 distinct technical approaches.
-2.  **Evaluate**: List Pros/Cons for each.
-3.  **Rejection Criteria**: Explicitly check for security risks or anti-patterns (e.g., raw SQL, lack of validation).
+1.  **Generate Approaches**: Propose **3+ distinct technical approaches**.
+2.  **Evaluate**: List Pros/Cons, Risks, Effort, Dependencies.
+3.  **Evaluation Criteria**: Check Security, Attack Surface, Fail-closed, Pattern Alignment, DRY, Testability.
+4.  **Rejection Criteria**: Reject approaches with Anti-Patterns (e.g., Trust user input, Log secrets, Hardcode secrets).
 
-### Phase 3: User Consultation (New)
-If significant architectural decisions are needed, the agent SHOULD present the approaches to the user and **wait for approval** before finalizing the PRD.
+### Phase 3: User Consultation
+If significant architectural decisions are needed, the agent SHOULD present the approaches to the user using the **Alternatives Template** and **wait for approval** before finalizing the PRD.
 
 ## PRD Document Structure
 
@@ -113,7 +111,7 @@ Each generated PRD follows this template:
 
 ---
 
-## 3. Context & Analysis (Enhanced)
+## 3. Context & Analysis (Phase 1)
 
 ### 3.1 Affected Systems
 | Module | Path | Impact Level |
@@ -124,20 +122,21 @@ Each generated PRD follows this template:
 {Insights from reading current implementation}
 
 ### 3.3 Constraints
-- **Database**: {Changes needed?}
+- **Security**: {Appendix A requirements}
 - **Performance**: {Latency/Load impact}
-- **Security**: {Input validation, Auth}
+- **Compatibility**: {Migration needs}
 
 ---
 
-## 4. Technical Approach (Enhanced)
+## 4. Technical Approach (Phase 2)
 
 ### 4.1 Proposed Solution
 {Selected approach details}
 
 ### 4.2 Alternative Approaches Considered
-- **Option A**: {Description} (Pros/Cons)
-- **Option B**: {Description} (Pros/Cons)
+- **Option A**: {Description} (Pros/Cons/Risks)
+- **Option B**: {Description} (Pros/Cons/Risks)
+- **Option C**: {Description} (Pros/Cons/Risks)
 
 ### 4.3 Architecture Impact
 {How does this affect system architecture?}
@@ -205,7 +204,7 @@ Each generated PRD follows this template:
 
 After PRD approval, proceed to:
 1. `/van` - Initialize task in Memory Bank
-2. `/plan` - Create detailed implementation plan
+2. `/plan` - Create detailed implementation plan (Phases 4-6)
 3. `/do` - Execute implementation
 ```
 
@@ -302,8 +301,9 @@ Before finalizing PRD generation:
 - [ ] Task number extracted or generated
 - [ ] Problem statement clearly defined
 - [ ] Affected modules identified
-- [ ] **Context Gathering complete** (code read & analyzed)
-- [ ] **Alternative approaches evaluated**
+- [ ] **Context Gathering complete** (Phase 1)
+- [ ] **Alternative approaches evaluated** (Phase 2)
+- [ ] **User Consultation completed** (Phase 3)
 - [ ] Success criteria are measurable
 - [ ] Complexity level estimated
 - [ ] File saved to correct location

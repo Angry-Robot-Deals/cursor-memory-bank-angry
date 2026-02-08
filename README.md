@@ -1,4 +1,5 @@
 # Memory Bank System v2.3
+# ... (rest of the file content preserved, only updating the Core Workflow Commands section)
 
 A token-optimized, hierarchical task management system that works with **Cursor IDE** and **Claude Code** for efficient development workflows with integrated AI Quality Rules, mandatory MCP server integration, Subagents & Skills architecture, and full [Agent Skills](https://agentskills.io) standard compliance.
 
@@ -58,9 +59,9 @@ Version 2.0 builds upon v0.9 with mandatory MCP server integration and PRD gener
 
 ### Core Workflow Commands
 
-1. **`/prd`** - Generates Product Requirements Documents with **Context Gathering**, **Solution Exploration** (2-3 approaches), and **User Consultation**.
-2. **`/van`** - Initializes projects, detects platform, determines task complexity. Now suggests `/prd` for complex tasks.
-3. **`/plan`** - Creates detailed implementation plans with **Rollback Strategy**, **Validation Checklist**, and component breakdown.
+1. **`/prd`** - Generates Product Requirements Documents following **Feature Design Phases 1-3** (Context, Solution Exploration, User Consultation).
+2. **`/van`** - Initializes projects, detects platform, determines task complexity.
+3. **`/plan`** - Creates detailed implementation plans following **Feature Design Phases 4-6** (Detailed Design, Security Design, Implementation Plan).
 4. **`/creative`** - Explores design options for components requiring design decisions
 5. **`/do`** - Systematically implements planned changes (formerly `/build`)
 6. **`/reflect`** - Reviews completed work and documents lessons learned

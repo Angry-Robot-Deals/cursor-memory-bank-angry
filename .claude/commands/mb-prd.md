@@ -1,53 +1,49 @@
 ---
-name: mb-prd
-description: Generate Product Requirements Document with technology stack selection and design exploration
+description: Generate a Product Requirements Document (PRD) with rigorous design analysis (Context, Solution Exploration, Consultation).
+globs:
+  - memory-bank/projectbrief.md
+  - memory-bank/techContext.md
+  - memory-bank/systemPatterns.md
+  - .cursor/templates/prd-template.md
 ---
 
-# /mb-prd - Generate PRD
+# PRD Generation Command
 
-Create Product Requirements Document with detailed design exploration.
+This command generates a structured Product Requirements Document (PRD) following the **Feature Design Workflow** (Phases 1-3).
 
-## Steps
-1. **Context Gathering**:
-   - Analyze task description.
-   - Scan codebase for affected modules.
-   - Read relevant code files (Models, Controllers, Configs).
-   - Identify constraints (Database, Performance, Security).
+## Instructions
 
-2. **Solution Exploration**:
-   - **If new project/service/module**: Load `.claude/skills/tech-stack.md` and select stack.
-   - Generate **2-3 distinct technical approaches**.
-   - Evaluate Pros/Cons for each.
-   - Check for security risks and anti-patterns.
+1.  **Analyze Context (Phase 1)**:
+    -   Read `memory-bank/projectbrief.md`, `techContext.md`, and `systemPatterns.md`.
+    -   Identify affected components and constraints (Security, Performance).
+    -   Read relevant source code files to understand current implementation.
 
-3. **User Consultation**:
-   - Present approaches to user if significant architectural decisions are needed.
-   - Wait for approval before finalizing PRD.
+2.  **Explore Solutions (Phase 2)**:
+    -   Generate **3+ distinct technical approaches**.
+    -   Evaluate each against criteria: Security, Pattern Alignment, DRY, Testability.
+    -   Reject approaches with **Anti-Patterns** (e.g., hardcoded secrets, raw SQL).
 
-4. **Create PRD**:
-   - Overview & objectives
-   - Technical requirements (including selected approach)
-   - **Technology stack** (from tech-stack rules if applicable)
-   - Affected components
-   - Success criteria
+3.  **Consult User (Phase 3)**:
+    -   Present the alternatives clearly.
+    -   Wait for user approval on the selected approach.
 
-5. **Backlog**:
-   - Identify follow-up tasks for Backlog.
+4.  **Generate PRD**:
+    -   Use the structure from `.cursor/templates/prd-template.md`.
+    -   Include: Problem Statement, Scope, Context Analysis, Technical Approach (Selected + Alternatives), Success Criteria, Risks.
+    -   Save to `memory-bank/prd/PRD-{slug}.md`.
 
-## Read
-- Codebase structure
-- `memory-bank/backlog.md`
-- `.claude/skills/tech-stack.md` (when new project/service creation is involved)
-- Relevant source code files
+5.  **Output Summary**:
+    -   Confirm file location.
+    -   List next steps: `/mb-init` (or `/van`), `/mb-plan`.
 
-## Write
-- `memory-bank/prd/PRD-[task_id]-[description].md`
-- `memory-bank/backlog.md` (follow-up tasks)
+## Template Structure
+
+The PRD MUST include:
+-   **Context & Analysis**: Existing code insights, Constraints.
+-   **Technical Approach**: Proposed solution, Alternatives considered (Pros/Cons).
+-   **Risks & Mitigation**: Security and technical risks.
+-   **Success Criteria**: Measurable outcomes.
 
 ## Usage
-```
-/mb-prd [task description]
-```
 
-## Next
-→ `/mb-init Use PRD: memory-bank/prd/PRD-XXX.md`
+Run: `/mb-prd "Brief description of the task"`
