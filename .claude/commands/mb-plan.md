@@ -37,7 +37,7 @@ This command generates a detailed implementation plan in `memory-bank/tasks.md`,
 
 ## Template Structure (Design Document)
 
-The plan in `memory-bank/tasks.md` MUST follow the `Implementation Plan Template` defined in `.cursor/commands/plan.md`.
+The plan in `memory-bank/tasks.md` MUST include: **Overview**, **Security Summary** (Attack Surface, Risks), **Architecture Impact**, **Detailed Design** (components, API, DB), **Security Design** (Threat Model, Appendix A controls), **Implementation Steps**, **Test Plan**, **Rollback Strategy**, **Validation Checklist**, **Next Steps**. (Enhanced Design Process Phases 4–6.)
 
 ## Security Requirements (Appendix A)
 

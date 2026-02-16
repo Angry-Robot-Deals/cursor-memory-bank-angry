@@ -107,6 +107,7 @@ Claude Code uses Memory Bank slash commands with `/mb-` prefix:
 | `/mb-plan` | Create implementation plan | `/mb-plan` |
 | `/mb-design` | Explore design options | `/mb-design` |
 | `/mb-do` | Implement changes | `/mb-do` |
+| `/mb-compliance` | Post-QA hardening & PRD revalidation | `/mb-compliance` |
 | `/mb-reflect` | Review completed work | `/mb-reflect` |
 | `/mb-archive` | Archive completed task | `/mb-archive` |
 | `/mb-status` | Check current task status | `/mb-status` |
@@ -139,12 +140,17 @@ Claude Code uses Memory Bank slash commands with `/mb-` prefix:
 /mb-do
 ```
 
-**6. Reflect:**
+**6. Compliance (Post-QA hardening):**
+```bash
+/mb-compliance
+```
+
+**7. Reflect:**
 ```bash
 /mb-reflect
 ```
 
-**7. Archive:**
+**8. Archive:**
 ```bash
 /mb-archive
 ```
@@ -200,6 +206,7 @@ Claude Code supports MCP servers. Configure them in your Claude Code settings:
 | **MCP Servers** | ✅ Supported | ✅ Supported |
 | **Workflow** | Command-driven | Command-driven |
 | **Setup** | Copy .cursor folder | Copy CLAUDE.md + .claude folder |
+| **Project vs global** | Project: `.cursor/` in repo; Global: see memory-bank/docs/DEPLOYMENT.md | Project: `.claude/` in repo; Global: copy to `~/.claude/` |
 
 ## Best Practices for Claude Code
 
@@ -326,6 +333,8 @@ If you're already using Memory Bank in Cursor:
 ## Support and Resources
 
 - **Documentation**: See `README.md` for complete Memory Bank overview
+- **Claude setup & commands**: `documentation/claude/` (INSTALLATION_GUIDE.md, commands-reference.md, COMMANDS_QUICK_START.md)
+- **Cursor commands reference**: `documentation/cursor/commands-reference.md`
 - **Cursor Commands**: If using Cursor, see `COMMANDS_README.md`
 - **Platform Comparison**: See `PLATFORM_COMPARISON.md`
 - **AI Quality Rules**: See `.cursor/rules/isolation_rules/Core/AI-Quality/`

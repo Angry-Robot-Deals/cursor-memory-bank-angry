@@ -4,7 +4,7 @@ This directory contains slash command definitions for Memory Bank workflows in C
 
 ## How It Works
 
-Each `.md` file in this directory becomes a slash command:
+Each `.md` file in `.claude/commands/` becomes a slash command:
 
 - `mb-prd.md` → `/mb-prd`
 - `mb-init.md` → `/mb-init`
@@ -22,6 +22,7 @@ When you type the command in Claude Code, the markdown file is loaded and Claude
 | `/mb-plan` | `mb-plan.md` | PLAN | Create implementation plan |
 | `/mb-design` | `mb-design.md` | CREATIVE | Explore design options (Level 3-4) |
 | `/mb-do` | `mb-do.md` | DO | Implement changes with TDD |
+| `/mb-compliance` | `mb-compliance.md` | COMPLIANCE | Post-QA hardening & PRD revalidation |
 | `/mb-reflect` | `mb-reflect.md` | REFLECT | Review implementation |
 | `/mb-archive` | `mb-archive.md` | ARCHIVE | Archive completed task |
 | `/mb-status` | `mb-status.md` | Utility | Check current status |
@@ -35,6 +36,7 @@ When you type the command in Claude Code, the markdown file is loaded and Claude
 /mb-plan
 /mb-design
 /mb-do
+/mb-compliance
 /mb-reflect
 /mb-archive
 ```
@@ -62,7 +64,7 @@ Each command file contains:
 
 ## Two Ways to Work
 
-### Option 1: Slash Commands (This Directory)
+### Option 1: Slash Commands (`.claude/commands/`)
 ```
 /mb-init Add authentication
 /mb-plan
@@ -76,10 +78,10 @@ Commands provide consistent, predictable workflow management for Memory Bank dev
 
 ## Documentation
 
-- **Command reference**: This directory (9 command files)
-- **Setup guide**: `CLAUDE_CODE_SETUP.md` (root)
-- **Agents**: `.claude/agents/` (4 specialized roles)
-- **Skills**: `.claude/skills/` (4 knowledge modules)
+- **Command reference**: This file (`documentation/claude/commands-reference.md`)
+- **Setup guide**: `documentation/claude/INSTALLATION_GUIDE.md`
+- **Agents**: `.claude/agents/` (6 roles: architect, code-simplifier, compliance, developer, planner, reviewer)
+- **Skills**: `.claude/skills/` (7 modules: ai-quality, compliance, memory-bank-system, performance, security, tech-stack, testing)
 
 ## Testing Commands
 
@@ -108,5 +110,4 @@ After creating or modifying commands:
 ## References
 
 - [Claude Code Slash Commands Documentation](https://code.claude.com/docs/en/slash-commands)
-- [Memory Bank System Documentation](../../README.md)
-- [Claude Code Setup Guide](../../CLAUDE_CODE_SETUP.md)
+- Memory Bank system docs and setup: see project root `README.md` and `documentation/claude/INSTALLATION_GUIDE.md` when this repo is the source; or your project's deployment docs.

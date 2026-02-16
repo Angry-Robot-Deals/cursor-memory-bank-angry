@@ -17,6 +17,7 @@ Memory Bank now supports **two platforms**:
 👉 **New to Memory Bank?**
 - **Quick start**: See [QUICK_START.md](QUICK_START.md) for 5-minute setup
 - **Detailed comparison**: See [PLATFORM_COMPARISON.md](PLATFORM_COMPARISON.md)
+- **Setup/installation (Claude & Cursor)**: `documentation/claude/`, `documentation/cursor/` (not in `.claude`/`.cursor` so agents don’t load them as rules)
 
 ```mermaid
 graph TD
@@ -64,8 +65,9 @@ Version 2.0 builds upon v0.9 with mandatory MCP server integration and PRD gener
 3. **`/plan`** - Creates detailed implementation plans following **Enhanced Design Process Phases 4-6** (Detailed Design, Security Design, Implementation Plan).
 4. **`/creative`** - Explores design options for components requiring design decisions
 5. **`/do`** - Systematically implements planned changes (formerly `/build`)
-6. **`/reflect`** - Reviews completed work and documents lessons learned
-7. **`/archive`** - Creates comprehensive documentation and updates Memory Bank
+6. **`/compliance`** - Post-QA hardening and PRD revalidation (7-step workflow, compliance report)
+7. **`/reflect`** - Reviews completed work and documents lessons learned
+8. **`/archive`** - Creates comprehensive documentation and updates Memory Bank
 
 ### Helper Commands
 
@@ -123,7 +125,7 @@ See the [Memory Bank Optimizations](MEMORY_BANK_OPTIMIZATIONS.md) document for d
 Memory Bank transforms development into a structured, phase-based process:
 
 - **Graph-Based Command Integration**: Commands are interconnected nodes in a development workflow
-- **Workflow Progression**: Commands transition from one to another in a logical sequence (`/van` → `/plan` → `/creative` → `/do` → `/reflect` → `/archive`)
+- **Workflow Progression**: Commands transition from one to another in a logical sequence (`/van` → `/plan` → `/creative` → `/do` → `/compliance` → `/reflect` → `/archive`)
 - **Shared Memory**: Persistent state maintained across command transitions via Memory Bank files
 - **Adaptive Behavior**: Each command adjusts its recommendations based on project complexity level
 - **Progressive Rule Loading**: Commands load only necessary rules, reducing context window usage
@@ -188,6 +190,8 @@ git clone git@github.com:Angry-Robot-Deals/cursor-memory-bank-angry.git
 After extracting it from the ZIP file:
 
 - Copy the `.cursor` folder to your project directory (contains both rules and commands)
+
+**Project vs global:** For project-local use, copy `.cursor` into the project root. For user-global installation (all projects), see `memory-bank/docs/DEPLOYMENT.md`.
 
 **Note**: Other documents are not necessary for Memory Bank operation - they are explanatory documents. You can copy them to a folder like `memory_bank_documents` if desired.
 

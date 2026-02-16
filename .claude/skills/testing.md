@@ -1,3 +1,8 @@
+---
+name: testing
+description: Testing pyramid, frameworks (Jest, Vitest, Playwright), and mocking rules. Use when writing or reviewing tests.
+---
+
 # Testing Guidelines
 
 ## Frameworks

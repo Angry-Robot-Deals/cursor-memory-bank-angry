@@ -1,3 +1,8 @@
+---
+name: ai-quality
+description: Five pillars of AI-assisted development (decomposition, test-first, architecture-first, focused work, context). Use for TDD, stubbing, method size limits, DoD, and code quality decisions.
+---
+
 # AI Quality & Best Practices
 
 > **TL;DR:** These 5 pillars guide AI-assisted development. Apply them consistently for 30-50% better code quality and 40-50% fewer bugs.

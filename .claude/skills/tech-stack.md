@@ -1,3 +1,8 @@
+---
+name: tech-stack
+description: Tech stack selection by project type (static, API, full-stack, etc.). Use when creating a new project, service, or module or when choosing technologies.
+---
+
 # Tech Stack Selection
 
 > **TL;DR:** When creating a new project, service, or module — select the tech stack STRICTLY based on project type. No guessing, no inventing, no asking. Apply these rules automatically.

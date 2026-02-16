@@ -1,3 +1,8 @@
+---
+name: security
+description: Authentication, authorization, input validation, data protection, dependency safety. Use for security review or when handling secrets and user data.
+---
+
 # Security Guidelines
 
 ## Authentication & Authorization

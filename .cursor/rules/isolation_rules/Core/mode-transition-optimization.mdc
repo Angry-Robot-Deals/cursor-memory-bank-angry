@@ -1,9 +1,7 @@
 ---
 description: Optimized mode transition protocol
-globs: "**/mode-transition*/**", "**/context-preservation*/**"
 alwaysApply: false
 ---
-
 # MODE TRANSITION OPTIMIZATION
 
 > **TL;DR:** This file implements optimized mode transitions to preserve context efficiently between different phases of the Memory Bank system.

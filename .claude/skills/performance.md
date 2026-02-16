@@ -1,3 +1,8 @@
+---
+name: performance
+description: Optimization patterns (lazy loading, caching, batching), database and frontend performance. Use when designing or reviewing for performance.
+---
+
 # Performance Guidelines
 
 ## Optimization Patterns

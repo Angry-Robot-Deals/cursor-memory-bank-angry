@@ -31,8 +31,8 @@ touch memory-bank/projectbrief.md
 
 ### Step 3: Verify
 ```bash
-ls .claude/agents/    # Should show 4 files
-ls .claude/skills/    # Should show 5 files
+ls .claude/agents/    # Should show 6 files (architect, code-simplifier, compliance, developer, planner, reviewer)
+ls .claude/skills/    # Should show 7 files
 ls memory-bank/       # Should show directories
 
 # Test in Claude Code
@@ -47,9 +47,9 @@ claude
 ### Claude Code Structure
 ```
 .claude/
-├── agents/           (4 specialized AI roles)
-├── skills/           (5 knowledge modules)
-├── commands/         (10 workflow commands)
+├── agents/           (6 roles: architect, code-simplifier, compliance, developer, planner, reviewer)
+├── skills/           (7 modules: ai-quality, compliance, memory-bank-system, performance, security, tech-stack, testing)
+├── commands/         (10 workflow commands, including /mb-compliance)
 ├── guides/
 └── settings.local.json
 
@@ -103,19 +103,19 @@ cp -r /path/to/cursor-memory-bank-angry/.claude/commands .claude/
 ## Example: Install in "aether/local-env"
 
 ```bash
-cd /Users/ug/code/aether/local-env
+cd /your/project/directory
 
 # Copy structure
-cp -r /Users/ug/code/AI/cursor-memory-bank-angry/.claude .
-cp /Users/ug/code/AI/cursor-memory-bank-angry/CLAUDE.md .
+cp -r /path/to/cursor-memory-bank-angry/.claude .
+cp /path/to/cursor-memory-bank-angry/CLAUDE.md .
 
 # Initialize Memory Bank
 mkdir -p memory-bank/{tasks,creative,reflection,qa,reports,archive}
 touch memory-bank/{tasks,backlog,activeContext,progress,projectbrief}.md
 
 # Verify
-ls .claude/agents/     # architect.md developer.md planner.md reviewer.md
-ls .claude/skills/     # 5 skill files
+ls .claude/agents/     # architect, code-simplifier, compliance, developer, planner, reviewer
+ls .claude/skills/     # 7 skill files (ai-quality, compliance, memory-bank-system, performance, security, tech-stack, testing)
 ls memory-bank/        # directories present
 
 # Start Claude Code
@@ -129,4 +129,4 @@ claude
 
 ---
 
-See main `README.md` for full documentation.
+See project root `README.md` for full documentation.

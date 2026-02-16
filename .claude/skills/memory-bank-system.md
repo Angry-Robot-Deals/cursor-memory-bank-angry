@@ -1,3 +1,8 @@
+---
+name: memory-bank-system
+description: Memory Bank file locations, task numbering, documentation storage, backlog format, and workflow rules. Use when reading/writing memory-bank files, creating task docs, or archiving.
+---
+
 # Memory Bank System Rules
 
 > **Core system rules for Memory Bank workflow and file organization**
